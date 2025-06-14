@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_DangNhap_InputMessage">
+    <wsdl:part name="parameters" element="tns:DangNhap" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DangNhap_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DangNhapResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ThemHocSinh_InputMessage">
+    <wsdl:part name="parameters" element="tns:ThemHocSinh" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ThemHocSinh_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ThemHocSinhResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LayDanhSachHocSinh_InputMessage">
+    <wsdl:part name="parameters" element="tns:LayDanhSachHocSinh" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LayDanhSachHocSinh_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LayDanhSachHocSinhResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CapNhatHocSinh_InputMessage">
+    <wsdl:part name="parameters" element="tns:CapNhatHocSinh" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CapNhatHocSinh_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CapNhatHocSinhResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_XoaHocSinh_InputMessage">
+    <wsdl:part name="parameters" element="tns:XoaHocSinh" />
+  </wsdl:message>
+  <wsdl:message name="IService1_XoaHocSinh_OutputMessage">
+    <wsdl:part name="parameters" element="tns:XoaHocSinhResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ChiaPhongThi_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChiaPhongThi" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ChiaPhongThi_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChiaPhongThiResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LayDanhSachPhongThi_InputMessage">
+    <wsdl:part name="parameters" element="tns:LayDanhSachPhongThi" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LayDanhSachPhongThi_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LayDanhSachPhongThiResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LayDanhSachHocSinhTheoPhong_InputMessage">
+    <wsdl:part name="parameters" element="tns:LayDanhSachHocSinhTheoPhong" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LayDanhSachHocSinhTheoPhong_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LayDanhSachHocSinhTheoPhongResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LayDanhSachDotTuyen_InputMessage">
+    <wsdl:part name="parameters" element="tns:LayDanhSachDotTuyen" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LayDanhSachDotTuyen_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LayDanhSachDotTuyenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ThemDotTuyen_InputMessage">
+    <wsdl:part name="parameters" element="tns:ThemDotTuyen" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ThemDotTuyen_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ThemDotTuyenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DongDotTuyen_InputMessage">
+    <wsdl:part name="parameters" element="tns:DongDotTuyen" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DongDotTuyen_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DongDotTuyenResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="DangNhap">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DangNhap" message="tns:IService1_DangNhap_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DangNhapResponse" message="tns:IService1_DangNhap_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ThemHocSinh">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ThemHocSinh" message="tns:IService1_ThemHocSinh_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ThemHocSinhResponse" message="tns:IService1_ThemHocSinh_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LayDanhSachHocSinh">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/LayDanhSachHocSinh" message="tns:IService1_LayDanhSachHocSinh_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/LayDanhSachHocSinhResponse" message="tns:IService1_LayDanhSachHocSinh_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CapNhatHocSinh">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CapNhatHocSinh" message="tns:IService1_CapNhatHocSinh_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CapNhatHocSinhResponse" message="tns:IService1_CapNhatHocSinh_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="XoaHocSinh">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/XoaHocSinh" message="tns:IService1_XoaHocSinh_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/XoaHocSinhResponse" message="tns:IService1_XoaHocSinh_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChiaPhongThi">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ChiaPhongThi" message="tns:IService1_ChiaPhongThi_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ChiaPhongThiResponse" message="tns:IService1_ChiaPhongThi_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LayDanhSachPhongThi">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/LayDanhSachPhongThi" message="tns:IService1_LayDanhSachPhongThi_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/LayDanhSachPhongThiResponse" message="tns:IService1_LayDanhSachPhongThi_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LayDanhSachHocSinhTheoPhong">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/LayDanhSachHocSinhTheoPhong" message="tns:IService1_LayDanhSachHocSinhTheoPhong_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/LayDanhSachHocSinhTheoPhongResponse" message="tns:IService1_LayDanhSachHocSinhTheoPhong_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LayDanhSachDotTuyen">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/LayDanhSachDotTuyen" message="tns:IService1_LayDanhSachDotTuyen_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/LayDanhSachDotTuyenResponse" message="tns:IService1_LayDanhSachDotTuyen_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ThemDotTuyen">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ThemDotTuyen" message="tns:IService1_ThemDotTuyen_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ThemDotTuyenResponse" message="tns:IService1_ThemDotTuyen_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DongDotTuyen">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DongDotTuyen" message="tns:IService1_DongDotTuyen_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DongDotTuyenResponse" message="tns:IService1_DongDotTuyen_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DangNhap">
+      <soap:operation soapAction="http://tempuri.org/IService1/DangNhap" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ThemHocSinh">
+      <soap:operation soapAction="http://tempuri.org/IService1/ThemHocSinh" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LayDanhSachHocSinh">
+      <soap:operation soapAction="http://tempuri.org/IService1/LayDanhSachHocSinh" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CapNhatHocSinh">
+      <soap:operation soapAction="http://tempuri.org/IService1/CapNhatHocSinh" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XoaHocSinh">
+      <soap:operation soapAction="http://tempuri.org/IService1/XoaHocSinh" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChiaPhongThi">
+      <soap:operation soapAction="http://tempuri.org/IService1/ChiaPhongThi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LayDanhSachPhongThi">
+      <soap:operation soapAction="http://tempuri.org/IService1/LayDanhSachPhongThi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LayDanhSachHocSinhTheoPhong">
+      <soap:operation soapAction="http://tempuri.org/IService1/LayDanhSachHocSinhTheoPhong" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LayDanhSachDotTuyen">
+      <soap:operation soapAction="http://tempuri.org/IService1/LayDanhSachDotTuyen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ThemDotTuyen">
+      <soap:operation soapAction="http://tempuri.org/IService1/ThemDotTuyen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DongDotTuyen">
+      <soap:operation soapAction="http://tempuri.org/IService1/DongDotTuyen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:8080/TuyenSinhService/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

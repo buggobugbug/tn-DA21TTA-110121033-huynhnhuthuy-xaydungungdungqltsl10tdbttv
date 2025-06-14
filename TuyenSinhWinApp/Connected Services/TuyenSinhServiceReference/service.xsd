@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" />
+  <xs:element name="DangNhap">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tenDangNhap" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="matKhau" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DangNhapResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="DangNhapResult" nillable="true" type="q1:KetQuaDangNhap" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThemHocSinh">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="hocSinh" nillable="true" type="q2:HocSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThemHocSinhResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="ThemHocSinhResult" nillable="true" type="q3:KetQuaThemHocSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachHocSinh">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachHocSinhResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="LayDanhSachHocSinhResult" nillable="true" type="q4:ArrayOfHocSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatHocSinh">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="hocSinh" nillable="true" type="q5:HocSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatHocSinhResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CapNhatHocSinhResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XoaHocSinh">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maHocSinh" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XoaHocSinhResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="XoaHocSinhResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChiaPhongThi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChiaPhongThiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ChiaPhongThiResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachPhongThi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachPhongThiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="LayDanhSachPhongThiResult" nillable="true" type="q6:ArrayOfPhongThi" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachHocSinhTheoPhong">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maPhongThi" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachHocSinhTheoPhongResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="LayDanhSachHocSinhTheoPhongResult" nillable="true" type="q7:ArrayOfHocSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachDotTuyen">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachDotTuyenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="LayDanhSachDotTuyenResult" nillable="true" type="q8:ArrayOfDotTuyenSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThemDotTuyen">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="dot" nillable="true" type="q9:DotTuyenSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThemDotTuyenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ThemDotTuyenResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DongDotTuyen">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DongDotTuyenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DongDotTuyenResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

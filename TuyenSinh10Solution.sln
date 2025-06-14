@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuyenSinhServiceLib", "TuyenSinhServiceLib\TuyenSinhServiceLib.csproj", "{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuyenSinhWinApp", "TuyenSinhWinApp\TuyenSinhWinApp.csproj", "{C45ED166-F97F-403C-A1BE-609009411B7B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0} = {DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C45ED166-F97F-403C-A1BE-609009411B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45ED166-F97F-403C-A1BE-609009411B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C45ED166-F97F-403C-A1BE-609009411B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C45ED166-F97F-403C-A1BE-609009411B7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0020864E-3A72-408F-A2D0-8D94BC8EDB2F}
+	EndGlobalSection
+EndGlobal

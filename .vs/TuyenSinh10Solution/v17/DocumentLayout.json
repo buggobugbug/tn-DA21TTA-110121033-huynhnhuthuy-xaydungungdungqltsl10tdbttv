@@ -1,0 +1,365 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}|TuyenSinhServiceLib\\TuyenSinhServiceLib.csproj|c:\\users\\pcm\\source\\repos\\tuyensinh10solution\\tuyensinhservicelib\\service1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}|TuyenSinhServiceLib\\TuyenSinhServiceLib.csproj|solutionrelative:tuyensinhservicelib\\service1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}|TuyenSinhServiceLib\\TuyenSinhServiceLib.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhservicelib\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}|TuyenSinhServiceLib\\TuyenSinhServiceLib.csproj|solutionrelative:tuyensinhservicelib\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}|TuyenSinhServiceLib\\TuyenSinhServiceLib.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhservicelib\\iservice1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}|TuyenSinhServiceLib\\TuyenSinhServiceLib.csproj|solutionrelative:tuyensinhservicelib\\iservice1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}|TuyenSinhServiceLib\\TuyenSinhServiceLib.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhservicelib\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{DCBC87AE-4733-48B1-91B6-7D41A10B8FB0}|TuyenSinhServiceLib\\TuyenSinhServiceLib.csproj|solutionrelative:tuyensinhservicelib\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmdanhsachhocsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmdanhsachhocsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmdanhsachhocsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmdanhsachhocsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmdottuyensinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmdottuyensinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmhocsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmhocsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmhocsinhtrongphong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmhocsinhtrongphong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmphongthi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmphongthi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmhocsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmhocsinh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmhocsinhtrongphong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmhocsinhtrongphong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\excelhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\excelhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\packages\\EPPlus.5.8.0\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:packages\\EPPlus.5.8.0\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\packages\\EPPlus.8.0.5\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:packages\\EPPlus.8.0.5\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmphongthi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmphongthi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmdanhsachhocsinh.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmdanhsachhocsinh.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\tuyensinhwinapp\\frmdangnhap.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C45ED166-F97F-403C-A1BE-609009411B7B}|TuyenSinhWinApp\\TuyenSinhWinApp.csproj|solutionrelative:tuyensinhwinapp\\frmdangnhap.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhServiceLib\\App.config",
+              "RelativeDocumentMoniker": "TuyenSinhServiceLib\\App.config",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhServiceLib\\App.config",
+              "RelativeToolTip": "TuyenSinhServiceLib\\App.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-06-14T04:50:34.745Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "frmHocsinh.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmHocsinh.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmHocsinh.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmHocsinh.cs [Design]",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmHocsinh.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T07:29:42.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "frmDotTuyenSinh.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDotTuyenSinh.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmDotTuyenSinh.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDotTuyenSinh.cs [Design]",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmDotTuyenSinh.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T20:05:19.206Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "frmDanhSachHocSinh.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDanhSachHocSinh.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmDanhSachHocSinh.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDanhSachHocSinh.cs [Design]",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmDanhSachHocSinh.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T09:33:40.171Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Service1.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhServiceLib\\Service1.cs",
+              "RelativeDocumentMoniker": "TuyenSinhServiceLib\\Service1.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhServiceLib\\Service1.cs",
+              "RelativeToolTip": "TuyenSinhServiceLib\\Service1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T08:06:27.274Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IService1.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhServiceLib\\IService1.cs",
+              "RelativeDocumentMoniker": "TuyenSinhServiceLib\\IService1.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhServiceLib\\IService1.cs",
+              "RelativeToolTip": "TuyenSinhServiceLib\\IService1.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAACwAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T08:06:42.029Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Models.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhServiceLib\\Models.cs",
+              "RelativeDocumentMoniker": "TuyenSinhServiceLib\\Models.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhServiceLib\\Models.cs",
+              "RelativeToolTip": "TuyenSinhServiceLib\\Models.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAA5wFsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T20:24:39.471Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "frmPhongThi.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmPhongThi.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmPhongThi.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmPhongThi.cs [Design]",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmPhongThi.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T08:33:56.841Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "frmHocSinhTrongPhong.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmHocSinhTrongPhong.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmHocSinhTrongPhong.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmHocSinhTrongPhong.cs [Design]",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmHocSinhTrongPhong.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T09:12:02.421Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "frmDanhSachHocSinh.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDanhSachHocSinh.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmDanhSachHocSinh.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDanhSachHocSinh.cs",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmDanhSachHocSinh.cs",
+              "ViewState": "AQIAAIMAAAAAAAAAAAAAwJcAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T21:35:32.537Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "frmHocsinh.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmHocsinh.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmHocsinh.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmHocsinh.cs",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmHocsinh.cs",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAmwF0AAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T08:15:04.756Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "frmMain.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmMain.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmMain.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmMain.cs [Design]",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmMain.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T07:29:42.781Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "frmDangNhap.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDangNhap.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmDangNhap.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDangNhap.cs [Design]",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmDangNhap.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T07:29:39.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "frmHocSinhTrongPhong.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmHocSinhTrongPhong.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmHocSinhTrongPhong.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmHocSinhTrongPhong.cs",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmHocSinhTrongPhong.cs",
+              "ViewState": "AQIAAFYAAAAAAAAAAAAAAGwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T09:19:00.816Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "frmPhongThi.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmPhongThi.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmPhongThi.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmPhongThi.cs",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmPhongThi.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAAADIAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T08:36:56.587Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "frmMain.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmMain.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmMain.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmMain.cs",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmMain.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAswBwAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T09:35:38.617Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ExcelHelper.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\ExcelHelper.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\ExcelHelper.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\ExcelHelper.cs",
+              "RelativeToolTip": "TuyenSinhWinApp\\ExcelHelper.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-22T08:05:41.822Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "readme.txt",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\packages\\EPPlus.5.8.0\\readme.txt",
+              "RelativeDocumentMoniker": "packages\\EPPlus.5.8.0\\readme.txt",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\packages\\EPPlus.5.8.0\\readme.txt",
+              "RelativeToolTip": "packages\\EPPlus.5.8.0\\readme.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-05-22T08:22:14.479Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "readme.txt",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\packages\\EPPlus.8.0.5\\readme.txt",
+              "RelativeDocumentMoniker": "packages\\EPPlus.8.0.5\\readme.txt",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\packages\\EPPlus.8.0.5\\readme.txt",
+              "RelativeToolTip": "packages\\EPPlus.8.0.5\\readme.txt",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-05-22T07:45:02.457Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "frmDanhSachHocSinh.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDanhSachHocSinh.Designer.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmDanhSachHocSinh.Designer.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDanhSachHocSinh.Designer.cs",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmDanhSachHocSinh.Designer.cs",
+              "ViewState": "AQIAAMQAAAAAAAAAAAAqwPcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T08:38:51.699Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "frmDangNhap.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDangNhap.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmDangNhap.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDangNhap.cs",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmDangNhap.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAADwvw8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T19:11:15.258Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "frmDangNhap.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDangNhap.Designer.cs",
+              "RelativeDocumentMoniker": "TuyenSinhWinApp\\frmDangNhap.Designer.cs",
+              "ToolTip": "C:\\Users\\PCM\\source\\repos\\TuyenSinh10Solution\\TuyenSinhWinApp\\frmDangNhap.Designer.cs",
+              "RelativeToolTip": "TuyenSinhWinApp\\frmDangNhap.Designer.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAqwLgAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T19:30:17.061Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
