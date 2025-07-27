@@ -10,11 +10,24 @@ using System.Windows.Forms;
 
 namespace TuyenSinhWinApp
 {
+
     public partial class frmMain : Form
     {
         public frmMain()
         {
             InitializeComponent();
+        }
+
+        public void loadform(object Form)
+        {
+            if (this.mainpanel.Controls.Count > 0)
+                this.mainpanel.Controls.RemoveAt(0);
+            Form f = Form as Form;
+            f.TopLevel = false;
+            f.Dock = DockStyle.Fill;
+            this.mainpanel.Controls.Add(f);
+            this.mainpanel.Tag = f;
+            f.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -24,8 +37,7 @@ namespace TuyenSinhWinApp
 
         private void btnQuanlyhocsinh_Click(object sender, EventArgs e)
         {
-            frmHocsinh frm = new frmHocsinh();
-            frm.ShowDialog();
+            
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -35,14 +47,53 @@ namespace TuyenSinhWinApp
 
         private void btnXemHocSinh_Click(object sender, EventArgs e)
         {
-            frmDanhSachHocSinh frm = new frmDanhSachHocSinh();
-            frm.ShowDialog();
         }
 
         private void btnPhongThi_Click(object sender, EventArgs e)
         {
-            frmPhongThi frm = new frmPhongThi();
-            frm.ShowDialog(); // hoặc frm.Show(); nếu bạn muốn mở song song
+            
+        }
+
+        private void frmDottuyensinh_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            loadform(new frmHocsinh());
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            loadform(new frmPhongThi(this));
         }
     }
 }

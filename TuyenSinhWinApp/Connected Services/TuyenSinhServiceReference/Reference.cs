@@ -28,16 +28,28 @@ namespace TuyenSinhWinApp.TuyenSinhServiceReference {
         System.Threading.Tasks.Task<TuyenSinhServiceLib.KetQuaThemHocSinh> ThemHocSinhAsync(TuyenSinhServiceLib.HocSinh hocSinh);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/LayDanhSachHocSinh", ReplyAction="http://tempuri.org/IService1/LayDanhSachHocSinhResponse")]
-        TuyenSinhServiceLib.HocSinh[] LayDanhSachHocSinh(string maTruong);
+        TuyenSinhServiceLib.HocSinh[] LayDanhSachHocSinh(string maTruong, string maDot);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/LayDanhSachHocSinh", ReplyAction="http://tempuri.org/IService1/LayDanhSachHocSinhResponse")]
-        System.Threading.Tasks.Task<TuyenSinhServiceLib.HocSinh[]> LayDanhSachHocSinhAsync(string maTruong);
+        System.Threading.Tasks.Task<TuyenSinhServiceLib.HocSinh[]> LayDanhSachHocSinhAsync(string maTruong, string maDot);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GanMaSoBaoDanhHangLoat", ReplyAction="http://tempuri.org/IService1/GanMaSoBaoDanhHangLoatResponse")]
+        void GanMaSoBaoDanhHangLoat(string maTruong, string maDot);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GanMaSoBaoDanhHangLoat", ReplyAction="http://tempuri.org/IService1/GanMaSoBaoDanhHangLoatResponse")]
+        System.Threading.Tasks.Task GanMaSoBaoDanhHangLoatAsync(string maTruong, string maDot);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CapNhatHocSinh", ReplyAction="http://tempuri.org/IService1/CapNhatHocSinhResponse")]
         bool CapNhatHocSinh(TuyenSinhServiceLib.HocSinh hocSinh);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CapNhatHocSinh", ReplyAction="http://tempuri.org/IService1/CapNhatHocSinhResponse")]
         System.Threading.Tasks.Task<bool> CapNhatHocSinhAsync(TuyenSinhServiceLib.HocSinh hocSinh);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CapNhatDiemHocSinh", ReplyAction="http://tempuri.org/IService1/CapNhatDiemHocSinhResponse")]
+        bool CapNhatDiemHocSinh(int maHocSinh, System.Nullable<decimal> diemToan, System.Nullable<decimal> diemVan, System.Nullable<decimal> diemAnh, System.Nullable<decimal> diemKhuyenKhich, System.Nullable<decimal> diemUuTien);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CapNhatDiemHocSinh", ReplyAction="http://tempuri.org/IService1/CapNhatDiemHocSinhResponse")]
+        System.Threading.Tasks.Task<bool> CapNhatDiemHocSinhAsync(int maHocSinh, System.Nullable<decimal> diemToan, System.Nullable<decimal> diemVan, System.Nullable<decimal> diemAnh, System.Nullable<decimal> diemKhuyenKhich, System.Nullable<decimal> diemUuTien);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/XoaHocSinh", ReplyAction="http://tempuri.org/IService1/XoaHocSinhResponse")]
         bool XoaHocSinh(int maHocSinh);
@@ -46,22 +58,22 @@ namespace TuyenSinhWinApp.TuyenSinhServiceReference {
         System.Threading.Tasks.Task<bool> XoaHocSinhAsync(int maHocSinh);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ChiaPhongThi", ReplyAction="http://tempuri.org/IService1/ChiaPhongThiResponse")]
-        bool ChiaPhongThi(string maTruong);
+        bool ChiaPhongThi(string maTruong, string maDot);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ChiaPhongThi", ReplyAction="http://tempuri.org/IService1/ChiaPhongThiResponse")]
-        System.Threading.Tasks.Task<bool> ChiaPhongThiAsync(string maTruong);
+        System.Threading.Tasks.Task<bool> ChiaPhongThiAsync(string maTruong, string maDot);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/LayDanhSachPhongThi", ReplyAction="http://tempuri.org/IService1/LayDanhSachPhongThiResponse")]
-        TuyenSinhServiceLib.PhongThi[] LayDanhSachPhongThi(string maTruong);
+        TuyenSinhServiceLib.PhongThi[] LayDanhSachPhongThi(string maTruong, string maDot);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/LayDanhSachPhongThi", ReplyAction="http://tempuri.org/IService1/LayDanhSachPhongThiResponse")]
-        System.Threading.Tasks.Task<TuyenSinhServiceLib.PhongThi[]> LayDanhSachPhongThiAsync(string maTruong);
+        System.Threading.Tasks.Task<TuyenSinhServiceLib.PhongThi[]> LayDanhSachPhongThiAsync(string maTruong, string maDot);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/LayDanhSachHocSinhTheoPhong", ReplyAction="http://tempuri.org/IService1/LayDanhSachHocSinhTheoPhongResponse")]
-        TuyenSinhServiceLib.HocSinh[] LayDanhSachHocSinhTheoPhong(string maPhongThi);
+        TuyenSinhServiceLib.HocSinh[] LayDanhSachHocSinhTheoPhong(string maTruong, string maDot, string maPhongThi);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/LayDanhSachHocSinhTheoPhong", ReplyAction="http://tempuri.org/IService1/LayDanhSachHocSinhTheoPhongResponse")]
-        System.Threading.Tasks.Task<TuyenSinhServiceLib.HocSinh[]> LayDanhSachHocSinhTheoPhongAsync(string maPhongThi);
+        System.Threading.Tasks.Task<TuyenSinhServiceLib.HocSinh[]> LayDanhSachHocSinhTheoPhongAsync(string maTruong, string maDot, string maPhongThi);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/LayDanhSachDotTuyen", ReplyAction="http://tempuri.org/IService1/LayDanhSachDotTuyenResponse")]
         TuyenSinhServiceLib.DotTuyenSinh[] LayDanhSachDotTuyen();
@@ -80,6 +92,18 @@ namespace TuyenSinhWinApp.TuyenSinhServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DongDotTuyen", ReplyAction="http://tempuri.org/IService1/DongDotTuyenResponse")]
         System.Threading.Tasks.Task<bool> DongDotTuyenAsync(string maDot);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CapNhatDotTuyen", ReplyAction="http://tempuri.org/IService1/CapNhatDotTuyenResponse")]
+        bool CapNhatDotTuyen(TuyenSinhServiceLib.DotTuyenSinh dot);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CapNhatDotTuyen", ReplyAction="http://tempuri.org/IService1/CapNhatDotTuyenResponse")]
+        System.Threading.Tasks.Task<bool> CapNhatDotTuyenAsync(TuyenSinhServiceLib.DotTuyenSinh dot);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CapNhatGiamThi", ReplyAction="http://tempuri.org/IService1/CapNhatGiamThiResponse")]
+        void CapNhatGiamThi(string maPhong, string giamThi1, string giamThi2);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CapNhatGiamThi", ReplyAction="http://tempuri.org/IService1/CapNhatGiamThiResponse")]
+        System.Threading.Tasks.Task CapNhatGiamThiAsync(string maPhong, string giamThi1, string giamThi2);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -125,12 +149,20 @@ namespace TuyenSinhWinApp.TuyenSinhServiceReference {
             return base.Channel.ThemHocSinhAsync(hocSinh);
         }
         
-        public TuyenSinhServiceLib.HocSinh[] LayDanhSachHocSinh(string maTruong) {
-            return base.Channel.LayDanhSachHocSinh(maTruong);
+        public TuyenSinhServiceLib.HocSinh[] LayDanhSachHocSinh(string maTruong, string maDot) {
+            return base.Channel.LayDanhSachHocSinh(maTruong, maDot);
         }
         
-        public System.Threading.Tasks.Task<TuyenSinhServiceLib.HocSinh[]> LayDanhSachHocSinhAsync(string maTruong) {
-            return base.Channel.LayDanhSachHocSinhAsync(maTruong);
+        public System.Threading.Tasks.Task<TuyenSinhServiceLib.HocSinh[]> LayDanhSachHocSinhAsync(string maTruong, string maDot) {
+            return base.Channel.LayDanhSachHocSinhAsync(maTruong, maDot);
+        }
+        
+        public void GanMaSoBaoDanhHangLoat(string maTruong, string maDot) {
+            base.Channel.GanMaSoBaoDanhHangLoat(maTruong, maDot);
+        }
+        
+        public System.Threading.Tasks.Task GanMaSoBaoDanhHangLoatAsync(string maTruong, string maDot) {
+            return base.Channel.GanMaSoBaoDanhHangLoatAsync(maTruong, maDot);
         }
         
         public bool CapNhatHocSinh(TuyenSinhServiceLib.HocSinh hocSinh) {
@@ -141,6 +173,14 @@ namespace TuyenSinhWinApp.TuyenSinhServiceReference {
             return base.Channel.CapNhatHocSinhAsync(hocSinh);
         }
         
+        public bool CapNhatDiemHocSinh(int maHocSinh, System.Nullable<decimal> diemToan, System.Nullable<decimal> diemVan, System.Nullable<decimal> diemAnh, System.Nullable<decimal> diemKhuyenKhich, System.Nullable<decimal> diemUuTien) {
+            return base.Channel.CapNhatDiemHocSinh(maHocSinh, diemToan, diemVan, diemAnh, diemKhuyenKhich, diemUuTien);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CapNhatDiemHocSinhAsync(int maHocSinh, System.Nullable<decimal> diemToan, System.Nullable<decimal> diemVan, System.Nullable<decimal> diemAnh, System.Nullable<decimal> diemKhuyenKhich, System.Nullable<decimal> diemUuTien) {
+            return base.Channel.CapNhatDiemHocSinhAsync(maHocSinh, diemToan, diemVan, diemAnh, diemKhuyenKhich, diemUuTien);
+        }
+        
         public bool XoaHocSinh(int maHocSinh) {
             return base.Channel.XoaHocSinh(maHocSinh);
         }
@@ -149,28 +189,28 @@ namespace TuyenSinhWinApp.TuyenSinhServiceReference {
             return base.Channel.XoaHocSinhAsync(maHocSinh);
         }
         
-        public bool ChiaPhongThi(string maTruong) {
-            return base.Channel.ChiaPhongThi(maTruong);
+        public bool ChiaPhongThi(string maTruong, string maDot) {
+            return base.Channel.ChiaPhongThi(maTruong, maDot);
         }
         
-        public System.Threading.Tasks.Task<bool> ChiaPhongThiAsync(string maTruong) {
-            return base.Channel.ChiaPhongThiAsync(maTruong);
+        public System.Threading.Tasks.Task<bool> ChiaPhongThiAsync(string maTruong, string maDot) {
+            return base.Channel.ChiaPhongThiAsync(maTruong, maDot);
         }
         
-        public TuyenSinhServiceLib.PhongThi[] LayDanhSachPhongThi(string maTruong) {
-            return base.Channel.LayDanhSachPhongThi(maTruong);
+        public TuyenSinhServiceLib.PhongThi[] LayDanhSachPhongThi(string maTruong, string maDot) {
+            return base.Channel.LayDanhSachPhongThi(maTruong, maDot);
         }
         
-        public System.Threading.Tasks.Task<TuyenSinhServiceLib.PhongThi[]> LayDanhSachPhongThiAsync(string maTruong) {
-            return base.Channel.LayDanhSachPhongThiAsync(maTruong);
+        public System.Threading.Tasks.Task<TuyenSinhServiceLib.PhongThi[]> LayDanhSachPhongThiAsync(string maTruong, string maDot) {
+            return base.Channel.LayDanhSachPhongThiAsync(maTruong, maDot);
         }
         
-        public TuyenSinhServiceLib.HocSinh[] LayDanhSachHocSinhTheoPhong(string maPhongThi) {
-            return base.Channel.LayDanhSachHocSinhTheoPhong(maPhongThi);
+        public TuyenSinhServiceLib.HocSinh[] LayDanhSachHocSinhTheoPhong(string maTruong, string maDot, string maPhongThi) {
+            return base.Channel.LayDanhSachHocSinhTheoPhong(maTruong, maDot, maPhongThi);
         }
         
-        public System.Threading.Tasks.Task<TuyenSinhServiceLib.HocSinh[]> LayDanhSachHocSinhTheoPhongAsync(string maPhongThi) {
-            return base.Channel.LayDanhSachHocSinhTheoPhongAsync(maPhongThi);
+        public System.Threading.Tasks.Task<TuyenSinhServiceLib.HocSinh[]> LayDanhSachHocSinhTheoPhongAsync(string maTruong, string maDot, string maPhongThi) {
+            return base.Channel.LayDanhSachHocSinhTheoPhongAsync(maTruong, maDot, maPhongThi);
         }
         
         public TuyenSinhServiceLib.DotTuyenSinh[] LayDanhSachDotTuyen() {
@@ -195,6 +235,22 @@ namespace TuyenSinhWinApp.TuyenSinhServiceReference {
         
         public System.Threading.Tasks.Task<bool> DongDotTuyenAsync(string maDot) {
             return base.Channel.DongDotTuyenAsync(maDot);
+        }
+        
+        public bool CapNhatDotTuyen(TuyenSinhServiceLib.DotTuyenSinh dot) {
+            return base.Channel.CapNhatDotTuyen(dot);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CapNhatDotTuyenAsync(TuyenSinhServiceLib.DotTuyenSinh dot) {
+            return base.Channel.CapNhatDotTuyenAsync(dot);
+        }
+        
+        public void CapNhatGiamThi(string maPhong, string giamThi1, string giamThi2) {
+            base.Channel.CapNhatGiamThi(maPhong, giamThi1, giamThi2);
+        }
+        
+        public System.Threading.Tasks.Task CapNhatGiamThiAsync(string maPhong, string giamThi1, string giamThi2) {
+            return base.Channel.CapNhatGiamThiAsync(maPhong, giamThi1, giamThi2);
         }
     }
 }

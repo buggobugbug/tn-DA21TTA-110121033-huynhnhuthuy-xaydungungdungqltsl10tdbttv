@@ -12,5 +12,7 @@ namespace TuyenSinhWinApp
         public static string HoTen { get; set; }
         public static string MaTruong { get; set; }
         public static string TenTruong { get; set; }
+        public static string MaDot { get; set; }
+
     }
 }

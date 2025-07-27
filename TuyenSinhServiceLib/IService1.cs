@@ -18,22 +18,29 @@ namespace TuyenSinhServiceLib
         KetQuaThemHocSinh ThemHocSinh(HocSinh hocSinh);
 
         [OperationContract]
-        List<HocSinh> LayDanhSachHocSinh(string maTruong);
+        List<HocSinh> LayDanhSachHocSinh(string maTruong, string maDot);
+
+        [OperationContract]
+        void GanMaSoBaoDanhHangLoat(string maTruong, string maDot);
 
         [OperationContract]
         bool CapNhatHocSinh(HocSinh hocSinh);
 
         [OperationContract]
+        bool CapNhatDiemHocSinh(int maHocSinh, decimal? diemToan, decimal? diemVan, decimal? diemAnh, decimal? diemKhuyenKhich, decimal? diemUuTien);
+
+
+        [OperationContract]
         bool XoaHocSinh(int maHocSinh);
 
         [OperationContract]
-        bool ChiaPhongThi(string maTruong);
+        bool ChiaPhongThi(string maTruong, string maDot);
 
         [OperationContract]
-        List<PhongThi> LayDanhSachPhongThi(string maTruong);
+        List<PhongThi> LayDanhSachPhongThi(string maTruong, string maDot);
 
         [OperationContract]
-        List<HocSinh> LayDanhSachHocSinhTheoPhong(string maPhongThi);
+        List<HocSinh> LayDanhSachHocSinhTheoPhong(string maTruong, string maDot, string maPhongThi);
 
         [OperationContract]
         List<DotTuyenSinh> LayDanhSachDotTuyen();
@@ -43,6 +50,13 @@ namespace TuyenSinhServiceLib
 
         [OperationContract]
         bool DongDotTuyen(string maDot);
+
+        [OperationContract]
+        bool CapNhatDotTuyen(DotTuyenSinh dot);
+
+        [OperationContract]
+        void CapNhatGiamThi(string maPhong, string giamThi1, string giamThi2);
+
     }
 
 }

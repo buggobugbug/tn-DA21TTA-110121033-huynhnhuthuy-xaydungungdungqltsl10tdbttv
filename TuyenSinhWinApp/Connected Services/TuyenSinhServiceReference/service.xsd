@@ -34,6 +34,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -42,6 +43,19 @@
       <xs:sequence>
         <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="LayDanhSachHocSinhResult" nillable="true" type="q4:ArrayOfHocSinh" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GanMaSoBaoDanhHangLoat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GanMaSoBaoDanhHangLoatResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="CapNhatHocSinh">
@@ -55,6 +69,25 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="CapNhatHocSinhResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatDiemHocSinh">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maHocSinh" type="xs:int" />
+        <xs:element minOccurs="0" name="diemToan" nillable="true" type="xs:decimal" />
+        <xs:element minOccurs="0" name="diemVan" nillable="true" type="xs:decimal" />
+        <xs:element minOccurs="0" name="diemAnh" nillable="true" type="xs:decimal" />
+        <xs:element minOccurs="0" name="diemKhuyenKhich" nillable="true" type="xs:decimal" />
+        <xs:element minOccurs="0" name="diemUuTien" nillable="true" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatDiemHocSinhResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CapNhatDiemHocSinhResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -76,6 +109,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -90,6 +124,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -103,6 +138,8 @@
   <xs:element name="LayDanhSachHocSinhTheoPhong">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="maPhongThi" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -152,6 +189,34 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="DongDotTuyenResult" type="xs:boolean" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatDotTuyen">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="dot" nillable="true" type="q10:DotTuyenSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatDotTuyenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CapNhatDotTuyenResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatGiamThi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maPhong" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="giamThi1" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="giamThi2" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatGiamThiResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

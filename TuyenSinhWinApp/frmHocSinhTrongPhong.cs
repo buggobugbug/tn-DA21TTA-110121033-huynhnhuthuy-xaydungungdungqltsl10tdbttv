@@ -62,8 +62,8 @@ namespace TuyenSinhWinApp
             });
 
             // Gọi dịch vụ để lấy dữ liệu
-            var danhSach = _service.LayDanhSachHocSinhTheoPhong(_maPhongThi);
-            dgvHocSinh.DataSource = danhSach;
+            //var danhSach = _service.LayDanhSachHocSinhTheoPhong(_maPhongThi);
+            //dgvHocSinh.DataSource = danhSach;
         }
 
         private void btnXuatThe_Click(object sender, EventArgs e)
@@ -94,8 +94,6 @@ namespace TuyenSinhWinApp
 
                 string outputPath = Path.Combine(outputDir, $"TheDuThi_{hs.MaSoBaoDanh}.xlsx");
 
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
                 using (var package = new ExcelPackage(new FileInfo(templatePath)))
                 {
                
@@ -110,7 +108,7 @@ namespace TuyenSinhWinApp
 
 
                     // Sử dụng extension để thay thế các placeholder
-                    ws.ReplacePlaceholder("{HoTen}", hs.HoTen);
+                    ws.ReplacePlaceholder("{Ho}", hs.Ho);
                     ws.ReplacePlaceholder("{NgaySinh}", hs.NgaySinh.ToString("dd/MM/yyyy"));
                     ws.ReplacePlaceholder("{GioiTinh}", hs.GioiTinh);
                     ws.ReplacePlaceholder("{MaSoBaoDanh}", hs.MaSoBaoDanh);

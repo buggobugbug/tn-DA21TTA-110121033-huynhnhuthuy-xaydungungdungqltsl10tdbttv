@@ -28,7 +28,7 @@
       <xs:element minOccurs="0" name="DiemVan" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="GhiChu" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GioiTinh" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="HoTen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ho" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MaDot" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MaHocSinh" type="xs:int" />
       <xs:element minOccurs="0" name="MaSoBaoDanh" nillable="true" type="xs:string" />
@@ -37,6 +37,7 @@
       <xs:element minOccurs="0" name="NgaySinh" type="xs:dateTime" />
       <xs:element minOccurs="0" name="NoiSinh" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PhongThi" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ten" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TrangThai" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TruongTHCS" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -68,6 +69,7 @@
       <xs:element minOccurs="0" name="DiaDiem" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GiamThi1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GiamThi2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaDot" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MaPhong" type="xs:int" />
       <xs:element minOccurs="0" name="MaPhongThi" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MaTruong" nillable="true" type="xs:string" />

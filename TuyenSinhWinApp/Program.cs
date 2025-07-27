@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TuyenSinhServiceLib;
 
+
 namespace TuyenSinhWinApp
 {
     internal static class Program
@@ -18,6 +19,10 @@ namespace TuyenSinhWinApp
         [STAThread]
         static void Main()
         {
+            OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             // Khởi động service trước khi mở form
             try
             {
@@ -36,6 +41,8 @@ namespace TuyenSinhWinApp
                 MessageBox.Show("Không thể khởi động service: " + ex.Message,
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            Application.Run(new frmMain());
+
         }
     }
 }

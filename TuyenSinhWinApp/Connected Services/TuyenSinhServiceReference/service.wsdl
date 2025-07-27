@@ -25,11 +25,23 @@
   <wsdl:message name="IService1_LayDanhSachHocSinh_OutputMessage">
     <wsdl:part name="parameters" element="tns:LayDanhSachHocSinhResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GanMaSoBaoDanhHangLoat_InputMessage">
+    <wsdl:part name="parameters" element="tns:GanMaSoBaoDanhHangLoat" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GanMaSoBaoDanhHangLoat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GanMaSoBaoDanhHangLoatResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_CapNhatHocSinh_InputMessage">
     <wsdl:part name="parameters" element="tns:CapNhatHocSinh" />
   </wsdl:message>
   <wsdl:message name="IService1_CapNhatHocSinh_OutputMessage">
     <wsdl:part name="parameters" element="tns:CapNhatHocSinhResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CapNhatDiemHocSinh_InputMessage">
+    <wsdl:part name="parameters" element="tns:CapNhatDiemHocSinh" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CapNhatDiemHocSinh_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CapNhatDiemHocSinhResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_XoaHocSinh_InputMessage">
     <wsdl:part name="parameters" element="tns:XoaHocSinh" />
@@ -73,6 +85,18 @@
   <wsdl:message name="IService1_DongDotTuyen_OutputMessage">
     <wsdl:part name="parameters" element="tns:DongDotTuyenResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_CapNhatDotTuyen_InputMessage">
+    <wsdl:part name="parameters" element="tns:CapNhatDotTuyen" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CapNhatDotTuyen_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CapNhatDotTuyenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CapNhatGiamThi_InputMessage">
+    <wsdl:part name="parameters" element="tns:CapNhatGiamThi" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CapNhatGiamThi_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CapNhatGiamThiResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="DangNhap">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/DangNhap" message="tns:IService1_DangNhap_InputMessage" />
@@ -86,9 +110,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/LayDanhSachHocSinh" message="tns:IService1_LayDanhSachHocSinh_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/LayDanhSachHocSinhResponse" message="tns:IService1_LayDanhSachHocSinh_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GanMaSoBaoDanhHangLoat">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GanMaSoBaoDanhHangLoat" message="tns:IService1_GanMaSoBaoDanhHangLoat_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GanMaSoBaoDanhHangLoatResponse" message="tns:IService1_GanMaSoBaoDanhHangLoat_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CapNhatHocSinh">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CapNhatHocSinh" message="tns:IService1_CapNhatHocSinh_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/CapNhatHocSinhResponse" message="tns:IService1_CapNhatHocSinh_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CapNhatDiemHocSinh">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CapNhatDiemHocSinh" message="tns:IService1_CapNhatDiemHocSinh_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CapNhatDiemHocSinhResponse" message="tns:IService1_CapNhatDiemHocSinh_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="XoaHocSinh">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/XoaHocSinh" message="tns:IService1_XoaHocSinh_InputMessage" />
@@ -117,6 +149,14 @@
     <wsdl:operation name="DongDotTuyen">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/DongDotTuyen" message="tns:IService1_DongDotTuyen_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/DongDotTuyenResponse" message="tns:IService1_DongDotTuyen_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CapNhatDotTuyen">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CapNhatDotTuyen" message="tns:IService1_CapNhatDotTuyen_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CapNhatDotTuyenResponse" message="tns:IService1_CapNhatDotTuyen_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CapNhatGiamThi">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CapNhatGiamThi" message="tns:IService1_CapNhatGiamThi_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CapNhatGiamThiResponse" message="tns:IService1_CapNhatGiamThi_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -148,8 +188,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GanMaSoBaoDanhHangLoat">
+      <soap:operation soapAction="http://tempuri.org/IService1/GanMaSoBaoDanhHangLoat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CapNhatHocSinh">
       <soap:operation soapAction="http://tempuri.org/IService1/CapNhatHocSinh" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CapNhatDiemHocSinh">
+      <soap:operation soapAction="http://tempuri.org/IService1/CapNhatDiemHocSinh" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -213,6 +271,24 @@
     </wsdl:operation>
     <wsdl:operation name="DongDotTuyen">
       <soap:operation soapAction="http://tempuri.org/IService1/DongDotTuyen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CapNhatDotTuyen">
+      <soap:operation soapAction="http://tempuri.org/IService1/CapNhatDotTuyen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CapNhatGiamThi">
+      <soap:operation soapAction="http://tempuri.org/IService1/CapNhatGiamThi" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

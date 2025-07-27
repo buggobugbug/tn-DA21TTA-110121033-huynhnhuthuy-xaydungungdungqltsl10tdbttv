@@ -25,7 +25,8 @@ namespace TuyenSinhServiceLib
     {
         [DataMember] public int MaHocSinh { get; set; }
         [DataMember] public string MaSoBaoDanh { get; set; }
-        [DataMember] public string HoTen { get; set; }
+        [DataMember] public string Ho { get; set; }
+        [DataMember] public string Ten { get; set; }
         [DataMember] public DateTime NgaySinh { get; set; }
         [DataMember] public string GioiTinh { get; set; }
         [DataMember] public string DanToc { get; set; }
@@ -68,6 +69,7 @@ namespace TuyenSinhServiceLib
         [DataMember] public int MaPhong { get; set; }
         [DataMember] public string MaPhongThi { get; set; }
         [DataMember] public string MaTruong { get; set; }
+        [DataMember] public string MaDot { get; set; }
         [DataMember] public string DiaDiem { get; set; }
         [DataMember] public int SoLuongToiDa { get; set; }
         [DataMember] public int SoLuongHienTai { get; set; }

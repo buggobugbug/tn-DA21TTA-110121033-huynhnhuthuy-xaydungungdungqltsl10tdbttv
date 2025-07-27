@@ -117,7 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="MaDot.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="TenDot.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Nam.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="NgayBatDau.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="NgayKetThuc.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="TrangThai.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="dotTuyenSinhBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        cOLEiRMn9vIP/ejSQ4RAcV4AAAAASUVORK5CYII=
+</value>
+  </data>
 </root>
