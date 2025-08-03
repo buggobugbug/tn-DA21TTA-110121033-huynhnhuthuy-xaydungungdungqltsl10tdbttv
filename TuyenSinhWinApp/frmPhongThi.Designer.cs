@@ -51,13 +51,15 @@
             this.btnXuatDanhSach = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnXemHocSinh = new System.Windows.Forms.Button();
+            this.txtTimTen = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.maDotDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.phongThiBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.phongThiBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.phongThiBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.phongThiBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.txtTimTen = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.phongThiBindingSource4 = new System.Windows.Forms.BindingSource(this.components);
+            this.cbDotTuyenSinh = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhongThi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHocSinhTrongPhong)).BeginInit();
             this.panel1.SuspendLayout();
@@ -66,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource4)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvPhongThi
@@ -204,6 +207,7 @@
             this.dgvHocSinhTrongPhong.Name = "dgvHocSinhTrongPhong";
             this.dgvHocSinhTrongPhong.Size = new System.Drawing.Size(1119, 627);
             this.dgvHocSinhTrongPhong.TabIndex = 48;
+            this.dgvHocSinhTrongPhong.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHocSinhTrongPhong_CellContentClick);
             // 
             // panel1
             // 
@@ -235,6 +239,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbDotTuyenSinh);
             this.groupBox2.Controls.Add(this.txtGiamThi2);
             this.groupBox2.Controls.Add(this.btnCapNhatDiem);
             this.groupBox2.Controls.Add(this.lblGiamThi2);
@@ -320,6 +325,24 @@
             this.btnXemHocSinh.UseVisualStyleBackColor = true;
             this.btnXemHocSinh.Click += new System.EventHandler(this.btnXemHocSinh_Click);
             // 
+            // txtTimTen
+            // 
+            this.txtTimTen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTimTen.Location = new System.Drawing.Point(816, 348);
+            this.txtTimTen.Multiline = true;
+            this.txtTimTen.Name = "txtTimTen";
+            this.txtTimTen.Size = new System.Drawing.Size(319, 34);
+            this.txtTimTen.TabIndex = 54;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(816, 16);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(319, 34);
+            this.textBox1.TabIndex = 55;
+            // 
             // maDotDataGridViewTextBoxColumn
             // 
             this.maDotDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -345,23 +368,19 @@
             // 
             this.phongThiBindingSource1.DataSource = typeof(TuyenSinhServiceLib.PhongThi);
             // 
-            // txtTimTen
+            // phongThiBindingSource4
             // 
-            this.txtTimTen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTimTen.Location = new System.Drawing.Point(816, 348);
-            this.txtTimTen.Multiline = true;
-            this.txtTimTen.Name = "txtTimTen";
-            this.txtTimTen.Size = new System.Drawing.Size(319, 34);
-            this.txtTimTen.TabIndex = 54;
+            this.phongThiBindingSource4.DataSource = typeof(TuyenSinhServiceLib.PhongThi);
             // 
-            // textBox1
+            // cbDotTuyenSinh
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(816, 16);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(319, 34);
-            this.textBox1.TabIndex = 55;
+            this.cbDotTuyenSinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbDotTuyenSinh.FormattingEnabled = true;
+            this.cbDotTuyenSinh.Location = new System.Drawing.Point(95, 657);
+            this.cbDotTuyenSinh.Name = "cbDotTuyenSinh";
+            this.cbDotTuyenSinh.Size = new System.Drawing.Size(375, 24);
+            this.cbDotTuyenSinh.TabIndex = 55;
+            this.cbDotTuyenSinh.SelectedIndexChanged += new System.EventHandler(this.cbDotTuyenSinh_SelectedIndexChanged);
             // 
             // frmPhongThi
             // 
@@ -392,6 +411,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -428,5 +448,7 @@
         private System.Windows.Forms.Button btnCapNhatDiem;
         private System.Windows.Forms.TextBox txtTimTen;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.BindingSource phongThiBindingSource4;
+        private System.Windows.Forms.ComboBox cbDotTuyenSinh;
     }
 }

@@ -45,7 +45,13 @@ namespace TuyenSinhWinApp
                         Common.TenTruong = cmd.ExecuteScalar()?.ToString();
                     }
 
-                    // Mở form chính (đảm bảo frmMain đã tạo rồi)
+                    var dsDot = client.LayDanhSachDotTuyen();
+                    var dotDangMo = dsDot != null ? Array.Find(dsDot, d => d.TrangThai == "DangMo") : null;
+                    if (dotDangMo != null)
+                        Common.MaDot = dotDangMo.MaDot;
+                    else
+                        Common.MaDot = null;
+
                     this.Hide();
                     var mainForm = new frmMain();
                     mainForm.ShowDialog();
@@ -79,6 +85,11 @@ namespace TuyenSinhWinApp
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }

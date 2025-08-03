@@ -274,6 +274,12 @@
     <None Include="Resources\student.png" />
     <None Include="Resources\trend.png" />
     <None Include="Resources\logout.png" />
+    <None Include="Resources\user.png" />
+    <None Include="Resources\self-learning.png" />
+    <None Include="Resources\digital-library.png" />
+    <None Include="Resources\education.png" />
+    <None Include="Resources\education %281%29.png" />
+    <None Include="Resources\education1.png" />
     <Content Include="Templates\TheDuThi_Template.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

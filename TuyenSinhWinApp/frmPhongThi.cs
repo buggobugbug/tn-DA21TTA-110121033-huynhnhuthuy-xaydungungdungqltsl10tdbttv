@@ -25,6 +25,19 @@ namespace TuyenSinhWinApp
         private void frmPhongThi_Load(object sender, EventArgs e)
         {
             NapDanhSachPhongThi();
+            NapDanhSachDotTuyen();
+        }
+
+        private void NapDanhSachDotTuyen()
+        {
+            var dsDot = _service.LayDanhSachDotTuyen();
+            cbDotTuyenSinh.DataSource = dsDot;
+            cbDotTuyenSinh.DisplayMember = "TenDot";
+            cbDotTuyenSinh.ValueMember = "MaDot";
+            if (dsDot.Length > 0)
+            {
+                cbDotTuyenSinh.SelectedValue = Common.MaDot; // Nếu có sẵn
+            }
         }
 
         // Xử lý phần tạo click chọn giám thị
@@ -42,15 +55,13 @@ namespace TuyenSinhWinApp
         {
             try
             {
-                // Lấy mã đợt tuyển sinh hiện tại
                 var maDot = Common.MaDot;
                 var ds = _service.LayDanhSachPhongThi(Common.MaTruong, maDot);
                 dgvPhongThi.DataSource = ds;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải phòng thi: " + ex.Message,
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi tải phòng thi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -189,6 +200,8 @@ namespace TuyenSinhWinApp
             string maTruong = Common.MaTruong;
             string maDot = Common.MaDot;
 
+            MessageBox.Show($"DEBUG: MaTruong={maTruong}, MaDot={maDot}");
+
             if (string.IsNullOrWhiteSpace(maDot))
             {
                 MessageBox.Show("Không tìm thấy mã đợt tuyển sinh. Vui lòng chọn hoặc cấu hình lại.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -214,7 +227,7 @@ namespace TuyenSinhWinApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi chia phòng thi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi chia phòng thi: " + ex.Message + Environment.NewLine + ex.StackTrace, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -354,5 +367,18 @@ namespace TuyenSinhWinApp
     return decimal.TryParse(val.ToString(), out temp) ? temp : (decimal?)null;
 }
 
+        private void dgvHocSinhTrongPhong_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void cbDotTuyenSinh_SelectedIndexChanged(object sender, EventArgs e)
+        {
+                if (cbDotTuyenSinh.SelectedValue != null)
+                {
+                    Common.MaDot = cbDotTuyenSinh.SelectedValue.ToString();
+                    NapDanhSachPhongThi();
+                }
+        }
     }
 }

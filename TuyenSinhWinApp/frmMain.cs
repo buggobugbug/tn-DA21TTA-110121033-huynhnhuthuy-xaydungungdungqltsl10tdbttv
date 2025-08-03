@@ -83,7 +83,7 @@ namespace TuyenSinhWinApp
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            loadform(new frmDotTuyenSinh());
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -94,6 +94,24 @@ namespace TuyenSinhWinApp
         private void button3_Click(object sender, EventArgs e)
         {
             loadform(new frmPhongThi(this));
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmDangNhap frm = new frmDangNhap();
+            frm.ShowDialog();
+            this.Close();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

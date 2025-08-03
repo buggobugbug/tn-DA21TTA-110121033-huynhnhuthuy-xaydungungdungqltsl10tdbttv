@@ -156,5 +156,15 @@ namespace TuyenSinhWinApp
                 MessageBox.Show("Lỗi: " + ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dgvDotTuyenSinh_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txtTenDot_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
