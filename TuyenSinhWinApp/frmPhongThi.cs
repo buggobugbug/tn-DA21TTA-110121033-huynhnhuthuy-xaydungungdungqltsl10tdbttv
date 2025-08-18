@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using TuyenSinhServiceLib;
 using TuyenSinhWinApp.TuyenSinhServiceReference;
+using System.Linq;
 
 namespace TuyenSinhWinApp
 {
@@ -20,6 +21,8 @@ namespace TuyenSinhWinApp
         {
             InitializeComponent();
             _formMain = formMain;
+            dgvPhongThi.CellFormatting += dgvPhongThi_CellFormatting;
+
         }
 
         private void frmPhongThi_Load(object sender, EventArgs e)
@@ -39,6 +42,17 @@ namespace TuyenSinhWinApp
                 cbDotTuyenSinh.SelectedValue = Common.MaDot; // Nếu có sẵn
             }
         }
+        // Che phần phòng thi
+        private void dgvPhongThi_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Kiểm tra tên cột (hoặc chỉ số cột nếu thích)
+            if (dgvPhongThi.Columns[e.ColumnIndex].Name == "MaPhongThi" && e.Value != null)
+            {
+                string val = e.Value.ToString();
+                if (val.Contains("_"))
+                    e.Value = val.Split('_')[0]; // Chỉ lấy phần trước _
+            }
+        }
 
         // Xử lý phần tạo click chọn giám thị
         private void dgvPhongThi_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -46,8 +60,6 @@ namespace TuyenSinhWinApp
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvPhongThi.Rows[e.RowIndex];
-                txtGiamThi1.Text = row.Cells["GiamThi1"].Value?.ToString();
-                txtGiamThi2.Text = row.Cells["GiamThi2"].Value?.ToString();
 
             }
         }
@@ -160,36 +172,35 @@ namespace TuyenSinhWinApp
 
         }
 
-        private void btnCapNhat_Click(object sender, EventArgs e)
-        {
-            if (dgvPhongThi.CurrentRow?.DataBoundItem is PhongThi phong)
-            {
-                string maPhongThi = phong.MaPhongThi;
-                string giamThi1 = txtGiamThi1.Text.Trim();
-                string giamThi2 = txtGiamThi2.Text.Trim();
+        //private void btnCapNhat_Click(object sender, EventArgs e)
+        //{
+        //    if (dgvPhongThi.CurrentRow?.DataBoundItem is PhongThi phong)
+        //    {
+        //        string maPhongThi = phong.MaPhongThi;
 
-                if (string.IsNullOrEmpty(maPhongThi))
-                {
-                    MessageBox.Show("Không thể xác định mã phòng thi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
 
-                try
-                {
-                    _service.CapNhatGiamThi(maPhongThi, giamThi1, giamThi2);
-                    MessageBox.Show("Cập nhật giám thị thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    NapDanhSachPhongThi();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi khi cập nhật giám thị: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng chọn một phòng thi để cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
+        //        if (string.IsNullOrEmpty(maPhongThi))
+        //        {
+        //            MessageBox.Show("Không thể xác định mã phòng thi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            return;
+        //        }
+
+        //        try
+        //        {
+        //            _service.CapNhatGiamThi(maPhongThi, giamThi1, giamThi2);
+        //            MessageBox.Show("Cập nhật giám thị thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            NapDanhSachPhongThi();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show("Lỗi khi cập nhật giám thị: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Vui lòng chọn một phòng thi để cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //    }
+        //}
 
         private void btnHuy_Click(object sender, EventArgs e)
         {
@@ -240,11 +251,17 @@ namespace TuyenSinhWinApp
         {
             if (dgvPhongThi.CurrentRow?.DataBoundItem is PhongThi phong)
             {
-                string maPhongThi = phong.MaPhongThi;
+                string maPhongThiGoc = phong.MaPhongThi;
+                string hienThiMaPhong = maPhongThiGoc.Split('_')[0]; // Lấy phần trước dấu _
                 string tenPhong = phong.MaPhongThi;
-                string tenTruong = Common.TenTruong; 
+                string tenTruong = Common.TenTruong;
                 string diemCoiThi = tenTruong;
-                string tenDot = Common.MaDot;
+                string maDot = phong.MaDot;
+
+                var dotTuyen = _service.LayDanhSachDotTuyen().FirstOrDefault(d => d.MaDot == maDot);
+                string ngayBatDauDot = DateTime.TryParse(dotTuyen?.NgayBatDau?.ToString(), out var dtBatDau)
+    ? dtBatDau.ToString("dd/MM/yyyy")
+    : DateTime.Now.ToString("dd/MM/yyyy");
 
                 // Lấy danh sách học sinh theo phòng
                 var dsHocSinh = _service.LayDanhSachHocSinhTheoPhong(phong.MaTruong, phong.MaDot, phong.MaPhongThi);
@@ -269,61 +286,86 @@ namespace TuyenSinhWinApp
                             var ws = package.Workbook.Worksheets.Add("DanhSachHocSinh");
 
                             // ===== Header thông tin trường & kỳ thi
-                            ws.Cells["A1:F1"].Merge = true;
+                            ws.Cells["A1:G1"].Merge = true;
                             ws.Cells["A1"].Value = "Sở GD & ĐT Trà Vinh";
                             ws.Cells["A1"].Style.Font.Bold = true;
 
-                            ws.Cells["A2:F2"].Merge = true;
+                            ws.Cells["A2:G2"].Merge = true;
                             ws.Cells["A2"].Value = "Điểm coi thi: " + diemCoiThi;
 
-                            ws.Cells["A3:F3"].Merge = true;
+                            ws.Cells["A3:G3"].Merge = true;
                             ws.Cells["A3"].Value = "Kỳ Thi Tuyển Sinh Lớp 10";
 
-                            ws.Cells["A4:F4"].Merge = true;
-                            ws.Cells["A4"].Value = $"Khóa ngày: {DateTime.Now:dd/MM/yyyy}";
+                            ws.Cells["A4:G4"].Merge = true;
+                            ws.Cells["A4"].Value = $"Khóa ngày: {ngayBatDauDot}";
 
-                            ws.Cells["A6:F6"].Merge = true;
+                            ws.Cells["A6:G6"].Merge = true;
                             ws.Cells["A6"].Value = "DANH SÁCH THÍ SINH TRONG PHÒNG THI";
                             ws.Cells["A6"].Style.Font.Size = 14;
                             ws.Cells["A6"].Style.Font.Bold = true;
                             ws.Cells["A6"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-                            ws.Cells["E7:F7"].Merge = true;
-                            ws.Cells["E7"].Value = $"Phòng thi số: {tenPhong}";
+                            ws.Cells["E7:G7"].Merge = true;
+                            ws.Cells["E7"].Value = $"Phòng thi số: {hienThiMaPhong}";
                             ws.Cells["E7"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
                             // ===== Header bảng
                             int startRow = 9;
+                            // Gộp 2 ô "Họ và tên"
+                            ws.Cells[startRow, 3, startRow, 4].Merge = true;
+                            ws.Cells[startRow, 3].Value = "Họ và tên";
+                            ws.Cells[startRow, 3, startRow, 4].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
                             ws.Cells[startRow, 1].Value = "STT";
                             ws.Cells[startRow, 2].Value = "SBD";
-                            ws.Cells[startRow, 3].Value = "Họ và tên";
-                            ws.Cells[startRow, 4].Value = "Ngày sinh";
-                            ws.Cells[startRow, 5].Value = "Tên trường THCS";
-                            ws.Cells[startRow, 6].Value = "Ghi chú";
+                            ws.Cells[startRow, 5].Value = "Ngày sinh";
+                            ws.Cells[startRow, 6].Value = "Tên trường THCS";
+                            ws.Cells[startRow, 7].Value = "Ghi chú";
                             ws.Row(startRow).Style.Font.Bold = true;
                             ws.Row(startRow).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
+                            // Subheader: Họ, Tên
+                            ws.Cells[startRow + 1, 3].Value = "Họ";
+                            ws.Cells[startRow + 1, 4].Value = "Tên";
+                            ws.Cells[startRow + 1, 3].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            ws.Cells[startRow + 1, 4].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                            // Các cột còn lại không subheader
+                            ws.Cells[startRow + 1, 1].Value = "";
+                            ws.Cells[startRow + 1, 2].Value = "";
+                            ws.Cells[startRow + 1, 5].Value = "";
+                            ws.Cells[startRow + 1, 6].Value = "";
+                            ws.Cells[startRow + 1, 7].Value = "";
+
                             // ===== Dữ liệu
-                            int row = startRow + 1;
+                            int row = startRow + 2;
                             int stt = 1;
                             foreach (var hs in dsHocSinh)
                             {
                                 ws.Cells[row, 1].Value = stt++;
                                 ws.Cells[row, 2].Value = hs.MaSoBaoDanh;
-                                ws.Cells[row, 3].Value = hs.Ho + " " + hs.Ten;
-                                ws.Cells[row, 4].Value = hs.NgaySinh.ToString("dd/MM/yyyy");
-                                ws.Cells[row, 5].Value = hs.TruongTHCS;
-                                ws.Cells[row, 6].Value = hs.GhiChu ?? "";
+                                ws.Cells[row, 3].Value = hs.Ho ?? "";
+                                ws.Cells[row, 4].Value = hs.Ten ?? "";
+                                ws.Cells[row, 5].Value = hs.NgaySinh.ToString("dd/MM/yyyy");
+                                ws.Cells[row, 6].Value = hs.TruongTHCS;
+                                ws.Cells[row, 7].Value = hs.GhiChu ?? "";
                                 row++;
                             }
 
                             // ==== Định dạng
                             ws.Cells[ws.Dimension.Address].AutoFitColumns();
-                            ws.Cells[$"A{startRow}:F{row - 1}"].Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                            ws.Cells[$"A{startRow}:F{row - 1}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                            ws.Cells[$"A{startRow}:F{row - 1}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                            ws.Cells[$"A{startRow}:F{row - 1}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                            ws.Cells[$"A{startRow}:F{row - 1}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+
+                            // Định dạng border cho toàn bảng dữ liệu
+                            ws.Cells[$"A{startRow}:G{row - 1}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            ws.Cells[$"A{startRow}:G{row - 1}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            ws.Cells[$"A{startRow}:G{row - 1}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                            ws.Cells[$"A{startRow}:G{row - 1}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+
+                            // Thêm dòng tổng số thí sinh
+                            ws.Cells[row + 1, 1].Value = $"Danh sách này gồm có {dsHocSinh.Length} thí sinh dự thi";
+                            ws.Cells[row + 1, 1, row + 1, 7].Merge = true;
+                            ws.Cells[row + 1, 1, row + 1, 7].Style.Font.Italic = true;
+                            ws.Cells[row + 1, 1, row + 1, 7].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
                             package.SaveAs(new FileInfo(sfd.FileName));
                         }
@@ -337,6 +379,7 @@ namespace TuyenSinhWinApp
                 MessageBox.Show("Bạn chưa chọn phòng thi!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private void btnCapNhatDiem_Click(object sender, EventArgs e)
         {
@@ -379,6 +422,11 @@ namespace TuyenSinhWinApp
                     Common.MaDot = cbDotTuyenSinh.SelectedValue.ToString();
                     NapDanhSachPhongThi();
                 }
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

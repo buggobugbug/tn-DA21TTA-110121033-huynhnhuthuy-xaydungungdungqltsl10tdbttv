@@ -96,4 +96,58 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DotTuyenSinh" nillable="true" type="tns:DotTuyenSinh" />
+  <xs:complexType name="ChiTieuTuyenSinh">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChiTieu" type="xs:int" />
+      <xs:element minOccurs="0" name="MaDot" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaTruong" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChiTieuTuyenSinh" nillable="true" type="tns:ChiTieuTuyenSinh" />
+  <xs:complexType name="ArrayOfThongKeDiemMon">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ThongKeDiemMon" nillable="true" type="tns:ThongKeDiemMon" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfThongKeDiemMon" nillable="true" type="tns:ArrayOfThongKeDiemMon" />
+  <xs:complexType name="ThongKeDiemMon">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BoThi" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Mon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Muc" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SoLuong" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ThongKeDiemMon" nillable="true" type="tns:ThongKeDiemMon" />
+  <xs:complexType name="ArrayOfThongKeTHCSRow">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ThongKeTHCSRow" nillable="true" type="tns:ThongKeTHCSRow" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfThongKeTHCSRow" nillable="true" type="tns:ArrayOfThongKeTHCSRow" />
+  <xs:complexType name="ThongKeTHCSRow">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BoThi" type="xs:int" />
+      <xs:element minOccurs="0" name="Dau" type="xs:int" />
+      <xs:element minOccurs="0" name="DuThi" type="xs:int" />
+      <xs:element minOccurs="0" name="Hong" type="xs:int" />
+      <xs:element minOccurs="0" name="M0_3" type="xs:int" />
+      <xs:element minOccurs="0" name="M3_5" type="xs:int" />
+      <xs:element minOccurs="0" name="M5_7" type="xs:int" />
+      <xs:element minOccurs="0" name="M7_9" type="xs:int" />
+      <xs:element minOccurs="0" name="M9_10" type="xs:int" />
+      <xs:element minOccurs="0" name="Mon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TSNu" type="xs:int" />
+      <xs:element minOccurs="0" name="TongTS" type="xs:int" />
+      <xs:element minOccurs="0" name="TruongTHCS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TyLe0_3" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TyLe3_5" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TyLe5_7" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TyLe7_9" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TyLe9_10" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TyLeDau" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TyLeHong" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ThongKeTHCSRow" nillable="true" type="tns:ThongKeTHCSRow" />
 </xs:schema>

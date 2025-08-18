@@ -33,15 +33,12 @@
             this.txtTenDot = new System.Windows.Forms.TextBox();
             this.dtpBatDau = new System.Windows.Forms.DateTimePicker();
             this.dtpKetThuc = new System.Windows.Forms.DateTimePicker();
-            this.btnThem = new System.Windows.Forms.Button();
             this.dgvDotTuyenSinh = new System.Windows.Forms.DataGridView();
-            this.dotTuyenSinhBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cboTrangThai = new System.Windows.Forms.ComboBox();
-            this.btnCapNhat = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.MaDot = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,9 +47,18 @@
             this.NgayBatDau = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NgayKetThuc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnCapNhat = new System.Windows.Forms.Button();
+            this.btnThem = new System.Windows.Forms.Button();
+            this.maDotDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tenDotDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.namDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ngayBatDauDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ngayKetThucDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trangThaiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dotTuyenSinhBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDotTuyenSinh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dotTuyenSinhBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dotTuyenSinhBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // txtMaDot
@@ -60,7 +66,7 @@
             this.txtMaDot.Location = new System.Drawing.Point(12, 148);
             this.txtMaDot.Multiline = true;
             this.txtMaDot.Name = "txtMaDot";
-            this.txtMaDot.Size = new System.Drawing.Size(309, 20);
+            this.txtMaDot.Size = new System.Drawing.Size(334, 20);
             this.txtMaDot.TabIndex = 0;
             // 
             // txtTenDot
@@ -68,7 +74,7 @@
             this.txtTenDot.Location = new System.Drawing.Point(9, 72);
             this.txtTenDot.Multiline = true;
             this.txtTenDot.Name = "txtTenDot";
-            this.txtTenDot.Size = new System.Drawing.Size(312, 20);
+            this.txtTenDot.Size = new System.Drawing.Size(337, 20);
             this.txtTenDot.TabIndex = 1;
             this.txtTenDot.TextChanged += new System.EventHandler(this.txtTenDot_TextChanged);
             // 
@@ -76,29 +82,20 @@
             // 
             this.dtpBatDau.Location = new System.Drawing.Point(12, 219);
             this.dtpBatDau.Name = "dtpBatDau";
-            this.dtpBatDau.Size = new System.Drawing.Size(309, 22);
+            this.dtpBatDau.Size = new System.Drawing.Size(334, 22);
             this.dtpBatDau.TabIndex = 2;
             // 
             // dtpKetThuc
             // 
             this.dtpKetThuc.Location = new System.Drawing.Point(12, 299);
             this.dtpKetThuc.Name = "dtpKetThuc";
-            this.dtpKetThuc.Size = new System.Drawing.Size(309, 22);
+            this.dtpKetThuc.Size = new System.Drawing.Size(334, 22);
             this.dtpKetThuc.TabIndex = 3;
-            // 
-            // btnThem
-            // 
-            this.btnThem.Location = new System.Drawing.Point(12, 497);
-            this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(309, 23);
-            this.btnThem.TabIndex = 4;
-            this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = true;
-            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // dgvDotTuyenSinh
             // 
             this.dgvDotTuyenSinh.AutoGenerateColumns = false;
+            this.dgvDotTuyenSinh.BackgroundColor = System.Drawing.Color.White;
             this.dgvDotTuyenSinh.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDotTuyenSinh.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MaDot,
@@ -106,17 +103,19 @@
             this.Nam,
             this.NgayBatDau,
             this.NgayKetThuc,
-            this.TrangThai});
+            this.TrangThai,
+            this.maDotDataGridViewTextBoxColumn,
+            this.tenDotDataGridViewTextBoxColumn,
+            this.namDataGridViewTextBoxColumn,
+            this.ngayBatDauDataGridViewTextBoxColumn,
+            this.ngayKetThucDataGridViewTextBoxColumn,
+            this.trangThaiDataGridViewTextBoxColumn});
             this.dgvDotTuyenSinh.DataSource = this.dotTuyenSinhBindingSource;
-            this.dgvDotTuyenSinh.Location = new System.Drawing.Point(32, 77);
+            this.dgvDotTuyenSinh.Location = new System.Drawing.Point(32, 22);
             this.dgvDotTuyenSinh.Name = "dgvDotTuyenSinh";
-            this.dgvDotTuyenSinh.Size = new System.Drawing.Size(1250, 927);
+            this.dgvDotTuyenSinh.Size = new System.Drawing.Size(1250, 982);
             this.dgvDotTuyenSinh.TabIndex = 5;
             this.dgvDotTuyenSinh.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDotTuyenSinh_CellContentClick);
-            // 
-            // dotTuyenSinhBindingSource
-            // 
-            this.dotTuyenSinhBindingSource.DataSource = typeof(TuyenSinhServiceLib.DotTuyenSinh);
             // 
             // label1
             // 
@@ -151,12 +150,11 @@
             this.groupBox1.Controls.Add(this.txtMaDot);
             this.groupBox1.Controls.Add(this.dtpBatDau);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(1335, 77);
+            this.groupBox1.Location = new System.Drawing.Point(1314, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(343, 941);
+            this.groupBox1.Size = new System.Drawing.Size(364, 992);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "CONTROLS";
             // 
             // label5
             // 
@@ -172,19 +170,9 @@
             this.cboTrangThai.FormattingEnabled = true;
             this.cboTrangThai.Location = new System.Drawing.Point(12, 374);
             this.cboTrangThai.Name = "cboTrangThai";
-            this.cboTrangThai.Size = new System.Drawing.Size(309, 24);
+            this.cboTrangThai.Size = new System.Drawing.Size(334, 24);
             this.cboTrangThai.TabIndex = 11;
             this.cboTrangThai.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // btnCapNhat
-            // 
-            this.btnCapNhat.Location = new System.Drawing.Point(12, 560);
-            this.btnCapNhat.Name = "btnCapNhat";
-            this.btnCapNhat.Size = new System.Drawing.Size(309, 23);
-            this.btnCapNhat.TabIndex = 10;
-            this.btnCapNhat.Text = "Cập nhật";
-            this.btnCapNhat.UseVisualStyleBackColor = true;
-            this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
             // 
             // label4
             // 
@@ -245,6 +233,72 @@
             this.TrangThai.HeaderText = "Trạng thái";
             this.TrangThai.Name = "TrangThai";
             // 
+            // btnCapNhat
+            // 
+            this.btnCapNhat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCapNhat.Image = global::TuyenSinhWinApp.Properties.Resources.floppy_disk;
+            this.btnCapNhat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCapNhat.Location = new System.Drawing.Point(9, 518);
+            this.btnCapNhat.Name = "btnCapNhat";
+            this.btnCapNhat.Size = new System.Drawing.Size(337, 40);
+            this.btnCapNhat.TabIndex = 10;
+            this.btnCapNhat.Text = "Cập nhật";
+            this.btnCapNhat.UseVisualStyleBackColor = true;
+            this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
+            // 
+            // btnThem
+            // 
+            this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThem.Image = global::TuyenSinhWinApp.Properties.Resources.plus__1_;
+            this.btnThem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThem.Location = new System.Drawing.Point(12, 442);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(334, 40);
+            this.btnThem.TabIndex = 4;
+            this.btnThem.Text = "Thêm";
+            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
+            // 
+            // maDotDataGridViewTextBoxColumn
+            // 
+            this.maDotDataGridViewTextBoxColumn.DataPropertyName = "MaDot";
+            this.maDotDataGridViewTextBoxColumn.HeaderText = "MaDot";
+            this.maDotDataGridViewTextBoxColumn.Name = "maDotDataGridViewTextBoxColumn";
+            // 
+            // tenDotDataGridViewTextBoxColumn
+            // 
+            this.tenDotDataGridViewTextBoxColumn.DataPropertyName = "TenDot";
+            this.tenDotDataGridViewTextBoxColumn.HeaderText = "TenDot";
+            this.tenDotDataGridViewTextBoxColumn.Name = "tenDotDataGridViewTextBoxColumn";
+            // 
+            // namDataGridViewTextBoxColumn
+            // 
+            this.namDataGridViewTextBoxColumn.DataPropertyName = "Nam";
+            this.namDataGridViewTextBoxColumn.HeaderText = "Nam";
+            this.namDataGridViewTextBoxColumn.Name = "namDataGridViewTextBoxColumn";
+            // 
+            // ngayBatDauDataGridViewTextBoxColumn
+            // 
+            this.ngayBatDauDataGridViewTextBoxColumn.DataPropertyName = "NgayBatDau";
+            this.ngayBatDauDataGridViewTextBoxColumn.HeaderText = "NgayBatDau";
+            this.ngayBatDauDataGridViewTextBoxColumn.Name = "ngayBatDauDataGridViewTextBoxColumn";
+            // 
+            // ngayKetThucDataGridViewTextBoxColumn
+            // 
+            this.ngayKetThucDataGridViewTextBoxColumn.DataPropertyName = "NgayKetThuc";
+            this.ngayKetThucDataGridViewTextBoxColumn.HeaderText = "NgayKetThuc";
+            this.ngayKetThucDataGridViewTextBoxColumn.Name = "ngayKetThucDataGridViewTextBoxColumn";
+            // 
+            // trangThaiDataGridViewTextBoxColumn
+            // 
+            this.trangThaiDataGridViewTextBoxColumn.DataPropertyName = "TrangThai";
+            this.trangThaiDataGridViewTextBoxColumn.HeaderText = "TrangThai";
+            this.trangThaiDataGridViewTextBoxColumn.Name = "trangThaiDataGridViewTextBoxColumn";
+            // 
+            // dotTuyenSinhBindingSource
+            // 
+            this.dotTuyenSinhBindingSource.DataSource = typeof(TuyenSinhServiceLib.DotTuyenSinh);
+            // 
             // frmDotTuyenSinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -259,9 +313,9 @@
             this.Text = "frmDotTuyenSinh";
             this.Load += new System.EventHandler(this.frmDotTuyenSinh_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDotTuyenSinh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dotTuyenSinhBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dotTuyenSinhBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -289,5 +343,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NgayBatDau;
         private System.Windows.Forms.DataGridViewTextBoxColumn NgayKetThuc;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
+        private System.Windows.Forms.DataGridViewTextBoxColumn maDotDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tenDotDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn namDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ngayBatDauDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ngayKetThucDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn trangThaiDataGridViewTextBoxColumn;
     }
 }

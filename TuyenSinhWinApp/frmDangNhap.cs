@@ -35,6 +35,7 @@ namespace TuyenSinhWinApp
                     Common.MaNguoiDung = result.NguoiDung.MaNguoiDung;
                     Common.HoTen = result.NguoiDung.HoTen;
                     Common.MaTruong = result.NguoiDung.MaTruong;
+                    Common.TenDangNhap = result.NguoiDung.TenDangNhap;
 
                     // Lấy tên trường từ CSDL
                     using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TuyenSinhDB"].ConnectionString))

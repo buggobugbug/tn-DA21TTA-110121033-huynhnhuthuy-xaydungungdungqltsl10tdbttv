@@ -126,6 +126,7 @@
     </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -136,6 +137,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChiTieu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChiTieu.Designer.cs">
+      <DependentUpon>ChiTieu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="Connected Services\TuyenSinhServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -143,6 +150,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ExcelHelper.cs" />
+    <Compile Include="frmCapNhatDiemTheoPhongThi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCapNhatDiemTheoPhongThi.Designer.cs">
+      <DependentUpon>frmCapNhatDiemTheoPhongThi.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,11 +174,11 @@
     <Compile Include="frmHocsinh.Designer.cs">
       <DependentUpon>frmHocsinh.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmHocSinhTrongPhong.cs">
+    <Compile Include="frmLoaiThongKe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmHocSinhTrongPhong.Designer.cs">
-      <DependentUpon>frmHocSinhTrongPhong.cs</DependentUpon>
+    <Compile Include="frmLoaiThongKe.Designer.cs">
+      <DependentUpon>frmLoaiThongKe.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -179,8 +192,26 @@
     <Compile Include="frmPhongThi.Designer.cs">
       <DependentUpon>frmPhongThi.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmThongKe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThongKe.Designer.cs">
+      <DependentUpon>frmThongKe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmThongKeTHCS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThongKeTHCS.Designer.cs">
+      <DependentUpon>frmThongKeTHCS.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ChiTieu.resx">
+      <DependentUpon>ChiTieu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCapNhatDiemTheoPhongThi.resx">
+      <DependentUpon>frmCapNhatDiemTheoPhongThi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
     </EmbeddedResource>
@@ -190,14 +221,20 @@
     <EmbeddedResource Include="frmHocsinh.resx">
       <DependentUpon>frmHocsinh.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmHocSinhTrongPhong.resx">
-      <DependentUpon>frmHocSinhTrongPhong.cs</DependentUpon>
+    <EmbeddedResource Include="frmLoaiThongKe.resx">
+      <DependentUpon>frmLoaiThongKe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPhongThi.resx">
       <DependentUpon>frmPhongThi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmThongKe.resx">
+      <DependentUpon>frmThongKe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmThongKeTHCS.resx">
+      <DependentUpon>frmThongKeTHCS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -220,11 +257,14 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\TuyenSinhServiceLib.ChiTieuTuyenSinh.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.DotTuyenSinh.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.HocSinh.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.KetQuaDangNhap.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.KetQuaThemHocSinh.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.PhongThi.datasource" />
+    <None Include="Properties\DataSources\TuyenSinhServiceLib.ThongKeDiemMon.datasource" />
+    <None Include="Properties\DataSources\TuyenSinhServiceLib.ThongKeTHCSRow.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -280,6 +320,29 @@
     <None Include="Resources\education.png" />
     <None Include="Resources\education %281%29.png" />
     <None Include="Resources\education1.png" />
+    <None Include="Resources\test %281%29.png" />
+    <None Include="Resources\floppy-disk.png" />
+    <None Include="Resources\ảnh trường.jpg" />
+    <None Include="Resources\đt5.jpg" />
+    <None Include="Resources\ảnh trường %282%29.jpg" />
+    <None Include="Resources\analysis.png" />
+    <None Include="Resources\growth-chart.png" />
+    <None Include="Resources\3d-report.png" />
+    <None Include="Resources\list.png" />
+    <None Include="Resources\update %282%29.png" />
+    <None Include="Resources\checked.png" />
+    <None Include="Resources\pass %281%29.png" />
+    <None Include="Resources\pass %282%29.png" />
+    <None Include="Resources\go-to-school.png" />
+    <None Include="Resources\diploma.png" />
+    <None Include="Resources\university.png" />
+    <None Include="Resources\book.png" />
+    <None Include="Resources\diploma1.png" />
+    <None Include="Resources\diploma2.png" />
+    <None Include="Resources\book1.png" />
+    <None Include="Resources\communications.png" />
+    <None Include="Resources\infographic.png" />
+    <None Include="Resources\communications %282%29.png" />
     <Content Include="Templates\TheDuThi_Template.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -64,7 +64,6 @@ namespace TuyenSinhServiceLib
             return ketQua;
         }
 
-        // Thêm mới học sinh
         public KetQuaThemHocSinh ThemHocSinh(HocSinh hocSinh)
         {
             var ketQua = new KetQuaThemHocSinh();
@@ -596,6 +595,239 @@ namespace TuyenSinhServiceLib
                 cmd.Parameters.AddWithValue("@GiamThi2", giamThi2);
                 cmd.ExecuteNonQuery();
             }
+        }
+
+
+        // Cập nhật điểm
+
+        public bool CapNhatDiemTheoMon(int maHocSinh, string tenMon, decimal? diem)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string sql = "";
+                    switch (tenMon)
+                    {
+                        case "Toán":
+                            sql = "UPDATE HOC_SINH SET DiemToan = @Diem WHERE MaHocSinh = @MaHocSinh"; break;
+                        case "Văn":
+                            sql = "UPDATE HOC_SINH SET DiemVan = @Diem WHERE MaHocSinh = @MaHocSinh"; break;
+                        case "Anh":
+                            sql = "UPDATE HOC_SINH SET DiemAnh = @Diem WHERE MaHocSinh = @MaHocSinh"; break;
+                        default: return false;
+                    }
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@Diem", (object)diem ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@MaHocSinh", maHocSinh);
+
+                    conn.Open();
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Danh sách chỉ tiêu
+
+        public ChiTieuTuyenSinh LayChiTieuTruong(string maTruong, string maDot)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT MaTruong, MaDot, ChiTieu FROM CHI_TIEU_TUYEN_SINH WHERE MaTruong = @MaTruong AND MaDot = @MaDot";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@MaTruong", maTruong);
+                cmd.Parameters.AddWithValue("@MaDot", maDot);
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    return new ChiTieuTuyenSinh
+                    {
+                        MaTruong = reader["MaTruong"].ToString(),
+                        MaDot = reader["MaDot"].ToString(),
+                        ChiTieu = Convert.ToInt32(reader["ChiTieu"])
+                    };
+                }
+                return null;
+            }
+        }
+
+        public bool CapNhatChiTieu(string maTruong, string maDot, int chiTieu)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string sql = @"
+    IF EXISTS (SELECT 1 FROM CHI_TIEU_TUYEN_SINH WHERE MaTruong=@MaTruong AND MaDot=@MaDot)
+    UPDATE CHI_TIEU_TUYEN_SINH SET ChiTieu=@ChiTieu WHERE MaTruong=@MaTruong AND MaDot=@MaDot
+ELSE
+    INSERT INTO CHI_TIEU_TUYEN_SINH (MaTruong, MaDot, ChiTieu) VALUES (@MaTruong, @MaDot, @ChiTieu)";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@MaTruong", maTruong);
+                cmd.Parameters.AddWithValue("@MaDot", maDot);
+                cmd.Parameters.AddWithValue("@ChiTieu", chiTieu);
+                conn.Open();
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+
+        // Xử lý trúng tuyển
+
+        public bool XetTrungTuyen(string maTruong, string maDot)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand("sp_XetTrungTuyen", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaTruong", maTruong);
+                    cmd.Parameters.AddWithValue("@MaDot", maDot);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi XetTrungTuyen: " + ex.Message);
+                return false;
+            }
+        }
+
+        // Lấy danh sách học sinh trúng tuyển
+
+        public List<HocSinh> LayDanhSachTrungTuyen(string maTruong, string maDot)
+        {
+            var ds = new List<HocSinh>();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                var cmd = new SqlCommand(
+                    @"SELECT * FROM HOC_SINH 
+              WHERE MaTruong = @MaTruong AND MaDot = @MaDot AND TrangThai = 'TrungTuyen'
+              ORDER BY DiemTong DESC, Ten COLLATE Vietnamese_CI_AI, Ho COLLATE Vietnamese_CI_AI", conn);
+                cmd.Parameters.AddWithValue("@MaTruong", maTruong);
+                cmd.Parameters.AddWithValue("@MaDot", maDot);
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ds.Add(new HocSinh
+                        {
+                            MaHocSinh = (int)reader["MaHocSinh"],
+                            MaSoBaoDanh = reader["MaSoBaoDanh"] as string,
+                            Ho = reader["Ho"] as string,
+                            Ten = reader["Ten"] as string,
+                            NgaySinh = (DateTime)reader["NgaySinh"],
+                            GioiTinh = reader["GioiTinh"] as string,
+                            DanToc = reader["DanToc"] as string,
+                            NoiSinh = reader["NoiSinh"] as string,
+                            TruongTHCS = reader["TruongTHCS"] as string,
+                            MaTruong = reader["MaTruong"] as string,
+                            MaDot = reader["MaDot"] as string,
+                            DiemToan = reader["DiemToan"] as decimal?,
+                            DiemVan = reader["DiemVan"] as decimal?,
+                            DiemAnh = reader["DiemAnh"] as decimal?,
+                            DiemKhuyenKhich = reader["DiemKhuyenKhich"] as decimal?,
+                            DiemUuTien = reader["DiemUuTien"] as decimal?,
+                            DiemTong = reader["DiemTong"] as decimal?,
+                            PhongThi = reader["PhongThi"] as string,
+                            TrangThai = reader["TrangThai"] as string,
+                            NgayDangKy = (DateTime)reader["NgayDangKy"],
+                            GhiChu = reader["GhiChu"] as string,
+                        });
+                    }
+                }
+            }
+            return ds;
+        }
+
+        // Thống kê điểm theo môn học
+
+        public List<ThongKeDiemMon> ThongKeDiemTheoMon(string maTruong, string maDot)
+        {
+            var rs = new List<ThongKeDiemMon>();
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand("sp_ThongKeDiemTheoMon", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaTruong", (object)maTruong ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@MaDot", (object)maDot ?? DBNull.Value);
+
+                conn.Open();
+                using (var rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        rs.Add(new ThongKeDiemMon
+                        {
+                            Mon = rd["Mon"] as string ?? "",
+                            Muc = rd["Muc"] == DBNull.Value ? 0m : Convert.ToDecimal(rd["Muc"]),
+                            SoLuong = rd["SoLuong"] == DBNull.Value ? 0 : Convert.ToInt32(rd["SoLuong"]),
+                            BoThi = rd["BoThi"] != DBNull.Value && Convert.ToInt32(rd["BoThi"]) == 1
+                        });
+                    }
+                }
+            }
+            return rs;
+        }
+
+        public List<ThongKeTHCSRow> ThongKeTheoTHCS(string maTruong, string maDot)
+        {
+            var rs = new List<ThongKeTHCSRow>();
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                using (var cmd = new SqlCommand("sp_ThongKeTheoTHCS", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaTruong", maTruong ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@MaDot", maDot ?? (object)DBNull.Value);
+                    conn.Open();
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            var r = new ThongKeTHCSRow
+                            {
+                                TruongTHCS = rd["TruongTHCS"] as string,
+                                Mon = rd["Mon"] as string,
+                                TongTS = rd["TongTS"] as int? ?? 0,
+                                TSNu = rd["TSNu"] as int? ?? 0,
+                                DuThi = rd["DuThi"] as int? ?? 0,
+                                BoThi = rd["BoThi"] as int? ?? 0,
+
+                                M0_3 = rd["M0_3"] as int? ?? 0,
+                                TyLe0_3 = rd["TyLe0_3"] as decimal? ?? 0,
+                                M3_5 = rd["M3_5"] as int? ?? 0,
+                                TyLe3_5 = rd["TyLe3_5"] as decimal? ?? 0,
+                                M5_7 = rd["M5_7"] as int? ?? 0,
+                                TyLe5_7 = rd["TyLe5_7"] as decimal? ?? 0,
+                                M7_9 = rd["M7_9"] as int? ?? 0,
+                                TyLe7_9 = rd["TyLe7_9"] as decimal? ?? 0,
+                                M9_10 = rd["M9_10"] as int? ?? 0,
+                                TyLe9_10 = rd["TyLe9_10"] as decimal? ?? 0,
+
+                                Dau = rd["Dau"] as int? ?? 0,
+                                TyLeDau = rd["TyLeDau"] as decimal? ?? 0,
+                                Hong = rd["Hong"] as int? ?? 0,
+                                TyLeHong = rd["TyLeHong"] as decimal? ?? 0,
+                            };
+                            rs.Add(r);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("ThongKeTheoTHCS error: " + ex);
+            }
+            return rs;
         }
 
 

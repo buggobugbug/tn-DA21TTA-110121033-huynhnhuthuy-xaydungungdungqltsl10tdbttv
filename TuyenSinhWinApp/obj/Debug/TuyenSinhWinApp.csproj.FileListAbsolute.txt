@@ -26,7 +26,6 @@ C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\bin\Debug\System.S
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.csproj.AssemblyReference.cache
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmDangNhap.resources
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmHocsinh.resources
-C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmHocSinhTrongPhong.resources
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmMain.resources
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmPhongThi.resources
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.Properties.Resources.resources
@@ -41,3 +40,8 @@ C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\bin\Debug\System.C
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\bin\Debug\Newtonsoft.Json.xml
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\bin\Debug\System.CodeDom.xml
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\bin\Debug\EPPlus.System.Drawing.dll
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmCapNhatDiemTheoPhongThi.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.ChiTieu.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmThongKe.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmLoaiThongKe.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmThongKeTHCS.resources

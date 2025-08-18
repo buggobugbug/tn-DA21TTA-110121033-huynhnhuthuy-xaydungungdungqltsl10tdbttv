@@ -57,6 +57,28 @@ namespace TuyenSinhServiceLib
         [OperationContract]
         void CapNhatGiamThi(string maPhong, string giamThi1, string giamThi2);
 
+        [OperationContract]
+        bool CapNhatDiemTheoMon(int maHocSinh, string tenMon, decimal? diem);
+
+        [OperationContract]
+        ChiTieuTuyenSinh LayChiTieuTruong(string maTruong, string maDot);
+
+        [OperationContract]
+        bool CapNhatChiTieu(string maTruong, string maDot, int chiTieu);
+
+        [OperationContract]
+        bool XetTrungTuyen(string maTruong, string maDot);
+
+        [OperationContract]
+        List<HocSinh> LayDanhSachTrungTuyen(string maTruong, string maDot);
+
+        [OperationContract]
+        List<ThongKeDiemMon> ThongKeDiemTheoMon(string maTruong, string maDot);
+
+        [OperationContract]
+        List<ThongKeTHCSRow> ThongKeTheoTHCS(string maTruong, string maDot);
+
+
     }
 
 }

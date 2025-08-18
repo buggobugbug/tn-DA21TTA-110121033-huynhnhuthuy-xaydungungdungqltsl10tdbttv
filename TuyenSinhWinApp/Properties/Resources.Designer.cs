@@ -63,9 +63,79 @@ namespace TuyenSinhWinApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3d_report {
+            get {
+                object obj = ResourceManager.GetObject("3d-report", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _checked {
+            get {
+                object obj = ResourceManager.GetObject("checked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap analysis {
+            get {
+                object obj = ResourceManager.GetObject("analysis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ảnh_trường {
+            get {
+                object obj = ResourceManager.GetObject("ảnh trường", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ảnh_trường__2_ {
+            get {
+                object obj = ResourceManager.GetObject("ảnh trường (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap avatar {
             get {
                 object obj = ResourceManager.GetObject("avatar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap book {
+            get {
+                object obj = ResourceManager.GetObject("book", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap book1 {
+            get {
+                object obj = ResourceManager.GetObject("book1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,6 +173,26 @@ namespace TuyenSinhWinApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap communications {
+            get {
+                object obj = ResourceManager.GetObject("communications", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap communications__2_ {
+            get {
+                object obj = ResourceManager.GetObject("communications (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap compose {
             get {
                 object obj = ResourceManager.GetObject("compose", resourceCulture);
@@ -126,6 +216,46 @@ namespace TuyenSinhWinApp.Properties {
         internal static System.Drawing.Bitmap digital_library {
             get {
                 object obj = ResourceManager.GetObject("digital-library", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diploma {
+            get {
+                object obj = ResourceManager.GetObject("diploma", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diploma1 {
+            get {
+                object obj = ResourceManager.GetObject("diploma1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diploma2 {
+            get {
+                object obj = ResourceManager.GetObject("diploma2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap đt5 {
+            get {
+                object obj = ResourceManager.GetObject("đt5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,6 +313,26 @@ namespace TuyenSinhWinApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap floppy_disk {
+            get {
+                object obj = ResourceManager.GetObject("floppy-disk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap go_to_school {
+            get {
+                object obj = ResourceManager.GetObject("go-to-school", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap graduate_hat {
             get {
                 object obj = ResourceManager.GetObject("graduate-hat", resourceCulture);
@@ -216,6 +366,16 @@ namespace TuyenSinhWinApp.Properties {
         internal static System.Drawing.Bitmap graduation {
             get {
                 object obj = ResourceManager.GetObject("graduation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap growth_chart {
+            get {
+                object obj = ResourceManager.GetObject("growth-chart", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -383,6 +543,26 @@ namespace TuyenSinhWinApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap infographic {
+            get {
+                object obj = ResourceManager.GetObject("infographic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap list {
+            get {
+                object obj = ResourceManager.GetObject("list", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logout {
             get {
                 object obj = ResourceManager.GetObject("logout", resourceCulture);
@@ -436,6 +616,26 @@ namespace TuyenSinhWinApp.Properties {
         internal static System.Drawing.Bitmap padlock {
             get {
                 object obj = ResourceManager.GetObject("padlock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pass__1_ {
+            get {
+                object obj = ResourceManager.GetObject("pass (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pass__2_ {
+            get {
+                object obj = ResourceManager.GetObject("pass (2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -523,6 +723,16 @@ namespace TuyenSinhWinApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap test__1_ {
+            get {
+                object obj = ResourceManager.GetObject("test (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap trend {
             get {
                 object obj = ResourceManager.GetObject("trend", resourceCulture);
@@ -533,9 +743,29 @@ namespace TuyenSinhWinApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap university {
+            get {
+                object obj = ResourceManager.GetObject("university", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap update {
             get {
                 object obj = ResourceManager.GetObject("update", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap update__2_ {
+            get {
+                object obj = ResourceManager.GetObject("update (2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

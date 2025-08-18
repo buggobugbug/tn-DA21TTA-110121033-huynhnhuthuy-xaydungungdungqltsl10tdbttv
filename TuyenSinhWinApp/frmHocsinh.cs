@@ -95,6 +95,20 @@ namespace TuyenSinhWinApp
             txtTen.Text = hs.Ten;
             dtpNgaySinh.Value = hs.NgaySinh;
             cboGioiTinh.SelectedItem = hs.GioiTinh ?? "Nam";
+            string truong = hs.TruongTHCS ?? "";
+            if (!string.IsNullOrWhiteSpace(truong))
+            {
+                // Nếu danh sách hiện tại không có trường này thì thêm vào
+                if (cboTruongTHCS.Items.Cast<string>().All(x => x != truong))
+                {
+                    cboTruongTHCS.Items.Add(truong);
+                }
+                cboTruongTHCS.SelectedItem = truong;
+            }
+            else
+            {
+                cboTruongTHCS.SelectedIndex = -1;
+            }
             txtDanToc.Text = hs.DanToc;
             txtNoiSinh.Text = hs.NoiSinh;
             cboTrangThai.SelectedItem = HienThiTrangThai(hs.TrangThai);
@@ -191,6 +205,7 @@ namespace TuyenSinhWinApp
                 _dsHocSinhGoc = ds.ToList();
                 dgvDanhSachHocSinh.DataSource = null;
                 dgvDanhSachHocSinh.DataSource = ds;
+                CapNhatSoLuongHocSinh();
                 NapDuLieuTruongTHCSVaoCombo(_dsHocSinhGoc);
 
 
@@ -338,6 +353,11 @@ namespace TuyenSinhWinApp
                         }
 
                         string thongBao = $"Nhập thành công {countThanhCong}/{danhSach.Count} học sinh.";
+                        if (countThanhCong > 0)
+                        {
+                            LoadDanhSachHocSinh(); // Tự động reload sau import
+                        }
+
                         if (countLoi > 0)
                         {
                             thongBao += $"\n{countLoi} học sinh lỗi:\n" + string.Join("\n", danhSachLoi);
@@ -379,6 +399,33 @@ namespace TuyenSinhWinApp
             }
         }
 
+        // Sửa thông tin học sinh
+        private HocSinh TaoBanSaoHocSinhDaCapNhat()
+        {
+            // Lấy thông tin gốc
+            var hsCu = _hocSinhDangSua;
+            var hsMoi = new HocSinh
+            {
+                MaHocSinh = hsCu.MaHocSinh,
+                MaSoBaoDanh = hsCu.MaSoBaoDanh,
+                MaTruong = hsCu.MaTruong,
+                MaDot = hsCu.MaDot,
+                // So sánh từng trường, nếu khác thì lấy dữ liệu mới, nếu không thì giữ dữ liệu cũ
+                Ho = txtHo.Text.Trim() != hsCu.Ho ? txtHo.Text.Trim() : hsCu.Ho,
+                Ten = txtTen.Text.Trim() != hsCu.Ten ? txtTen.Text.Trim() : hsCu.Ten,
+                NgaySinh = dtpNgaySinh.Value != hsCu.NgaySinh ? dtpNgaySinh.Value : hsCu.NgaySinh,
+                GioiTinh = cboGioiTinh.SelectedItem?.ToString() != hsCu.GioiTinh ? cboGioiTinh.SelectedItem?.ToString() : hsCu.GioiTinh,
+                DanToc = txtDanToc.Text.Trim() != hsCu.DanToc ? txtDanToc.Text.Trim() : hsCu.DanToc,
+                NoiSinh = txtNoiSinh.Text.Trim() != hsCu.NoiSinh ? txtNoiSinh.Text.Trim() : hsCu.NoiSinh,
+                TruongTHCS = cboTruongTHCS.SelectedItem?.ToString() != hsCu.TruongTHCS ? cboTruongTHCS.SelectedItem?.ToString() : hsCu.TruongTHCS,
+                TrangThai = MaTrangThai(cboTrangThai.SelectedItem?.ToString()) != hsCu.TrangThai ? MaTrangThai(cboTrangThai.SelectedItem?.ToString()) : hsCu.TrangThai,
+                GhiChu = txtGhiChu.Text.Trim() != hsCu.GhiChu ? txtGhiChu.Text.Trim() : hsCu.GhiChu
+            };
+            return hsMoi;
+        }
+
+        private bool Khac(string a, string b) => (a ?? "") != (b ?? "");
+
         private void pictureBox4_Click(object sender, EventArgs e)
         {
             var selectedMaDot = cboDotTuyen.SelectedValue?.ToString();
@@ -397,52 +444,69 @@ namespace TuyenSinhWinApp
                 if (cboGioiTinh.SelectedIndex < 0) cboGioiTinh.SelectedIndex = 0;
                 if (cboTrangThai.SelectedIndex < 0) cboTrangThai.SelectedIndex = 0;
 
-                var hocSinh = new HocSinh
-                {
-                    Ho = txtHo.Text.Trim(),
-                    Ten = txtTen.Text.Trim(),
-                    NgaySinh = dtpNgaySinh.Value,
-                    GioiTinh = cboGioiTinh.SelectedItem.ToString(),
-                    DanToc = string.IsNullOrWhiteSpace(txtDanToc.Text) ? null : txtDanToc.Text.Trim(),
-                    NoiSinh = string.IsNullOrWhiteSpace(txtNoiSinh.Text) ? null : txtNoiSinh.Text.Trim(),
-                    TruongTHCS = cboTruongTHCS.SelectedItem?.ToString(),
-                    MaTruong = Common.MaTruong,
-                    TrangThai = MaTrangThai(cboTrangThai.SelectedItem?.ToString()),
-                    GhiChu = string.IsNullOrWhiteSpace(txtGhiChu.Text) ? null : txtGhiChu.Text.Trim(),
-                    MaDot = cboDotTuyen.SelectedValue?.ToString(),
-                };
-
                 if (_isEditMode)
                 {
-                    hocSinh.MaHocSinh = _hocSinhDangSua.MaHocSinh;
-                    hocSinh.MaSoBaoDanh = _hocSinhDangSua.MaSoBaoDanh;
+                    var cu = _hocSinhDangSua;
+                    var moi = new HocSinh
+                    {
+                        MaHocSinh = cu.MaHocSinh,
+                        MaSoBaoDanh = cu.MaSoBaoDanh,
+                        MaTruong = cu.MaTruong,
+                        MaDot = cu.MaDot,
+                        Ho = Khac(txtHo.Text.Trim(), cu.Ho) ? txtHo.Text.Trim() : cu.Ho,
+                        Ten = Khac(txtTen.Text.Trim(), cu.Ten) ? txtTen.Text.Trim() : cu.Ten,
+                        NgaySinh = dtpNgaySinh.Value != cu.NgaySinh ? dtpNgaySinh.Value : cu.NgaySinh,
+                        GioiTinh = Khac(cboGioiTinh.SelectedItem?.ToString(), cu.GioiTinh) ? cboGioiTinh.SelectedItem?.ToString() : cu.GioiTinh,
+                        DanToc = Khac(txtDanToc.Text.Trim(), cu.DanToc) ? txtDanToc.Text.Trim() : cu.DanToc,
+                        NoiSinh = Khac(txtNoiSinh.Text.Trim(), cu.NoiSinh) ? txtNoiSinh.Text.Trim() : cu.NoiSinh,
+                        TruongTHCS = Khac(cboTruongTHCS.SelectedItem?.ToString(), cu.TruongTHCS) ? cboTruongTHCS.SelectedItem?.ToString() : cu.TruongTHCS,
+                        TrangThai = Khac(MaTrangThai(cboTrangThai.SelectedItem?.ToString()), cu.TrangThai) ? MaTrangThai(cboTrangThai.SelectedItem?.ToString()) : cu.TrangThai,
+                        GhiChu = Khac(txtGhiChu.Text.Trim(), cu.GhiChu) ? txtGhiChu.Text.Trim() : cu.GhiChu
+                    };
 
-                    bool thanhCong = _serviceClient.CapNhatHocSinh(hocSinh);
+                    bool thanhCong = _serviceClient.CapNhatHocSinh(moi);
 
                     if (thanhCong)
                     {
-                        MessageBox.Show("Cập nhật học sinh thành công!", "Thành công",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
+                        MessageBox.Show("Cập nhật học sinh thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadDanhSachHocSinh();
+                        ResetForm();
+                        _isEditMode = false;
+                        _hocSinhDangSua = null;
                     }
                     else
                     {
-                        MessageBox.Show("Cập nhật thất bại. Vui lòng kiểm tra dữ liệu.", "Lỗi",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Cập nhật thất bại. Vui lòng kiểm tra dữ liệu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    var result = _serviceClient.ThemHocSinh(hocSinh);
-                    if (result.ThanhCong)
+                    // *** XỬ LÝ THÊM MỚI ***
+                    var hocSinhMoi = new HocSinh
                     {
-                        MessageBox.Show($"Thêm học sinh thành công! Mã số: {result.HocSinh.MaSoBaoDanh}",
-                            "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Ho = txtHo.Text.Trim(),
+                        Ten = txtTen.Text.Trim(),
+                        NgaySinh = dtpNgaySinh.Value,
+                        GioiTinh = cboGioiTinh.SelectedItem?.ToString(),
+                        DanToc = string.IsNullOrWhiteSpace(txtDanToc.Text) ? null : txtDanToc.Text.Trim(),
+                        NoiSinh = string.IsNullOrWhiteSpace(txtNoiSinh.Text) ? null : txtNoiSinh.Text.Trim(),
+                        TruongTHCS = cboTruongTHCS.SelectedItem?.ToString(),
+                        MaTruong = Common.MaTruong,
+                        TrangThai = MaTrangThai(cboTrangThai.SelectedItem?.ToString()),
+                        GhiChu = string.IsNullOrWhiteSpace(txtGhiChu.Text) ? null : txtGhiChu.Text.Trim(),
+                        MaDot = cboDotTuyen.SelectedValue?.ToString(),
+                    };
+
+                    var result = _serviceClient.ThemHocSinh(hocSinhMoi);
+                    if (result != null && result.ThanhCong)
+                    {
+                        MessageBox.Show($"Thêm học sinh thành công! Mã số: {result.HocSinh.MaSoBaoDanh}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ResetForm();
+                        LoadDanhSachHocSinh();
                     }
                     else
                     {
-                        MessageBox.Show(result.ThongBao, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(result?.ThongBao ?? "Lỗi không xác định!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -451,6 +515,7 @@ namespace TuyenSinhWinApp
                 MessageBox.Show($"Lỗi hệ thống: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void panel4_Paint(object sender, PaintEventArgs e)
         {
@@ -623,6 +688,37 @@ namespace TuyenSinhWinApp
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        // Cập nhật số lượng học sinh có trong datagridview
+        private void CapNhatSoLuongHocSinh()
+        {
+            int soLuong = 0;
+            if (dgvDanhSachHocSinh.DataSource is List<HocSinh> ds)
+                soLuong = ds.Count;
+            else if (dgvDanhSachHocSinh.DataSource is System.Collections.ICollection coll)
+                soLuong = coll.Count;
+            lblSoLuongHocSinh.Text = $"Tổng số học sinh có trong danh sách: {soLuong} học sinh";
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvDanhSachHocSinh_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txtGhiChu_TextChanged(object sender, EventArgs e)
         {
 
         }
