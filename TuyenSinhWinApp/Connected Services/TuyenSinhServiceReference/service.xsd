@@ -76,9 +76,9 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="maHocSinh" type="xs:int" />
-        <xs:element minOccurs="0" name="diemToan" nillable="true" type="xs:decimal" />
-        <xs:element minOccurs="0" name="diemVan" nillable="true" type="xs:decimal" />
-        <xs:element minOccurs="0" name="diemAnh" nillable="true" type="xs:decimal" />
+        <xs:element minOccurs="0" name="diemToan" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="diemVan" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="diemAnh" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="diemKhuyenKhich" nillable="true" type="xs:decimal" />
         <xs:element minOccurs="0" name="diemUuTien" nillable="true" type="xs:decimal" />
       </xs:sequence>
@@ -224,7 +224,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="maHocSinh" type="xs:int" />
         <xs:element minOccurs="0" name="tenMon" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="diem" nillable="true" type="xs:decimal" />
+        <xs:element minOccurs="0" name="diemText" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -323,6 +323,238 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="ThongKeTheoTHCSResult" nillable="true" type="q14:ArrayOfThongKeTHCSRow" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThongKeVangThi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThongKeVangThiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="ThongKeVangThiResult" nillable="true" type="q15:VangThiResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_LayDanhSachTruong">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_LayDanhSachTruongResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="Admin_LayDanhSachTruongResult" nillable="true" type="q16:ArrayOfTruongItem" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_LayDanhSachHocSinhTheoTruongDot">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_LayDanhSachHocSinhTheoTruongDotResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="Admin_LayDanhSachHocSinhTheoTruongDotResult" nillable="true" type="q17:ArrayOfHocSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_LayDanhSachHocSinhTheoPhong">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maPhongThi" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_LayDanhSachHocSinhTheoPhongResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="Admin_LayDanhSachHocSinhTheoPhongResult" nillable="true" type="q18:ArrayOfHocSinh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_CapNhatDiemHocSinh">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maHocSinh" type="xs:int" />
+        <xs:element minOccurs="0" name="diemToan" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="diemVan" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="diemAnh" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="diemKhuyenKhich" nillable="true" type="xs:decimal" />
+        <xs:element minOccurs="0" name="diemUuTien" nillable="true" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_CapNhatDiemHocSinhResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Admin_CapNhatDiemHocSinhResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_LayDanhSachPhongThi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="maDot" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Admin_LayDanhSachPhongThiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="Admin_LayDanhSachPhongThiResult" nillable="true" type="q19:ArrayOfPhongThi" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachNguoiDungTheoTruong">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachNguoiDungTheoTruongResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="LayDanhSachNguoiDungTheoTruongResult" nillable="true" type="q20:ArrayOfNguoiDung" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThemNguoiDung">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="nguoiDung" nillable="true" type="q21:NguoiDung" />
+        <xs:element minOccurs="0" name="matKhau" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThemNguoiDungResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ThemNguoiDungResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatNguoiDung">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="nguoiDung" nillable="true" type="q22:NguoiDung" />
+        <xs:element minOccurs="0" name="matKhauMoi" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatNguoiDungResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CapNhatNguoiDungResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XoaNguoiDung">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maNguoiDung" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XoaNguoiDungResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="XoaNguoiDungResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KiemTraTruongTonTai">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KiemTraTruongTonTaiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="KiemTraTruongTonTaiResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThemTruong">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="truong" nillable="true" type="q23:TruongHoc" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThemTruongResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ThemTruongResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTenTruongFromMaTruong">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTenTruongFromMaTruongResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetTenTruongFromMaTruongResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachTruong">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LayDanhSachTruongResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="LayDanhSachTruongResult" nillable="true" type="q24:ArrayOfTruongHoc" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatTruong">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/TuyenSinhServiceLib" minOccurs="0" name="truong" nillable="true" type="q25:TruongHoc" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapNhatTruongResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CapNhatTruongResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XoaTruong">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maTruong" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XoaTruongResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="XoaTruongResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

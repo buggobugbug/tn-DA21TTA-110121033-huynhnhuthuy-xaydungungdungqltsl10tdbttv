@@ -157,5 +157,20 @@ namespace TuyenSinhWinApp
         {
 
         }
+
+        private void lblTenTruong_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelside_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

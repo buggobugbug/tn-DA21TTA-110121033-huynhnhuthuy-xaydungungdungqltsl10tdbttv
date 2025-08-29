@@ -7,6 +7,7 @@ using TuyenSinhServiceLib;
 using TuyenSinhWinApp.TuyenSinhServiceReference;
 using OfficeOpenXml;
 using System.IO;
+using OfficeOpenXml.Drawing;
 using DevExpress.Data.NetCompatibility.Extensions;
 
 namespace TuyenSinhWinApp
@@ -240,6 +241,10 @@ namespace TuyenSinhWinApp
             FormatDanhSachHocSinhGrid();
             LoadDanhSachHocSinh();
             btnLoc.Click += btnLoc_Click;
+            Guard.DisableForThuKy(
+    pictureBox4, pictureBox2, pictureBoxXoa, PicThemMSBD, excelpic);
+
+
         }
 
         private void grpThongTin_Enter(object sender, EventArgs e)
@@ -258,25 +263,51 @@ namespace TuyenSinhWinApp
         {
             var danhSach = new List<HocSinh>();
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             using (var package = new ExcelPackage(new FileInfo(filePath)))
             {
-                var ws = package.Workbook.Worksheets[0];
-                int rowCount = ws.Dimension.End.Row;
-                for (int row = 2; row <= rowCount; row++)
+                var ws = package.Workbook.Worksheets.First(); // <-- an toàn thay vì [0]
+                if (ws?.Dimension == null) return danhSach;
+
+                int startRow = ws.Dimension.Start.Row;        // row đầu vùng dữ liệu (thường = 1)
+                                                              // Nếu hàng đầu là header thì dịch xuống 1
+                string c3 = ws.Cells[startRow, 3].Text?.Trim().ToLower() ?? "";
+                string c4 = ws.Cells[startRow, 4].Text?.Trim().ToLower() ?? "";
+                if (c3 == "họ" || c3 == "ho" || c4 == "tên" || c4 == "ten")
+                    startRow++;
+
+                // Nếu có thêm 1 dòng tiêu đề “to” phía trên, có thể tiếp tục kiểm tra:
+                // (Không bắt buộc, nhưng giúp tránh mất dòng đầu)
+                string c3next = ws.Cells[startRow, 3].Text?.Trim().ToLower() ?? "";
+                string c4next = ws.Cells[startRow, 4].Text?.Trim().ToLower() ?? "";
+                if (c3next == "họ" || c3next == "ho" || c4next == "tên" || c4next == "ten")
+                    startRow++;
+
+                for (int row = startRow; row <= ws.Dimension.End.Row; row++)
                 {
-                    // Không đọc mã số báo danh ở file (bỏ qua cột 2)
-                    if (string.IsNullOrWhiteSpace(ws.Cells[row, 3].Text) && string.IsNullOrWhiteSpace(ws.Cells[row, 4].Text))
+                    var ho = ws.Cells[row, 3].Text?.Trim();
+                    var ten = ws.Cells[row, 4].Text?.Trim();
+
+                    // bỏ qua dòng thật sự rỗng
+                    if (string.IsNullOrWhiteSpace(ho) && string.IsNullOrWhiteSpace(ten))
                         continue;
+
+                    // Ngày sinh: hỗ trợ cả DateTime “thật” lẫn text
+                    DateTime ns;
+                    object raw = ws.Cells[row, 5].Value;
+                    if (raw is DateTime dt) ns = dt;
+                    else if (!DateTime.TryParse(ws.Cells[row, 5].Text, out ns))
+                        ns = DateTime.Now.AddYears(-15);
 
                     var hs = new HocSinh
                     {
-                        Ho = ws.Cells[row, 3].Text.Trim(),
-                        Ten = ws.Cells[row, 4].Text.Trim(),
-                        NgaySinh = DateTime.TryParse(ws.Cells[row, 5].Text, out DateTime ns) ? ns : DateTime.Now.AddYears(-15),
-                        NoiSinh = ws.Cells[row, 6].Text.Trim(),
-                        GioiTinh = ws.Cells[row, 7].Text.Trim(),
-                        DanToc = ws.Cells[row, 8].Text.Trim(),
-                        TruongTHCS = ws.Cells[row, 9].Text.Trim(),
+                        Ho = ho,
+                        Ten = ten,
+                        NgaySinh = ns,
+                        NoiSinh = ws.Cells[row, 6].Text?.Trim(),
+                        GioiTinh = ws.Cells[row, 7].Text?.Trim(),
+                        DanToc = ws.Cells[row, 8].Text?.Trim(),
+                        TruongTHCS = ws.Cells[row, 9].Text?.Trim(),
                         MaTruong = Common.MaTruong,
                         MaDot = cboDotTuyen.SelectedValue?.ToString(),
                         TrangThai = "DangKy"
@@ -286,6 +317,7 @@ namespace TuyenSinhWinApp
             }
             return danhSach;
         }
+
 
         private void btnHuy_Click_1(object sender, EventArgs e)
         {
@@ -428,6 +460,7 @@ namespace TuyenSinhWinApp
 
         private void pictureBox4_Click(object sender, EventArgs e)
         {
+            if (!Guard.DemandEdit(this)) return;
             var selectedMaDot = cboDotTuyen.SelectedValue?.ToString();
             MessageBox.Show("MaDot chọn: " + selectedMaDot);
 
@@ -670,8 +703,6 @@ namespace TuyenSinhWinApp
 
             string tenTim = txtTimTen.Text.Trim();
             string truongTHCS = cboLocTruongTHCS.SelectedItem?.ToString();
-            decimal? diemTu = numDiemTu.Value > 0 ? numDiemTu.Value : (decimal?)null;
-            decimal? diemDen = numDiemDen.Value > 0 ? numDiemDen.Value : (decimal?)null;
 
             var ketQua = _dsHocSinhGoc.Where(hs =>
                 // 1. Lọc chính xác theo trường "Ten"
@@ -679,9 +710,7 @@ namespace TuyenSinhWinApp
                  string.Equals(hs.Ten, tenTim, StringComparison.OrdinalIgnoreCase))
                 // 2. Lọc trường THCS nếu có chọn
                 && (string.IsNullOrWhiteSpace(truongTHCS) || truongTHCS == "Tất cả" || hs.TruongTHCS == truongTHCS)
-                // 3. Lọc điểm
-                && (!diemTu.HasValue || (hs.DiemTong ?? -999) >= diemTu)
-                && (!diemDen.HasValue || (hs.DiemTong ?? 999) <= diemDen)
+
             ).ToList();
 
             dgvDanhSachHocSinh.DataSource = ketQua;
@@ -721,6 +750,213 @@ namespace TuyenSinhWinApp
         private void txtGhiChu_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnXuatTheDuThi_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboDotTuyen.SelectedValue == null)
+                {
+                    MessageBox.Show("Vui lòng chọn đợt tuyển sinh!", "Thiếu thông tin",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string maDot = cboDotTuyen.SelectedValue.ToString();
+                string tenDot = (cboDotTuyen.SelectedItem as DotTuyenSinh)?.TenDot ?? maDot;
+
+                var ds = _serviceClient.LayDanhSachHocSinh(Common.MaTruong, maDot);
+                if (ds == null || ds.Length == 0)
+                {
+                    MessageBox.Show("Không có học sinh để xuất thẻ.", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Tìm template
+                string templatePath = ResolveTemplatePath("Templates", "TheDuThi_Template.xlsx");
+                if (!File.Exists(templatePath))
+                {
+                    MessageBox.Show("Không tìm thấy template: " + templatePath,
+                        "Lỗi template", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                using (var sfd = new SaveFileDialog
+                {
+                    Title = "Lưu file thẻ dự thi",
+                    Filter = "Excel Workbook (*.xlsx)|*.xlsx",
+                    FileName = $"TheDuThi_{Common.MaTruong}_{maDot}_{DateTime.Now:yyyyMMddHHmmss}.xlsx"
+                })
+                {
+                    if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                    var allDots = _serviceClient.LayDanhSachDotTuyen();
+                    var dotChon = allDots?.FirstOrDefault(d => d.MaDot == maDot);
+                   string tenDotText = dotChon?.TenDot ?? tenDot;
+                    string ngayBatDauStr = dotChon?.NgayBatDau?.ToString("dd/MM/yyyy") ?? "";
+
+                    // Ngày xuất (dùng cho "Trà Vinh, ngày ...")
+                    DateTime now = DateTime.Now;
+                    string ngayXuat = now.ToString("dd/MM/yyyy");
+                    string dStr = now.ToString("dd");
+                    string mStr = now.ToString("MM");
+                    string yStr = now.ToString("yyyy");
+
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    using (var pkg = new ExcelPackage(new FileInfo(templatePath)))
+                    {
+                        var wsTpl = pkg.Workbook.Worksheets[0];
+
+                        int ordinal = 1;
+                        foreach (var hs in ds)
+                        {
+                            string sheetName = MakeSafeSheetName($"{(hs.MaSoBaoDanh ?? "NoSBD")}-{hs.Ten}", ordinal++);
+                            var ws = pkg.Workbook.Worksheets.Add(sheetName, wsTpl);
+
+                            string hoTen = $"{(hs.Ho ?? "").Trim()} {(hs.Ten ?? "").Trim()}".Trim();
+
+                            // Chuẩn hóa mã phòng hiển thị (bỏ hậu tố _2025 nếu có)
+                            string phong = string.IsNullOrWhiteSpace(hs.PhongThi) ? "" :
+                                           (hs.PhongThi.Contains("_") ? hs.PhongThi.Split('_')[0] : hs.PhongThi);
+
+                            // ====== MAP PLACEHOLDER ======
+                            var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                            {
+                                // SBD / MaSoBaoDanh
+                                ["{SBD}"] = hs.MaSoBaoDanh ?? "",
+                                ["{{SBD}}"] = hs.MaSoBaoDanh ?? "",
+                                ["{MaSoBaoDanh}"] = hs.MaSoBaoDanh ?? "",
+                                ["{{MaSoBaoDanh}}"] = hs.MaSoBaoDanh ?? "",
+
+                                // Họ tên & các thông tin cá nhân
+                                ["{HoTen}"] = hoTen,
+                                ["{{HoTen}}"] = hoTen,
+                                ["{NgaySinh}"] = hs.NgaySinh.ToString("dd/MM/yyyy"),
+                                ["{{NgaySinh}}"] = hs.NgaySinh.ToString("dd/MM/yyyy"),
+                                ["{GioiTinh}"] = hs.GioiTinh ?? "",
+                                ["{{GioiTinh}}"] = hs.GioiTinh ?? "",
+                                ["{DanToc}"] = hs.DanToc ?? "",
+                                ["{{DanToc}}"] = hs.DanToc ?? "",
+                                ["{NoiSinh}"] = hs.NoiSinh ?? "",
+                                ["{{NoiSinh}}"] = hs.NoiSinh ?? "",
+                                ["{TruongTHCS}"] = hs.TruongTHCS ?? "",
+                                ["{{TruongTHCS}}"] = hs.TruongTHCS ?? "",
+
+                                // Phòng thi (đủ cả 2 kiểu khóa)
+                                ["{PhongThi}"] = phong,
+                                ["{{PhongThi}}"] = phong,
+                                ["{MaPhongThi}"] = phong,
+                                ["{{MaPhongThi}}"] = phong,
+
+                                ["{MaTruong}"] = Common.MaTruong ?? "",
+                                ["{{MaTruong}}"] = Common.MaTruong ?? "",
+                                ["{TenTruong}"] = Common.TenTruong ?? "",
+                                ["{{TenTruong}}"] = Common.TenTruong ?? "",
+                                ["{MaDot}"] = maDot,
+                                ["{{MaDot}}"] = maDot,
+                                ["{TenDot}"] = tenDot,
+                                ["{{TenDot}}"] = tenDot,
+                                ["{NgayBatDau}"] = ngayBatDauStr,
+                                ["{{NgayBatDau}}"] = ngayBatDauStr,
+
+                                ["{NgayXuat}"] = ngayXuat,
+                                ["{{NgayXuat}}"] = ngayXuat,
+                                ["{NgayXuat_d}"] = dStr,
+                                ["{{NgayXuat_d}}"] = dStr,
+                                ["{NgayXuat_m}"] = mStr,
+                                ["{{NgayXuat_m}}"] = mStr,
+                                ["{NgayXuat_y}"] = yStr,
+                                ["{{NgayXuat_y}}"] = yStr
+                            };
+
+                            ReplacePlaceholdersInCells(ws, map);
+                            ReplacePlaceholdersInShapes(ws, map);
+                        }
+
+                        pkg.Workbook.Worksheets.Delete(wsTpl);
+                        pkg.SaveAs(new FileInfo(sfd.FileName));
+                    }
+
+                    MessageBox.Show("Đã xuất thẻ dự thi cho tất cả học sinh!", "Thành công",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("Lỗi xuất thẻ: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private static string ResolveTemplatePath(string folder, string fileName)
+        {
+            // Ưu tiên: .\Templates\TheDuThi_Template.xlsx (bin\Debug/Release)
+            string p1 = Path.Combine(Application.StartupPath, folder, fileName);
+            if (File.Exists(p1)) return p1;
+
+            // Dự phòng khi chạy từ VS: ..\..\Templates\TheDuThi_Template.xlsx
+            string p2 = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..", folder, fileName));
+            return p2;
+        }
+
+        private static void ReplacePlaceholdersInCells(ExcelWorksheet ws, Dictionary<string, string> map)
+        {
+            if (ws?.Dimension == null) return;
+            var start = ws.Dimension.Start;
+            var end = ws.Dimension.End;
+
+            for (int r = start.Row; r <= end.Row; r++)
+            {
+                for (int c = start.Column; c <= end.Column; c++)
+                {
+                    var cell = ws.Cells[r, c];
+                    if (cell.Value is string s && s.Contains("{"))
+                    {
+                        string t = s;
+                        foreach (var kv in map)
+                            if (t.Contains(kv.Key)) t = t.Replace(kv.Key, kv.Value ?? "");
+                        if (!ReferenceEquals(t, s)) cell.Value = t;
+                    }
+                }
+            }
+        }
+
+        private static void ReplacePlaceholdersInShapes(ExcelWorksheet ws, Dictionary<string, string> map)
+        {
+            foreach (var d in ws.Drawings)
+            {
+                if (d is ExcelShape shape)
+                {
+                    // EPPlus có hai cách: Text hoặc RichText
+                    if (!string.IsNullOrEmpty(shape.Text))
+                    {
+                        string t = shape.Text;
+                        foreach (var kv in map)
+                            if (t.Contains(kv.Key)) t = t.Replace(kv.Key, kv.Value ?? "");
+                        shape.Text = t;
+                    }
+                    else if (shape.RichText?.Count > 0)
+                    {
+                        var t = string.Concat(shape.RichText.Select(rt => rt.Text));
+                        foreach (var kv in map)
+                            if (t.Contains(kv.Key)) t = t.Replace(kv.Key, kv.Value ?? "");
+
+                        // Ghi lại (đơn giản, không giữ format từng đoạn)
+                        shape.RichText.Clear();
+                        shape.RichText.Add(t);
+                    }
+                }
+            }
+        }
+
+        private static string MakeSafeSheetName(string baseName, int ordinal)
+        {
+            if (string.IsNullOrWhiteSpace(baseName)) baseName = "Sheet";
+            var invalid = new[] { ':', '\\', '/', '?', '*', '[', ']' };
+            var clean = new string(baseName.Where(ch => !invalid.Contains(ch)).ToArray());
+            if (clean.Length > 25) clean = clean.Substring(0, 25);
+            return $"{clean}-{ordinal}".Trim('-');
         }
     }
 }

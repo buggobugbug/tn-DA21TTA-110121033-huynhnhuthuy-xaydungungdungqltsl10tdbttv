@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.XtraBars.Docking2010.DragEngine;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -23,6 +24,32 @@ namespace TuyenSinhWinApp
             cbDotTuyenSinh.SelectedIndexChanged += cbDot_SelectedIndexChanged;
             btnTaiLai.Click += (s, e) => LoadData();
         }
+
+        private void LoadTruongForAdmin()
+        {
+            if (!Common.IsAdmin)
+            {
+                lblTruong.Visible = false;  // label “Trường:”
+                cbTruong.Visible = false;  // combobox chọn trường
+                return;
+            }
+
+            lblTruong.Visible = true;
+            cbTruong.Visible = true;
+
+            var ds = _svc.Admin_LayDanhSachTruong()?.ToList() ?? new List<TruongItem>();
+            // Dòng đầu là “Tất cả”
+            ds.Insert(0, new TruongItem { MaTruong = null, TenTruong = "— Tất cả trường —" });
+
+            cbTruong.DisplayMember = "TenTruong";
+            cbTruong.ValueMember = "MaTruong";
+            cbTruong.DataSource = ds;
+
+            cbTruong.SelectedIndexChanged -= CbTruong_SelectedIndexChanged;
+            cbTruong.SelectedIndexChanged += CbTruong_SelectedIndexChanged;
+        }
+
+
 
         #region UI setup
         private void ApplyGridTheme(DataGridView g)
@@ -65,7 +92,8 @@ namespace TuyenSinhWinApp
 
         private void frmThongKeTHCS_Load(object sender, EventArgs e)
         {
-            LoadDots();       // nạp combobox đợt
+            LoadDots();
+            LoadTruongForAdmin();// nạp combobox đợt
             BuildColumns();   // set up columns 1 lần
             LoadData();       // nạp dữ liệu
         }
@@ -77,6 +105,8 @@ namespace TuyenSinhWinApp
             cbDotTuyenSinh.DisplayMember = "TenDot";
             cbDotTuyenSinh.ValueMember = "MaDot";
             cbDotTuyenSinh.DataSource = ds;
+
+            var maTruongFilter = GetMaTruongFilter();
 
             // chọn sẵn theo Common.MaDot (nếu có)
             if (!string.IsNullOrEmpty(Common.MaDot))
@@ -96,8 +126,10 @@ namespace TuyenSinhWinApp
         {
             // bảo hiểm MaDot rỗng
             var maDot = cbDotTuyenSinh.SelectedValue?.ToString() ?? Common.MaDot ?? "";
-            var data = _svc.ThongKeTheoTHCS(Common.MaTruong, maDot)
-                       ?? Array.Empty<ThongKeTHCSRow>();
+            var maTruongFilter = GetMaTruongFilter();
+            var data = _svc.ThongKeTheoTHCS(maTruongFilter, maDot)
+              ?? Array.Empty<ThongKeTHCSRow>();
+            
 
             dgvTHCS.DataSource = data;
             // tổng hợp TB (trọng số theo tổng TS từng trường)
@@ -244,6 +276,19 @@ namespace TuyenSinhWinApp
             ApplyGridTheme(h);
 
             _columnsBuilt = true;
+        }
+
+
+        private void CbTruong_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private string GetMaTruongFilter()
+        {
+            if (Common.IsAdmin)
+                return cbTruong.SelectedValue as string; // có thể null (tức toàn tỉnh)
+            return Common.MaTruong; // cán bộ trường / thư ký
         }
     }
 }

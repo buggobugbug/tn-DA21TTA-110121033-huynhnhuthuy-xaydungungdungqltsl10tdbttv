@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.mainpanel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnLoc = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -38,6 +39,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnLoc);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -54,6 +56,21 @@
             this.mainpanel1.Name = "mainpanel1";
             this.mainpanel1.Size = new System.Drawing.Size(1658, 846);
             this.mainpanel1.TabIndex = 1;
+            // 
+            // button2
+            // 
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Image = global::TuyenSinhWinApp.Properties.Resources.absence;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button2.Location = new System.Drawing.Point(342, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(125, 107);
+            this.button2.TabIndex = 46;
+            this.button2.Text = "Thống kê học sinh vắng thi";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -107,5 +124,6 @@
         private System.Windows.Forms.Button btnLoc;
         private System.Windows.Forms.Panel mainpanel1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

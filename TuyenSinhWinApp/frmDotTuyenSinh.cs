@@ -28,6 +28,41 @@ namespace TuyenSinhWinApp
             }
         }
 
+        private void ApplyPermissions()
+        {
+            // Giả sử bạn đã có Common.IsAdmin (true khi là Admin Sở)
+            bool canEdit = Common.IsAdmin;
+
+            // Nút thao tác
+            btnThem.Enabled = canEdit;
+            btnCapNhat.Enabled = canEdit;
+
+            // Khóa/mở các input
+            SetEditable(canEdit);
+
+            // Grid chỉ để xem
+            dgvDotTuyenSinh.ReadOnly = true;
+            dgvDotTuyenSinh.AllowUserToAddRows = false;
+            dgvDotTuyenSinh.AllowUserToDeleteRows = false;
+            dgvDotTuyenSinh.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // Gợi ý: nếu muốn “tối” nút khi không có quyền (UI rõ ràng hơn)
+            btnThem.Cursor = canEdit ? Cursors.Hand : Cursors.No;
+            btnCapNhat.Cursor = canEdit ? Cursors.Hand : Cursors.No;
+        }
+
+        private void SetEditable(bool canEdit)
+        {
+            // TextBox có ReadOnly
+            txtMaDot.ReadOnly = !canEdit;
+            txtTenDot.ReadOnly = !canEdit;
+
+            // DateTimePicker & ComboBox không có ReadOnly => dùng Enabled
+            dtpBatDau.Enabled = canEdit;
+            dtpKetThuc.Enabled = canEdit;
+            cboTrangThai.Enabled = canEdit;
+        }
+
         private void frmDotTuyenSinh_Load(object sender, EventArgs e)
         {
             dgvDotTuyenSinh.CellClick += dgvDotTuyenSinh_CellClick;
@@ -35,9 +70,17 @@ namespace TuyenSinhWinApp
             cboTrangThai.Items.Add("DangMo");
             cboTrangThai.Items.Add("DaDong");
             LoadDanhSachDot();
+            ApplyPermissions();
         }
         private void btnThem_Click(object sender, EventArgs e)
         {
+            if (!Common.IsAdmin)
+            {
+                MessageBox.Show("Bạn không có quyền thực hiện thao tác này.", "Không có quyền",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 if (string.IsNullOrWhiteSpace(txtMaDot.Text) || string.IsNullOrWhiteSpace(txtTenDot.Text))
@@ -116,6 +159,12 @@ namespace TuyenSinhWinApp
 
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
+            if (!Common.IsAdmin)
+            {
+                MessageBox.Show("Bạn không có quyền thực hiện thao tác này.", "Không có quyền",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             try
             {
                 if (string.IsNullOrWhiteSpace(txtMaDot.Text))

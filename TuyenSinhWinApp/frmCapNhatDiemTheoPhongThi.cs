@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TuyenSinhServiceLib;
+using System.Globalization;
 using TuyenSinhWinApp.TuyenSinhServiceReference;
 
 namespace TuyenSinhWinApp
@@ -35,6 +36,8 @@ namespace TuyenSinhWinApp
         private void frmCapNhatDiemTheoPhongThi_Load(object sender, EventArgs e)
         {
             NapDanhSachDotTuyen();
+            Guard.DisableForThuKy(
+                btnLuuDiem);
         }
 
         private void NapDanhSachDotTuyen()
@@ -53,6 +56,60 @@ namespace TuyenSinhWinApp
                 cbDotTuyenSinh.SelectedValue = Common.MaDot;
         }
 
+        private string ReadScoreText(object val)
+        {
+            var s = val?.ToString()?.Trim();
+            if (string.IsNullOrWhiteSpace(s)) return null;
+
+            // các cách nhập “vắng”
+            if (string.Equals(s, "v", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(s, "vang", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(s, "vắng", StringComparison.OrdinalIgnoreCase))
+            {
+                return "Vắng";
+            }
+
+            // Ưu tiên theo ký tự người dùng gõ
+            decimal d;
+            if (s.Contains(".") && !s.Contains(",")) // dùng . làm dấu thập phân
+            {
+                if (decimal.TryParse(s, NumberStyles.Number, CultureInfo.InvariantCulture, out d))
+                    return d.ToString("0.##", CultureInfo.InvariantCulture);
+            }
+            if (s.Contains(",") && !s.Contains(".")) // dùng , làm dấu thập phân
+            {
+                if (decimal.TryParse(s, NumberStyles.Number, CultureInfo.GetCultureInfo("vi-VN"), out d))
+                    return d.ToString("0.##", CultureInfo.InvariantCulture);
+            }
+
+            // Fallback: tránh case "7.75" → 775 nên ưu tiên Invariant trước
+            if (decimal.TryParse(s, NumberStyles.Number, CultureInfo.InvariantCulture, out d) ||
+                decimal.TryParse(s, NumberStyles.Number, CultureInfo.GetCultureInfo("vi-VN"), out d) ||
+                decimal.TryParse(s, NumberStyles.Number, CultureInfo.CurrentCulture, out d))
+            {
+                return d.ToString("0.##", CultureInfo.InvariantCulture);
+            }
+
+            // không parse được thì giữ nguyên (VD: chuỗi đặc biệt)
+            return s;
+        }
+
+        // ====== OVERLOAD MỚI: nhận string (để dùng được với proxy trả về string) ======
+        private string FormatScoreStr(string s)
+        {
+            // cho phép null / "Vắng" / số dạng text, và chuẩn hóa về chuỗi hiển thị
+            return ReadScoreText(s);
+        }
+
+        private string FormatScoreStr(decimal? d)
+        {
+            return d.HasValue ? d.Value.ToString("0.##", CultureInfo.InvariantCulture) : null;
+        }
+
+        private string ToScoreString(decimal? d)
+        {
+            return d.HasValue ? d.Value.ToString("0.##", CultureInfo.InvariantCulture) : null;
+        }
 
         private void btnXemHocSinh_Click(object sender, EventArgs e)
         {
@@ -67,7 +124,6 @@ namespace TuyenSinhWinApp
                 NapDanhSachPhongThi();
             }
         }
-
 
         private void NapDanhSachPhongThi()
         {
@@ -98,7 +154,6 @@ namespace TuyenSinhWinApp
         {
             try
             {
-                // Kiểm tra chọn phòng thi và môn học đã hợp lệ chưa
                 if (cboPhongThi.SelectedValue == null || cboMonHoc.SelectedItem == null)
                 {
                     dgvDanhSachHocSinh.DataSource = null;
@@ -108,63 +163,57 @@ namespace TuyenSinhWinApp
                 string maPhongThi = cboPhongThi.SelectedValue.ToString();
                 string mon = cboMonHoc.SelectedItem.ToString();
 
-                // Lấy danh sách học sinh từ Service
                 var dsHocSinh = _service.LayDanhSachHocSinhTheoPhong(Common.MaTruong, Common.MaDot, maPhongThi);
 
-                // Tạo bảng dữ liệu
                 var dt = new DataTable();
                 dt.Columns.Add("MaHocSinh", typeof(int));
                 dt.Columns.Add("SBD");
                 dt.Columns.Add("Họ và tên");
                 dt.Columns.Add("Ngày sinh");
                 dt.Columns.Add("Tên trường THCS");
-                dt.Columns.Add("Điểm", typeof(decimal));
+                dt.Columns.Add("Điểm", typeof(string)); // cột Điểm là string để hiển thị cả “Vắng”
 
                 foreach (var hs in dsHocSinh)
                 {
-                    object diem = DBNull.Value;
+                    string diemStr = null;
                     switch (mon)
                     {
-                        case "Toán": diem = hs.DiemToan ?? (object)DBNull.Value; break;
-                        case "Văn": diem = hs.DiemVan ?? (object)DBNull.Value; break;
-                        case "Anh": diem = hs.DiemAnh ?? (object)DBNull.Value; break;
-                        case "Điểm Khuyến Khích": diem = hs.DiemKhuyenKhich ?? (object)DBNull.Value; break;
-                        case "Điểm Ưu Tiên": diem = hs.DiemUuTien ?? (object)DBNull.Value; break;
-                        default: diem = DBNull.Value; break;
+                        // CHÚ Ý: nhờ overload, dù proxy trả về string hay decimal? đều OK
+                        case "Toán": diemStr = FormatScoreStr(hs.DiemToan); break;
+                        case "Văn": diemStr = FormatScoreStr(hs.DiemVan); break;
+                        case "Anh": diemStr = FormatScoreStr(hs.DiemAnh); break;
+                        case "Điểm Khuyến Khích": diemStr = FormatScoreStr(hs.DiemKhuyenKhich); break;
+                        case "Điểm Ưu Tiên": diemStr = FormatScoreStr(hs.DiemUuTien); break;
                     }
+
                     dt.Rows.Add(
                         hs.MaHocSinh,
                         hs.MaSoBaoDanh,
                         $"{hs.Ho} {hs.Ten}",
                         hs.NgaySinh.ToString("dd/MM/yyyy"),
                         hs.TruongTHCS,
-                        diem
+                        diemStr
                     );
                 }
 
-                // Gán nguồn dữ liệu cho DataGridView
                 dgvDanhSachHocSinh.DataSource = dt;
 
-                // Ẩn cột mã học sinh
                 if (dgvDanhSachHocSinh.Columns["MaHocSinh"] != null)
                     dgvDanhSachHocSinh.Columns["MaHocSinh"].Visible = false;
 
-                // Căn giữa header, font chuẩn
                 dgvDanhSachHocSinh.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dgvDanhSachHocSinh.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
                 dgvDanhSachHocSinh.DefaultCellStyle.Font = new Font("Segoe UI", 10);
 
-                // Chỉ cho phép nhập cột điểm, còn lại không cho sửa
                 foreach (DataGridViewColumn col in dgvDanhSachHocSinh.Columns)
                 {
                     col.ReadOnly = col.Name != "Điểm";
-                    col.DefaultCellStyle.Alignment = col.Name == "Điểm" ? DataGridViewContentAlignment.MiddleCenter : DataGridViewContentAlignment.MiddleLeft;
+                    col.DefaultCellStyle.Alignment = col.Name == "Điểm"
+                        ? DataGridViewContentAlignment.MiddleCenter
+                        : DataGridViewContentAlignment.MiddleLeft;
                 }
 
-                // Đặt lại tiêu đề cho cột điểm
                 dgvDanhSachHocSinh.Columns["Điểm"].HeaderText = $"Điểm {mon}";
-
-                // Auto fit columns
                 dgvDanhSachHocSinh.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             catch (Exception ex)
@@ -174,51 +223,104 @@ namespace TuyenSinhWinApp
             }
         }
 
-
         private void btnLuuDiem_Click(object sender, EventArgs e)
         {
+            if (cboPhongThi.SelectedValue == null || cboMonHoc.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn phòng thi và môn học.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string mon = cboMonHoc.SelectedItem.ToString();
+            string maPhongThi = cboPhongThi.SelectedValue.ToString();
+
+            // lấy danh sách gốc 1 lần
+            var hsPhong = _service.LayDanhSachHocSinhTheoPhong(Common.MaTruong, Common.MaDot, maPhongThi) ?? new HocSinh[0];
+            var map = hsPhong.ToDictionary(h => h.MaHocSinh);
+
             int count = 0;
-            string mon = cboMonHoc.SelectedItem?.ToString();
+
             foreach (DataGridViewRow row in dgvDanhSachHocSinh.Rows)
             {
                 if (row.IsNewRow) continue;
 
                 int maHS = Convert.ToInt32(row.Cells["MaHocSinh"].Value);
-                decimal? diem = TryParseDecimal(row.Cells["Điểm"].Value);
 
-                // Lấy điểm cũ nếu null (không cập nhật)
-                var hsGoc = _service.LayDanhSachHocSinhTheoPhong(Common.MaTruong, Common.MaDot, cboPhongThi.SelectedValue.ToString())
-                .FirstOrDefault(h => h.MaHocSinh == maHS);
+                if (!map.TryGetValue(maHS, out var hsGoc)) continue;
 
-                decimal? diemToan = hsGoc.DiemToan;
-                decimal? diemVan = hsGoc.DiemVan;
-                decimal? diemAnh = hsGoc.DiemAnh;
-                decimal? diemKhuyenKhich = hsGoc.DiemKhuyenKhich;
-                decimal? diemUuTien = hsGoc.DiemUuTien;
+                // chuẩn bị tham số theo chữ ký mới: (int, string, string, string, decimal?, decimal?)
+                // Nhờ overload ở FormatScoreStr, cả kiểu string/decimal? đều OK
+                string sToan = FormatScoreStr(hsGoc.DiemToan);
+                string sVan = FormatScoreStr(hsGoc.DiemVan);
+                string sAnh = FormatScoreStr(hsGoc.DiemAnh);
+                decimal? diemKK = TryParseDecimal(hsGoc.DiemKhuyenKhich);
+                decimal? diemUT = TryParseDecimal(hsGoc.DiemUuTien);
+
+                // giá trị người dùng vừa nhập
+                var cellVal = row.Cells["Điểm"].Value;
 
                 switch (mon)
                 {
-                    case "Toán": diemToan = diem; break;
-                    case "Văn": diemVan = diem; break;
-                    case "Anh": diemAnh = diem; break;
-                    case "Điểm Khuyến Khích": diemKhuyenKhich = diem; break;
-                    case "Điểm Ưu Tiên": diemUuTien = diem; break;
+                    case "Toán":
+                        sToan = ReadScoreText(cellVal);          // string
+                        break;
+                    case "Văn":
+                        sVan = ReadScoreText(cellVal);           // string
+                        break;
+                    case "Anh":
+                        sAnh = ReadScoreText(cellVal);           // string
+                        break;
+                    case "Điểm Khuyến Khích":
+                        diemKK = TryParseDecimal(cellVal);       // decimal?
+                        break;
+                    case "Điểm Ưu Tiên":
+                        diemUT = TryParseDecimal(cellVal);       // decimal?
+                        break;
                 }
 
-                // Gọi cập nhật điểm
-                if (_service.CapNhatDiemHocSinh(maHS, diemToan, diemVan, diemAnh, diemKhuyenKhich, diemUuTien))
+                // GỌI API chữ ký mới: (int, string, string, string, decimal?, decimal?)
+                if (_service.CapNhatDiemHocSinh(maHS, sToan, sVan, sAnh, diemKK, diemUT))
                     count++;
             }
-            MessageBox.Show($"Đã lưu điểm cho {count} học sinh!", "Cập nhật thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            MessageBox.Show($"Đã lưu điểm cho {count} học sinh!", "Cập nhật thành công",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             NapDanhSachHocSinh();
         }
 
         private decimal? TryParseDecimal(object val)
         {
-            decimal temp;
-            if (val == null || string.IsNullOrWhiteSpace(val.ToString())) return null;
-            return decimal.TryParse(val.ToString(), out temp) ? temp : (decimal?)null;
+            if (val == null) return null;
+            var s = val.ToString().Trim();
+            if (string.IsNullOrEmpty(s)) return null;
+
+            // bỏ qua các giá trị không phải số
+            if (s.Equals("v", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("vang", StringComparison.OrdinalIgnoreCase) ||
+                s.Equals("vắng", StringComparison.OrdinalIgnoreCase))
+                return null;
+
+            decimal d;
+            if (s.Contains(".") && !s.Contains(","))
+            {
+                if (decimal.TryParse(s, NumberStyles.Number, CultureInfo.InvariantCulture, out d))
+                    return d;
+            }
+            if (s.Contains(",") && !s.Contains("."))
+            {
+                if (decimal.TryParse(s, NumberStyles.Number, CultureInfo.GetCultureInfo("vi-VN"), out d))
+                    return d;
+            }
+
+            if (decimal.TryParse(s, NumberStyles.Number, CultureInfo.InvariantCulture, out d) ||
+                decimal.TryParse(s, NumberStyles.Number, CultureInfo.GetCultureInfo("vi-VN"), out d) ||
+                decimal.TryParse(s, NumberStyles.Number, CultureInfo.CurrentCulture, out d))
+                return d;
+
+            return null;
         }
+
 
         private void label11_Click(object sender, EventArgs e)
         {

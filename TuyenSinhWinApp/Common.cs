@@ -18,5 +18,12 @@ namespace TuyenSinhWinApp
         public static string SoDienThoai { get; set; }
         public static string Email { get; set; }
 
+        public static string VaiTro { get; set; }
+        public static bool IsAdmin => VaiTro == "AdminSo";
+        public static bool IsCanBo => string.Equals(VaiTro, "CanBoTruong", StringComparison.OrdinalIgnoreCase);
+        public static bool IsThuKy =>
+        string.Equals(VaiTro, "ThuKy", StringComparison.OrdinalIgnoreCase);
+
+
     }
 }

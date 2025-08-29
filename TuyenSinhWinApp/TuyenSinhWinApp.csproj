@@ -150,6 +150,24 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ExcelHelper.cs" />
+    <Compile Include="Frmadmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frmadmin.Designer.cs">
+      <DependentUpon>Frmadmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdminCapNhatDiemTheoPhongThi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdminCapNhatDiemTheoPhongThi.Designer.cs">
+      <DependentUpon>frmAdminCapNhatDiemTheoPhongThi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdminHocSinh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdminHocSinh.Designer.cs">
+      <DependentUpon>frmAdminHocSinh.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCapNhatDiemTheoPhongThi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +210,18 @@
     <Compile Include="frmPhongThi.Designer.cs">
       <DependentUpon>frmPhongThi.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmQuanLyTaiKhoan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQuanLyTaiKhoan.Designer.cs">
+      <DependentUpon>frmQuanLyTaiKhoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmQuanLyTruongHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQuanLyTruongHoc.Designer.cs">
+      <DependentUpon>frmQuanLyTruongHoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmThongKe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,10 +234,26 @@
     <Compile Include="frmThongKeTHCS.Designer.cs">
       <DependentUpon>frmThongKeTHCS.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmThongKeVangThi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThongKeVangThi.Designer.cs">
+      <DependentUpon>frmThongKeVangThi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Guard.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ChiTieu.resx">
       <DependentUpon>ChiTieu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frmadmin.resx">
+      <DependentUpon>Frmadmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdminCapNhatDiemTheoPhongThi.resx">
+      <DependentUpon>frmAdminCapNhatDiemTheoPhongThi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdminHocSinh.resx">
+      <DependentUpon>frmAdminHocSinh.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCapNhatDiemTheoPhongThi.resx">
       <DependentUpon>frmCapNhatDiemTheoPhongThi.cs</DependentUpon>
@@ -230,11 +276,20 @@
     <EmbeddedResource Include="frmPhongThi.resx">
       <DependentUpon>frmPhongThi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmQuanLyTaiKhoan.resx">
+      <DependentUpon>frmQuanLyTaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmQuanLyTruongHoc.resx">
+      <DependentUpon>frmQuanLyTruongHoc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmThongKe.resx">
       <DependentUpon>frmThongKe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThongKeTHCS.resx">
       <DependentUpon>frmThongKeTHCS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmThongKeVangThi.resx">
+      <DependentUpon>frmThongKeVangThi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -261,10 +316,16 @@
     <None Include="Properties\DataSources\TuyenSinhServiceLib.DotTuyenSinh.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.HocSinh.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.KetQuaDangNhap.datasource" />
+    <None Include="Properties\DataSources\TuyenSinhServiceLib.KetQuaDon.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.KetQuaThemHocSinh.datasource" />
+    <None Include="Properties\DataSources\TuyenSinhServiceLib.KetQuaThemNguoiDung.datasource" />
+    <None Include="Properties\DataSources\TuyenSinhServiceLib.NguoiDung.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.PhongThi.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.ThongKeDiemMon.datasource" />
     <None Include="Properties\DataSources\TuyenSinhServiceLib.ThongKeTHCSRow.datasource" />
+    <None Include="Properties\DataSources\TuyenSinhServiceLib.TruongHoc.datasource" />
+    <None Include="Properties\DataSources\TuyenSinhServiceLib.TruongItem.datasource" />
+    <None Include="Properties\DataSources\TuyenSinhServiceLib.VangThiResult.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -343,8 +404,21 @@
     <None Include="Resources\communications.png" />
     <None Include="Resources\infographic.png" />
     <None Include="Resources\communications %282%29.png" />
+    <None Include="Resources\absence.png" />
+    <None Include="Resources\refresh-page-option.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\delete %281%29.png" />
+    <None Include="Resources\delete %282%29.png" />
+    <None Include="Resources\updated.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\reload.png" />
+    <None Include="Resources\user %281%29.png" />
+    <None Include="Resources\school.png" />
+    <Content Include="Templates\Mẫu.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\TheDuThi_Template.xlsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

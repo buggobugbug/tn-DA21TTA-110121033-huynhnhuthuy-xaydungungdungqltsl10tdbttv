@@ -45,3 +45,10 @@ C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSin
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmThongKe.resources
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmLoaiThongKe.resources
 C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmThongKeTHCS.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.Frmadmin.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmAdminHocSinh.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmAdminCapNhatDiemTheoPhongThi.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmQuanLyTaiKhoan.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmQuanLyTruongHoc.resources
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\bin\Debug\Templates\Mẫu.xlsx
+C:\Users\PCM\source\repos\TuyenSinh10Solution\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmThongKeVangThi.resources

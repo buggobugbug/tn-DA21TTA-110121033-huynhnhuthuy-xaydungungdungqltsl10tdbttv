@@ -13,19 +13,21 @@
       <xs:element minOccurs="0" name="HoTen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MaNguoiDung" type="xs:int" />
       <xs:element minOccurs="0" name="MaTruong" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MatKhau" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TenDangNhap" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VaiTro" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="NguoiDung" nillable="true" type="tns:NguoiDung" />
   <xs:complexType name="HocSinh">
     <xs:sequence>
       <xs:element minOccurs="0" name="DanToc" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DiemAnh" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DiemAnh" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiemKhuyenKhich" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="DiemToan" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DiemToan" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiemTong" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="DiemUuTien" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="DiemVan" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DiemVan" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GhiChu" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GioiTinh" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Ho" nillable="true" type="xs:string" />
@@ -150,4 +152,77 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ThongKeTHCSRow" nillable="true" type="tns:ThongKeTHCSRow" />
+  <xs:complexType name="VangThiResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DanhSach" nillable="true" type="tns:ArrayOfVangThiHocSinhItem" />
+      <xs:element minOccurs="0" name="TongHop" nillable="true" type="tns:VangThiTongHop" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="VangThiResult" nillable="true" type="tns:VangThiResult" />
+  <xs:complexType name="ArrayOfVangThiHocSinhItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="VangThiHocSinhItem" nillable="true" type="tns:VangThiHocSinhItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVangThiHocSinhItem" nillable="true" type="tns:ArrayOfVangThiHocSinhItem" />
+  <xs:complexType name="VangThiHocSinhItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Ho" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaHocSinh" type="xs:int" />
+      <xs:element minOccurs="0" name="MaSoBaoDanh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaTruong" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhongThi" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ten" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TruongTHCS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VangAnh" type="xs:boolean" />
+      <xs:element minOccurs="0" name="VangAny" type="xs:boolean" />
+      <xs:element minOccurs="0" name="VangToan" type="xs:boolean" />
+      <xs:element minOccurs="0" name="VangVan" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="VangThiHocSinhItem" nillable="true" type="tns:VangThiHocSinhItem" />
+  <xs:complexType name="VangThiTongHop">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TongVangAny" type="xs:int" />
+      <xs:element minOccurs="0" name="VangAnh" type="xs:int" />
+      <xs:element minOccurs="0" name="VangToan" type="xs:int" />
+      <xs:element minOccurs="0" name="VangVan" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="VangThiTongHop" nillable="true" type="tns:VangThiTongHop" />
+  <xs:complexType name="ArrayOfTruongItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TruongItem" nillable="true" type="tns:TruongItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTruongItem" nillable="true" type="tns:ArrayOfTruongItem" />
+  <xs:complexType name="TruongItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MaTruong" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TenTruong" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TruongItem" nillable="true" type="tns:TruongItem" />
+  <xs:complexType name="ArrayOfNguoiDung">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NguoiDung" nillable="true" type="tns:NguoiDung" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNguoiDung" nillable="true" type="tns:ArrayOfNguoiDung" />
+  <xs:complexType name="TruongHoc">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DiaChi" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaTruong" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SoDienThoai" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TenTruong" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TruongHoc" nillable="true" type="tns:TruongHoc" />
+  <xs:complexType name="ArrayOfTruongHoc">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TruongHoc" nillable="true" type="tns:TruongHoc" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTruongHoc" nillable="true" type="tns:ArrayOfTruongHoc" />
 </xs:schema>

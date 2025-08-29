@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TuyenSinhServiceLib;
 using TuyenSinhWinApp.TuyenSinhServiceReference;
 
 namespace TuyenSinhWinApp
@@ -41,6 +42,7 @@ namespace TuyenSinhWinApp
             cbDotTuyenSinh.DataSource = dsDot;
             cbDotTuyenSinh.DisplayMember = "TenDot";
             cbDotTuyenSinh.ValueMember = "MaDot";
+            LoadTruongForAdmin();
 
             if (!string.IsNullOrEmpty(Common.MaDot))
                 cbDotTuyenSinh.SelectedValue = Common.MaDot;
@@ -56,19 +58,31 @@ namespace TuyenSinhWinApp
         {
             try
             {
-                var maTruong = Common.MaTruong;
                 var maDot = cbDotTuyenSinh.SelectedValue?.ToString();
-
-                if (string.IsNullOrWhiteSpace(maTruong) || string.IsNullOrWhiteSpace(maDot))
+                if (string.IsNullOrWhiteSpace(maDot))
                 {
                     dgvThongKeMon.DataSource = null;
+                    dgvBoThiMon.DataSource = null;
                     return;
                 }
 
-                var data = _service.ThongKeDiemTheoMon(maTruong, maDot);
-                if (data == null) { dgvThongKeMon.DataSource = null; return; }
+                // Lấy filter theo quyền:
+                // - Admin: lấy từ combobox cbTruong; null => toàn tỉnh
+                // - Cán bộ/Thư ký: dùng Common.MaTruong
+                var maTruongFilter = GetMaTruongFilter();
 
-                // PIVOT thành bảng như ảnh: hàng = Văn/AV/Toán, cột 0..10 bước 0.25 + TC
+                var data = _service.ThongKeDiemTheoMon(
+                    string.IsNullOrEmpty(maTruongFilter) ? null : maTruongFilter,
+                    maDot);
+
+                if (data == null)
+                {
+                    dgvThongKeMon.DataSource = null;
+                    dgvBoThiMon.DataSource = null;
+                    return;
+                }
+
+                // PIVOT thành bảng: hàng = Văn/AV/Toán, cột 0..10 bước 0.25 + TC
                 var dt = new DataTable();
                 dt.Columns.Add("Môn");
 
@@ -78,7 +92,7 @@ namespace TuyenSinhWinApp
 
                 dt.Columns.Add("TC", typeof(int));
 
-                foreach (var monHienThi in new[] { "Văn", "AV", "Toán" }) // thứ tự như ảnh
+                foreach (var monHienThi in new[] { "Văn", "AV", "Toán" })
                 {
                     string monTrongData = monHienThi == "AV" ? "Anh" : monHienThi;
 
@@ -103,6 +117,7 @@ namespace TuyenSinhWinApp
                     c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dgvThongKeMon.Columns["Môn"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
+                // Bảng "Bỏ thi"
                 var dtBoThi = new DataTable();
                 dtBoThi.Columns.Add("Môn");
                 dtBoThi.Columns.Add("Bỏ thi", typeof(int));
@@ -125,6 +140,7 @@ namespace TuyenSinhWinApp
             }
         }
 
+
         private void FormatGrid()
         {
             var dgv = dgvThongKeMon;
@@ -145,6 +161,42 @@ namespace TuyenSinhWinApp
         private void lblTitle_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void LoadTruongForAdmin()
+        {
+            if (!Common.IsAdmin)
+            {
+                lblTruong.Visible = false;  // label “Trường:”
+                cbTruong.Visible = false;  // combobox chọn trường
+                return;
+            }
+
+            lblTruong.Visible = true;
+            cbTruong.Visible = true;
+
+            var ds = _service.Admin_LayDanhSachTruong()?.ToList() ?? new List<TruongItem>();
+            // Dòng đầu là “Tất cả”
+            ds.Insert(0, new TruongItem { MaTruong = null, TenTruong = "— Tất cả trường —" });
+
+            cbTruong.DisplayMember = "TenTruong";
+            cbTruong.ValueMember = "MaTruong";
+            cbTruong.DataSource = ds;
+
+            cbTruong.SelectedIndexChanged -= cbTruong_SelectedIndexChanged;
+            cbTruong.SelectedIndexChanged += cbTruong_SelectedIndexChanged;
+        }
+
+        private string GetMaTruongFilter()
+        {
+            if (Common.IsAdmin)
+                return cbTruong.SelectedValue as string; // có thể null (tức toàn tỉnh)
+            return Common.MaTruong; // cán bộ trường / thư ký
+        }
+
+        private void cbTruong_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadThongKeTheoMon();
         }
     }
 }

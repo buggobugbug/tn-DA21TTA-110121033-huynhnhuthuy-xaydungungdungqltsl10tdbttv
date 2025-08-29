@@ -10,6 +10,9 @@ namespace TuyenSinhServiceLib
         [DataMember] public string TenDangNhap { get; set; }
         [DataMember] public string HoTen { get; set; }
         [DataMember] public string MaTruong { get; set; }
+        [DataMember] public string VaiTro { get; set; }
+        [DataMember] public string MatKhau { get; set; }
+
     }
 
     [DataContract]
@@ -34,9 +37,9 @@ namespace TuyenSinhServiceLib
         [DataMember] public string TruongTHCS { get; set; }
         [DataMember] public string MaTruong { get; set; }
         [DataMember] public string MaDot { get; set; }
-        [DataMember] public decimal? DiemToan { get; set; }
-        [DataMember] public decimal? DiemVan { get; set; }
-        [DataMember] public decimal? DiemAnh { get; set; }
+        [DataMember] public string DiemToan { get; set; }
+        [DataMember] public string DiemVan { get; set; }
+        [DataMember] public string DiemAnh { get; set; }
         [DataMember] public decimal? DiemTong { get; set; }
         [DataMember] public decimal? DiemKhuyenKhich { get; set; }
         [DataMember] public decimal? DiemUuTien { get; set; }
@@ -103,8 +106,8 @@ namespace TuyenSinhServiceLib
     [DataContract]
     public class ThongKeDiemMon
     {
-        [DataMember] public string Mon { get; set; }     
-        [DataMember] public decimal Muc { get; set; }    
+        [DataMember] public string Mon { get; set; }
+        [DataMember] public decimal Muc { get; set; }
         [DataMember] public int SoLuong { get; set; }
         [DataMember] public bool BoThi { get; set; }
     }
@@ -136,6 +139,57 @@ namespace TuyenSinhServiceLib
         [DataMember] public int Hong { get; set; }
         [DataMember] public decimal TyLeHong { get; set; }
     }
+
+    [DataContract]
+    public class TruongItem
+    {
+        [DataMember] public string MaTruong { get; set; }
+        [DataMember] public string TenTruong { get; set; }
+    }
+
+    [DataContract]
+    public class TruongHoc
+    {
+        [DataMember] public string MaTruong { get; set; }
+        [DataMember] public string TenTruong { get; set; }
+        [DataMember] public string DiaChi { get; set; }
+        [DataMember] public string SoDienThoai { get; set; }
+        [DataMember] public string Email { get; set; }
+    }
+
+    [DataContract]
+    public class VangThiHocSinhItem
+    {
+        [DataMember] public int MaHocSinh { get; set; }
+        [DataMember] public string MaSoBaoDanh { get; set; }
+        [DataMember] public string Ho { get; set; }
+        [DataMember] public string Ten { get; set; }
+        [DataMember] public string TruongTHCS { get; set; }
+        [DataMember] public string PhongThi { get; set; }
+        [DataMember] public string MaTruong { get; set; }
+        [DataMember] public bool VangToan { get; set; }
+        [DataMember] public bool VangVan { get; set; }
+        [DataMember] public bool VangAnh { get; set; }
+        [DataMember] public bool VangAny { get; set; }
+    }
+
+    [DataContract]
+    public class VangThiTongHop
+    {
+        [DataMember] public int TongVangAny { get; set; }
+        [DataMember] public int VangToan { get; set; }
+        [DataMember] public int VangVan { get; set; }
+        [DataMember] public int VangAnh { get; set; }
+    }
+
+    [DataContract]
+    public class VangThiResult
+    {
+        [DataMember] public VangThiHocSinhItem[] DanhSach { get; set; }
+        [DataMember] public VangThiTongHop TongHop { get; set; }
+    }
+
+
 
 
 }

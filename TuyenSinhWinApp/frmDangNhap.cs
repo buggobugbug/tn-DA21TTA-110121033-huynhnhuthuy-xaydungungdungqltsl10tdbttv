@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Configuration; // ✔️ Đảm bảo bạn đã thêm reference này
 using TuyenSinhWinApp.TuyenSinhServiceReference;
 using TuyenSinhServiceLib;
+using System.Linq;
 
 namespace TuyenSinhWinApp
 {
@@ -31,31 +32,44 @@ namespace TuyenSinhWinApp
 
                 if (result.ThanhCong)
                 {
-                    // Lưu thông tin vào biến toàn cục
+                    // Lưu session
                     Common.MaNguoiDung = result.NguoiDung.MaNguoiDung;
                     Common.HoTen = result.NguoiDung.HoTen;
-                    Common.MaTruong = result.NguoiDung.MaTruong;
+                    Common.MaTruong = result.NguoiDung.MaTruong;   // có thể null với AdminSo
                     Common.TenDangNhap = result.NguoiDung.TenDangNhap;
+                    Common.VaiTro = result.NguoiDung.VaiTro;     // <-- NEW
 
-                    // Lấy tên trường từ CSDL
-                    using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TuyenSinhDB"].ConnectionString))
+                    // Lấy tên trường nếu có MaTruong
+                    if (!string.IsNullOrWhiteSpace(Common.MaTruong))
                     {
-                        var cmd = new SqlCommand("SELECT TenTruong FROM TRUONG_HOC WHERE MaTruong=@MaTruong", conn);
-                        cmd.Parameters.AddWithValue("@MaTruong", Common.MaTruong);
-                        conn.Open();
-                        Common.TenTruong = cmd.ExecuteScalar()?.ToString();
+                        using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TuyenSinhDB"].ConnectionString))
+                        {
+                            var cmd = new SqlCommand("SELECT TenTruong FROM TRUONG_HOC WHERE MaTruong=@MaTruong", conn);
+                            cmd.Parameters.AddWithValue("@MaTruong", Common.MaTruong);
+                            conn.Open();
+                            Common.TenTruong = cmd.ExecuteScalar()?.ToString();
+                        }
+                    }
+                    else
+                    {
+                        Common.TenTruong = null;
                     }
 
+                    // Lấy đợt đang mở (nếu có)
                     var dsDot = client.LayDanhSachDotTuyen();
-                    var dotDangMo = dsDot != null ? Array.Find(dsDot, d => d.TrangThai == "DangMo") : null;
-                    if (dotDangMo != null)
-                        Common.MaDot = dotDangMo.MaDot;
-                    else
-                        Common.MaDot = null;
+                    var dotDangMo = dsDot?.FirstOrDefault(d =>
+                        string.Equals(d.TrangThai, "DangMo", StringComparison.OrdinalIgnoreCase));
+                    Common.MaDot = dotDangMo?.MaDot;
 
+                    // Điều hướng theo vai trò
                     this.Hide();
-                    var mainForm = new frmMain();
-                    mainForm.ShowDialog();
+                    Form next;
+                    if (Common.IsAdmin)
+                        next = new Frmadmin();    
+                    else
+                        next = new frmMain();
+
+                    next.ShowDialog();
                     this.Close();
                 }
                 else
@@ -63,6 +77,7 @@ namespace TuyenSinhWinApp
                     MessageBox.Show(result.ThongBao, "Đăng nhập thất bại",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
             }
             catch (Exception ex)
             {
@@ -93,6 +108,11 @@ namespace TuyenSinhWinApp
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnThoat_Click_1(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

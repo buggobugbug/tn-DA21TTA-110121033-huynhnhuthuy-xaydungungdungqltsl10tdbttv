@@ -124,8 +124,8 @@
   <data name="plus (1)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\plus (1)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menu" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\menu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="graduation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\graduation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -135,6 +135,9 @@
   </data>
   <data name="pass (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pass (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="web" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\web.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ảnh trường" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ảnh trường.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,9 +181,6 @@
   <data name="book1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\book1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="education (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\education (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="education" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\education.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -201,6 +201,9 @@
   </data>
   <data name="floppy-disk" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\floppy-disk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="studying" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\studying.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ảnh trường (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ảnh trường (2).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,6 +238,12 @@
   <data name="plus (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\plus (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="user (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="absence" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\absence.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="3d-report" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3d-report.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -262,8 +271,11 @@
   <data name="communications" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\communications.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="web" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\web.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="menu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\menu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-school-66" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-school-66.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -286,6 +298,12 @@
   <data name="diploma2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\diploma2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="delete (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="delete (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-student-50" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-student-50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -307,8 +325,14 @@
   <data name="analysis" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\analysis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="studying" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\studying.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="reload" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reload.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="communications (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\communications (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="education (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\education (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="test (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -337,10 +361,16 @@
   <data name="user" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="refresh-page-option" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\refresh-page-option.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-student-32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-student-32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="communications (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\communications (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="updated" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\updated.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="school" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\school.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

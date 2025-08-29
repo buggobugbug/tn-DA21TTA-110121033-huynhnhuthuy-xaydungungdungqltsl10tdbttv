@@ -34,31 +34,25 @@
             this.dtpBatDau = new System.Windows.Forms.DateTimePicker();
             this.dtpKetThuc = new System.Windows.Forms.DateTimePicker();
             this.dgvDotTuyenSinh = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cboTrangThai = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.MaDot = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TenDot = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nam = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NgayBatDau = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NgayKetThuc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnCapNhat = new System.Windows.Forms.Button();
-            this.btnThem = new System.Windows.Forms.Button();
-            this.maDotDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tenDotDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.namDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ngayBatDauDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ngayKetThucDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trangThaiDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dotTuyenSinhBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cboTrangThai = new System.Windows.Forms.ComboBox();
+            this.btnCapNhat = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnThem = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDotTuyenSinh)).BeginInit();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dotTuyenSinhBindingSource)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtMaDot
@@ -94,7 +88,6 @@
             // 
             // dgvDotTuyenSinh
             // 
-            this.dgvDotTuyenSinh.AutoGenerateColumns = false;
             this.dgvDotTuyenSinh.BackgroundColor = System.Drawing.Color.White;
             this.dgvDotTuyenSinh.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDotTuyenSinh.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -103,94 +96,12 @@
             this.Nam,
             this.NgayBatDau,
             this.NgayKetThuc,
-            this.TrangThai,
-            this.maDotDataGridViewTextBoxColumn,
-            this.tenDotDataGridViewTextBoxColumn,
-            this.namDataGridViewTextBoxColumn,
-            this.ngayBatDauDataGridViewTextBoxColumn,
-            this.ngayKetThucDataGridViewTextBoxColumn,
-            this.trangThaiDataGridViewTextBoxColumn});
-            this.dgvDotTuyenSinh.DataSource = this.dotTuyenSinhBindingSource;
+            this.TrangThai});
             this.dgvDotTuyenSinh.Location = new System.Drawing.Point(32, 22);
             this.dgvDotTuyenSinh.Name = "dgvDotTuyenSinh";
             this.dgvDotTuyenSinh.Size = new System.Drawing.Size(1250, 982);
             this.dgvDotTuyenSinh.TabIndex = 5;
             this.dgvDotTuyenSinh.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDotTuyenSinh_CellContentClick);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 117);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 16);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Mã đợt tuyển sinh";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 16);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Tên đợt tuyển sinh";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.cboTrangThai);
-            this.groupBox1.Controls.Add(this.btnCapNhat);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.btnThem);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.dtpKetThuc);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtTenDot);
-            this.groupBox1.Controls.Add(this.txtMaDot);
-            this.groupBox1.Controls.Add(this.dtpBatDau);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(1314, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(364, 992);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 343);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 16);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Trạng thái";
-            // 
-            // cboTrangThai
-            // 
-            this.cboTrangThai.FormattingEnabled = true;
-            this.cboTrangThai.Location = new System.Drawing.Point(12, 374);
-            this.cboTrangThai.Name = "cboTrangThai";
-            this.cboTrangThai.Size = new System.Drawing.Size(334, 24);
-            this.cboTrangThai.TabIndex = 11;
-            this.cboTrangThai.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 265);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(101, 16);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Ngày kết thúc";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 186);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 16);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Ngày bắt đầu";
             // 
             // MaDot
             // 
@@ -233,6 +144,67 @@
             this.TrangThai.HeaderText = "Trạng thái";
             this.TrangThai.Name = "TrangThai";
             // 
+            // dotTuyenSinhBindingSource
+            // 
+            this.dotTuyenSinhBindingSource.DataSource = typeof(TuyenSinhServiceLib.DotTuyenSinh);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 117);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(133, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Mã đợt tuyển sinh";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(140, 16);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Tên đợt tuyển sinh";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.cboTrangThai);
+            this.groupBox1.Controls.Add(this.btnCapNhat);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.btnThem);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.dtpKetThuc);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.txtTenDot);
+            this.groupBox1.Controls.Add(this.txtMaDot);
+            this.groupBox1.Controls.Add(this.dtpBatDau);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(1314, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(364, 992);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 343);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 16);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Trạng thái";
+            // 
+            // cboTrangThai
+            // 
+            this.cboTrangThai.FormattingEnabled = true;
+            this.cboTrangThai.Location = new System.Drawing.Point(12, 374);
+            this.cboTrangThai.Name = "cboTrangThai";
+            this.cboTrangThai.Size = new System.Drawing.Size(334, 24);
+            this.cboTrangThai.TabIndex = 11;
+            this.cboTrangThai.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // btnCapNhat
             // 
             this.btnCapNhat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -246,6 +218,24 @@
             this.btnCapNhat.UseVisualStyleBackColor = true;
             this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 265);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(105, 16);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Ngày kết thúc";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 186);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 16);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Ngày bắt đầu";
+            // 
             // btnThem
             // 
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -258,46 +248,6 @@
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
-            // 
-            // maDotDataGridViewTextBoxColumn
-            // 
-            this.maDotDataGridViewTextBoxColumn.DataPropertyName = "MaDot";
-            this.maDotDataGridViewTextBoxColumn.HeaderText = "MaDot";
-            this.maDotDataGridViewTextBoxColumn.Name = "maDotDataGridViewTextBoxColumn";
-            // 
-            // tenDotDataGridViewTextBoxColumn
-            // 
-            this.tenDotDataGridViewTextBoxColumn.DataPropertyName = "TenDot";
-            this.tenDotDataGridViewTextBoxColumn.HeaderText = "TenDot";
-            this.tenDotDataGridViewTextBoxColumn.Name = "tenDotDataGridViewTextBoxColumn";
-            // 
-            // namDataGridViewTextBoxColumn
-            // 
-            this.namDataGridViewTextBoxColumn.DataPropertyName = "Nam";
-            this.namDataGridViewTextBoxColumn.HeaderText = "Nam";
-            this.namDataGridViewTextBoxColumn.Name = "namDataGridViewTextBoxColumn";
-            // 
-            // ngayBatDauDataGridViewTextBoxColumn
-            // 
-            this.ngayBatDauDataGridViewTextBoxColumn.DataPropertyName = "NgayBatDau";
-            this.ngayBatDauDataGridViewTextBoxColumn.HeaderText = "NgayBatDau";
-            this.ngayBatDauDataGridViewTextBoxColumn.Name = "ngayBatDauDataGridViewTextBoxColumn";
-            // 
-            // ngayKetThucDataGridViewTextBoxColumn
-            // 
-            this.ngayKetThucDataGridViewTextBoxColumn.DataPropertyName = "NgayKetThuc";
-            this.ngayKetThucDataGridViewTextBoxColumn.HeaderText = "NgayKetThuc";
-            this.ngayKetThucDataGridViewTextBoxColumn.Name = "ngayKetThucDataGridViewTextBoxColumn";
-            // 
-            // trangThaiDataGridViewTextBoxColumn
-            // 
-            this.trangThaiDataGridViewTextBoxColumn.DataPropertyName = "TrangThai";
-            this.trangThaiDataGridViewTextBoxColumn.HeaderText = "TrangThai";
-            this.trangThaiDataGridViewTextBoxColumn.Name = "trangThaiDataGridViewTextBoxColumn";
-            // 
-            // dotTuyenSinhBindingSource
-            // 
-            this.dotTuyenSinhBindingSource.DataSource = typeof(TuyenSinhServiceLib.DotTuyenSinh);
             // 
             // frmDotTuyenSinh
             // 
@@ -313,9 +263,9 @@
             this.Text = "frmDotTuyenSinh";
             this.Load += new System.EventHandler(this.frmDotTuyenSinh_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDotTuyenSinh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dotTuyenSinhBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dotTuyenSinhBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -343,11 +293,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NgayBatDau;
         private System.Windows.Forms.DataGridViewTextBoxColumn NgayKetThuc;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
-        private System.Windows.Forms.DataGridViewTextBoxColumn maDotDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tenDotDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn namDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ngayBatDauDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ngayKetThucDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn trangThaiDataGridViewTextBoxColumn;
     }
 }

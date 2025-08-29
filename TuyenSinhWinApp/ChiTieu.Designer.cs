@@ -33,18 +33,18 @@
             this.cbDotTuyenSinh = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvDanhSachTrungTuyen = new System.Windows.Forms.DataGridView();
-            this.txtTimTen = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnXemTrungTuyen = new System.Windows.Forms.Button();
             this.btnXetTrungTuyen = new System.Windows.Forms.Button();
             this.btnLuuChiTieu = new System.Windows.Forms.Button();
+            this.btnXuatDanhSach = new System.Windows.Forms.Button();
+            this.btnXuatTatCaDiem = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachTrungTuyen)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 11);
+            this.label1.Location = new System.Drawing.Point(1, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(124, 41);
             this.label1.TabIndex = 59;
@@ -53,111 +53,124 @@
             // 
             // txtChiTieu
             // 
-            this.txtChiTieu.Location = new System.Drawing.Point(146, 23);
+            this.txtChiTieu.Location = new System.Drawing.Point(131, 19);
             this.txtChiTieu.Multiline = true;
             this.txtChiTieu.Name = "txtChiTieu";
-            this.txtChiTieu.Size = new System.Drawing.Size(335, 24);
+            this.txtChiTieu.Size = new System.Drawing.Size(155, 24);
             this.txtChiTieu.TabIndex = 60;
             // 
             // cbDotTuyenSinh
             // 
             this.cbDotTuyenSinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDotTuyenSinh.FormattingEnabled = true;
-            this.cbDotTuyenSinh.Location = new System.Drawing.Point(684, 26);
+            this.cbDotTuyenSinh.Location = new System.Drawing.Point(393, 19);
             this.cbDotTuyenSinh.Name = "cbDotTuyenSinh";
-            this.cbDotTuyenSinh.Size = new System.Drawing.Size(304, 24);
+            this.cbDotTuyenSinh.Size = new System.Drawing.Size(264, 24);
             this.cbDotTuyenSinh.TabIndex = 62;
             this.cbDotTuyenSinh.SelectedIndexChanged += new System.EventHandler(this.cbDotTuyenSinh_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(544, 26);
+            this.label2.Location = new System.Drawing.Point(307, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 21);
+            this.label2.Size = new System.Drawing.Size(80, 21);
             this.label2.TabIndex = 63;
-            this.label2.Text = "Đợt tuyển sinh :";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Text = "Chọn đợt :";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dgvDanhSachTrungTuyen
             // 
             this.dgvDanhSachTrungTuyen.BackgroundColor = System.Drawing.Color.White;
             this.dgvDanhSachTrungTuyen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDanhSachTrungTuyen.Location = new System.Drawing.Point(4, 137);
+            this.dgvDanhSachTrungTuyen.Location = new System.Drawing.Point(4, 64);
             this.dgvDanhSachTrungTuyen.Name = "dgvDanhSachTrungTuyen";
-            this.dgvDanhSachTrungTuyen.Size = new System.Drawing.Size(1666, 853);
+            this.dgvDanhSachTrungTuyen.Size = new System.Drawing.Size(1674, 965);
             this.dgvDanhSachTrungTuyen.TabIndex = 64;
-            // 
-            // txtTimTen
-            // 
-            this.txtTimTen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTimTen.Location = new System.Drawing.Point(146, 92);
-            this.txtTimTen.Multiline = true;
-            this.txtTimTen.Name = "txtTimTen";
-            this.txtTimTen.Size = new System.Drawing.Size(511, 34);
-            this.txtTimTen.TabIndex = 67;
-            this.txtTimTen.TextChanged += new System.EventHandler(this.txtTimTen_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1, 92);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(124, 34);
-            this.label3.TabIndex = 68;
-            this.label3.Text = "Tìm kiếm tên :";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnXemTrungTuyen
             // 
             this.btnXemTrungTuyen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXemTrungTuyen.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXemTrungTuyen.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXemTrungTuyen.Image = global::TuyenSinhWinApp.Properties.Resources.list;
             this.btnXemTrungTuyen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnXemTrungTuyen.Location = new System.Drawing.Point(684, 90);
+            this.btnXemTrungTuyen.Location = new System.Drawing.Point(902, 14);
             this.btnXemTrungTuyen.Name = "btnXemTrungTuyen";
-            this.btnXemTrungTuyen.Size = new System.Drawing.Size(304, 36);
+            this.btnXemTrungTuyen.Size = new System.Drawing.Size(186, 36);
             this.btnXemTrungTuyen.TabIndex = 66;
-            this.btnXemTrungTuyen.Text = "Danh sách học sinh trúng tuyển";
+            this.btnXemTrungTuyen.Text = "Danh sách trúng tuyển";
+            this.btnXemTrungTuyen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnXemTrungTuyen.UseVisualStyleBackColor = true;
             this.btnXemTrungTuyen.Click += new System.EventHandler(this.btnXemTrungTuyen_Click);
             // 
             // btnXetTrungTuyen
             // 
             this.btnXetTrungTuyen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXetTrungTuyen.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXetTrungTuyen.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXetTrungTuyen.Image = global::TuyenSinhWinApp.Properties.Resources._checked;
             this.btnXetTrungTuyen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnXetTrungTuyen.Location = new System.Drawing.Point(1366, 90);
+            this.btnXetTrungTuyen.Location = new System.Drawing.Point(1108, 14);
             this.btnXetTrungTuyen.Name = "btnXetTrungTuyen";
-            this.btnXetTrungTuyen.Size = new System.Drawing.Size(304, 36);
+            this.btnXetTrungTuyen.Size = new System.Drawing.Size(149, 36);
             this.btnXetTrungTuyen.TabIndex = 65;
-            this.btnXetTrungTuyen.Text = "Xét học sinh trúng tuyển";
+            this.btnXetTrungTuyen.Text = "Xét trúng tuyển";
+            this.btnXetTrungTuyen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnXetTrungTuyen.UseVisualStyleBackColor = true;
             this.btnXetTrungTuyen.Click += new System.EventHandler(this.btnXetTrungTuyen_Click);
             // 
             // btnLuuChiTieu
             // 
             this.btnLuuChiTieu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLuuChiTieu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLuuChiTieu.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLuuChiTieu.Image = global::TuyenSinhWinApp.Properties.Resources.update__2_;
             this.btnLuuChiTieu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLuuChiTieu.Location = new System.Drawing.Point(1026, 90);
+            this.btnLuuChiTieu.Location = new System.Drawing.Point(723, 14);
             this.btnLuuChiTieu.Name = "btnLuuChiTieu";
-            this.btnLuuChiTieu.Size = new System.Drawing.Size(304, 36);
+            this.btnLuuChiTieu.Size = new System.Drawing.Size(162, 36);
             this.btnLuuChiTieu.TabIndex = 61;
             this.btnLuuChiTieu.Text = "Cập nhật chỉ tiêu";
+            this.btnLuuChiTieu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLuuChiTieu.UseVisualStyleBackColor = true;
             this.btnLuuChiTieu.Click += new System.EventHandler(this.btnLuuChiTieu_Click);
+            // 
+            // btnXuatDanhSach
+            // 
+            this.btnXuatDanhSach.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXuatDanhSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXuatDanhSach.Image = global::TuyenSinhWinApp.Properties.Resources.excel;
+            this.btnXuatDanhSach.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnXuatDanhSach.Location = new System.Drawing.Point(1281, 14);
+            this.btnXuatDanhSach.Name = "btnXuatDanhSach";
+            this.btnXuatDanhSach.Size = new System.Drawing.Size(134, 36);
+            this.btnXuatDanhSach.TabIndex = 67;
+            this.btnXuatDanhSach.Text = "Xuất danh sách";
+            this.btnXuatDanhSach.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnXuatDanhSach.UseVisualStyleBackColor = true;
+            this.btnXuatDanhSach.Click += new System.EventHandler(this.btnXuatDanhSach_Click);
+            // 
+            // btnXuatTatCaDiem
+            // 
+            this.btnXuatTatCaDiem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXuatTatCaDiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXuatTatCaDiem.Image = global::TuyenSinhWinApp.Properties.Resources.excel;
+            this.btnXuatTatCaDiem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnXuatTatCaDiem.Location = new System.Drawing.Point(1440, 14);
+            this.btnXuatTatCaDiem.Name = "btnXuatTatCaDiem";
+            this.btnXuatTatCaDiem.Size = new System.Drawing.Size(238, 36);
+            this.btnXuatTatCaDiem.TabIndex = 68;
+            this.btnXuatTatCaDiem.Text = "Xuất danh sách điểm toàn bộ học sinh";
+            this.btnXuatTatCaDiem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnXuatTatCaDiem.UseVisualStyleBackColor = true;
+            this.btnXuatTatCaDiem.Click += new System.EventHandler(this.btnXuatTatCaDiem_Click);
             // 
             // ChiTieu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1674, 1002);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtTimTen);
+            this.ClientSize = new System.Drawing.Size(1690, 1041);
+            this.Controls.Add(this.btnXuatTatCaDiem);
+            this.Controls.Add(this.btnXuatDanhSach);
             this.Controls.Add(this.btnXemTrungTuyen);
             this.Controls.Add(this.btnXetTrungTuyen);
             this.Controls.Add(this.dgvDanhSachTrungTuyen);
@@ -185,7 +198,7 @@
         private System.Windows.Forms.DataGridView dgvDanhSachTrungTuyen;
         private System.Windows.Forms.Button btnXetTrungTuyen;
         private System.Windows.Forms.Button btnXemTrungTuyen;
-        private System.Windows.Forms.TextBox txtTimTen;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnXuatDanhSach;
+        private System.Windows.Forms.Button btnXuatTatCaDiem;
     }
 }
