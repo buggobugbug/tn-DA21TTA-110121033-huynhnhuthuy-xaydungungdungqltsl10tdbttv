@@ -12,6 +12,7 @@ using OfficeOpenXml.Style;
 using EPPlusLicense = OfficeOpenXml.LicenseContext;
 
 using TuyenSinhWinApp.TuyenSinhServiceReference;
+using TuyenSinhServiceLib;
 
 namespace TuyenSinhWinApp
 {
@@ -30,13 +31,22 @@ namespace TuyenSinhWinApp
             cbDotTuyenSinh.DataSource = dsDot;
             cbDotTuyenSinh.DisplayMember = "TenDot";
             cbDotTuyenSinh.ValueMember = "MaDot";
+            LoadTruongForAdmin();
 
             if (!string.IsNullOrEmpty(Common.MaDot))
                 cbDotTuyenSinh.SelectedValue = Common.MaDot;
-            Guard.DisableForThuKy(
-    btnXetTrungTuyen, btnLuuChiTieu
 
-);
+            Guard.DisableForThuKy(btnXetTrungTuyen, btnLuuChiTieu);
+
+            // ======= DESIGN: GIỐNG frmHocsinh =======
+            // Tắt tự sinh cột và dựng cột theo mẫu để kiểm soát format/độ rộng
+            dgvDanhSachTrungTuyen.AutoGenerateColumns = false;
+            BuildDanhSachTrungTuyenColumns();   // tạo các cột + FillWeight + định dạng ô
+            FormatDanhSachTrungTuyenGrid();     // style lưới, header, alternating, border, selection
+
+            // Vẽ khung ngoài (đảm bảo luôn có viền)
+            dgvDanhSachTrungTuyen.Paint += DgvDanhSachTrungTuyen_PaintOuterBorder;
+
             NapDanhSachTrungTuyen();
         }
 
@@ -99,12 +109,22 @@ namespace TuyenSinhWinApp
         // ============ NẠP & SẮP XẾP DANH SÁCH ============
         private void NapDanhSachTrungTuyen()
         {
-            var arr = _service.LayDanhSachTrungTuyen(Common.MaTruong, Common.MaDot);
+            var maTruong = cbTruong.SelectedValue?.ToString();
+            var maDot = cbDotTuyenSinh.SelectedValue?.ToString();
+            if (string.IsNullOrEmpty(maTruong))
+                maTruong = Common.MaTruong;
+            if (string.IsNullOrEmpty(maDot))
+                maDot = Common.MaDot;
+
+            var arr = _service.LayDanhSachTrungTuyen(maTruong, maDot);
             var source = (arr as System.Collections.IEnumerable) ?? Array.Empty<object>();
+
+            var data = _service.ThongKeDiemTheoMon(
+                string.IsNullOrEmpty(maTruong) ? null : maTruong,
+                maDot);
 
             var vi = StringComparer.Create(new CultureInfo("vi-VN"), true);
 
-            // Sắp xếp: Tổng ↓, Toán ↓, Văn ↓, Anh ↓, Tên ↑, Họ ↑, SBD ↑
             var list = source.Cast<object>()
                 .Select(o => new
                 {
@@ -112,7 +132,7 @@ namespace TuyenSinhWinApp
                     Tong = GetDouble(o, "DiemTong"),
                     Toan = GetDouble(o, "DiemToan"),
                     Van = GetDouble(o, "DiemVan"),
-                    Anh = GetDouble(o, "DiemAnh"),
+                    Điểmmôn3 = GetDouble(o, "DiemAnh"),
                     Ten = (GetProp(o, "Ten") ?? "").ToString(),
                     Ho = (GetProp(o, "Ho") ?? "").ToString(),
                     SBD = (GetProp(o, "MaSoBaoDanh") ?? "").ToString()
@@ -120,68 +140,133 @@ namespace TuyenSinhWinApp
                 .OrderByDescending(x => x.Tong)
                 .ThenByDescending(x => x.Toan)
                 .ThenByDescending(x => x.Van)
-                .ThenByDescending(x => x.Anh)
+                .ThenByDescending(x => x.Điểmmôn3)
                 .ThenBy(x => x.Ten, vi)
                 .ThenBy(x => x.Ho, vi)
                 .ThenBy(x => x.SBD, vi)
                 .Select(x => x.Obj)
                 .ToList();
 
+            // Giữ AutoGenerateColumns=false để bám cột đã dựng
             dgvDanhSachTrungTuyen.DataSource = null;
             dgvDanhSachTrungTuyen.DataSource = list;
-            FormatDanhSachTrungTuyenGrid();
         }
 
-        // ============ ĐỊNH DẠNG LƯỚI ============
+        // ====== DỰNG CỘT GIỐNG frmHocsinh ======
+        private void BuildDanhSachTrungTuyenColumns()
+        {
+            var dgv = dgvDanhSachTrungTuyen;
+            dgv.Columns.Clear();
+
+            // Ẩn các cột nội bộ nếu tồn tại trong nguồn dữ liệu
+            HideIfExists(dgv, "MaHocSinh");
+            HideIfExists(dgv, "MaTruong");
+            HideIfExists(dgv, "MaDot");
+            HideIfExists(dgv, "NgayDangKy");
+
+            // Cột hiển thị (Fill + FillWeight tương tự form mẫu)
+            Col("MaSoBaoDanh", "Số BD", 8, min: 70, align: DataGridViewContentAlignment.MiddleCenter);
+            Col("Ho", "Họ", 16, min: 120);
+            Col("Ten", "Tên", 10, min: 80);
+            Col("NgaySinh", "Ngày sinh", 11, min: 95, format: "dd/MM/yyyy", align: DataGridViewContentAlignment.MiddleCenter);
+            Col("GioiTinh", "Giới tính", 7, min: 70, align: DataGridViewContentAlignment.MiddleCenter);
+            Col("TruongTHCS", "Trường THCS", 20, min: 160);
+            Col("NoiSinh", "Nơi sinh", 14, min: 120);
+            Col("DanToc", "Dân tộc", 7, min: 70, align: DataGridViewContentAlignment.MiddleCenter);
+            Col("PhongThi", "Phòng thi", 10, min: 90, align: DataGridViewContentAlignment.MiddleCenter);
+
+            Col("DiemToan", "Toán", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemVan", "Văn", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemAnh", "Môn thứ 3", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemUuTien", "Ưu tiên", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemKhuyenKhich", "Khuyến khích", 9, min: 70, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemTong", "Tổng", 9, min: 70, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+
+            Col("GhiChu", "Ghi chú", 18, min: 140);
+
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.ScrollBars = ScrollBars.Vertical;
+            dgv.RowHeadersVisible = false;
+            dgv.ReadOnly = true;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.AllowUserToResizeRows = false;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+        }
+
+        private void Col(string prop, string header, float weight,
+                         int min = 50, string format = null,
+                         DataGridViewContentAlignment? align = null)
+        {
+            var c = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = prop,
+                Name = prop,
+                HeaderText = header,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = weight,
+                MinimumWidth = min,
+                SortMode = DataGridViewColumnSortMode.Programmatic,
+                ReadOnly = true
+            };
+            if (!string.IsNullOrEmpty(format)) c.DefaultCellStyle.Format = format;
+            if (align.HasValue) c.DefaultCellStyle.Alignment = align.Value;
+
+            dgvDanhSachTrungTuyen.Columns.Add(c);
+        }
+
+        // ====== STYLE GRID GIỐNG frmHocsinh ======
         private void FormatDanhSachTrungTuyenGrid()
         {
             var dgv = dgvDanhSachTrungTuyen;
 
+            // Viền & kẻ ô
+            dgv.BorderStyle = BorderStyle.FixedSingle;                      // có khung ngoài
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;       // kẻ ngang+dọc
+            dgv.GridColor = Color.FromArgb(190, 195, 200);                  // màu đường kẻ rõ
+            dgv.AdvancedCellBorderStyle.All = DataGridViewAdvancedCellBorderStyle.Single;
+
+            // Header
             dgv.EnableHeadersVisualStyles = false;
-            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.SteelBlue;
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgv.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.Single;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(76, 95, 173);
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
-            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10.5f);
+            dgv.ColumnHeadersHeight = 36;
+
+            // Body
+            dgv.BackgroundColor = Color.White;
+            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10f);
+            dgv.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
             dgv.DefaultCellStyle.BackColor = Color.White;
-            dgv.DefaultCellStyle.ForeColor = Color.Black;
-            dgv.DefaultCellStyle.SelectionBackColor = Color.LightCyan;
-            dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgv.RowTemplate.Height = 28;
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgv.AllowUserToAddRows = false;
-            dgv.AllowUserToResizeRows = false;
-            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 240, 255);
+            dgv.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 255);
+            dgv.RowTemplate.Height = 32;
 
-            HideIfExists(dgv, "MaHocSinh");
-            HideIfExists(dgv, "NgayDangKy");
-
-            var map = new Dictionary<string, string>
-            {
-                { "MaSoBaoDanh", "SBD" }, { "Ho", "Họ" }, { "Ten", "Tên" },
-                { "NgaySinh", "Ngày sinh" }, { "GioiTinh", "Giới tính" },
-                { "DanToc", "Dân tộc" }, { "NoiSinh", "Nơi sinh" },
-                { "TruongTHCS", "Học sinh trường" }, { "PhongThi", "Phòng thi" },
-                { "DiemToan", "Toán" }, { "DiemVan", "Văn" }, { "DiemAnh", "Anh" },
-                { "DiemKhuyenKhich", "KK" }, { "DiemUuTien", "UT" },
-                { "DiemTong", "Tổng điểm" }, { "GhiChu", "Ghi chú" }
-            };
-            foreach (var kv in map)
-                if (dgv.Columns.Contains(kv.Key))
-                    dgv.Columns[kv.Key].HeaderText = kv.Value;
-
-            if (dgv.Columns.Contains("DiemTong"))
-                dgv.Columns["DiemTong"].DisplayIndex = dgv.Columns.Count - 1;
-
+            // Căn lề hợp lý theo header text (để chắc chắn nếu có đổi nhãn)
             foreach (DataGridViewColumn col in dgv.Columns)
             {
-                var h = col.HeaderText.ToLowerInvariant();
-                if (h.Contains("điểm") || h.Contains("toán") || h.Contains("văn") ||
-                    h.Contains("anh") || h.Contains("ngày"))
+                var h = (col.HeaderText ?? "").ToLowerInvariant();
+                if (h.Contains("điểm") || h.Contains("tổng") || h.Contains("ưu tiên") || h.Contains("khuyến"))
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                else if (h.Contains("ngày") || h.Contains("giới tính") || h.Contains("số bd") || h.Contains("phòng"))
                     col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 else
                     col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
+        }
+
+        // Vẽ khung ngoài rõ ràng (một số theme làm mờ BorderStyle)
+        private void DgvDanhSachTrungTuyen_PaintOuterBorder(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(
+                e.Graphics,
+                dgvDanhSachTrungTuyen.ClientRectangle,
+                Color.Gray, ButtonBorderStyle.Solid);
         }
 
         private static void HideIfExists(DataGridView dgv, string colName)
@@ -314,7 +399,7 @@ namespace TuyenSinhWinApp
                             WriteCell(ws, r, cols, "KK", GetProp(hs, "DiemKhuyenKhich"));
                             WriteCell(ws, r, cols, "Toán", GetProp(hs, "DiemToan"));
                             WriteCell(ws, r, cols, "Văn", GetProp(hs, "DiemVan"));
-                            WriteCell(ws, r, cols, "Anh", GetProp(hs, "DiemAnh"));
+                            WriteCell(ws, r, cols, "Điểm môn 3", GetProp(hs, "DiemAnh"));
                             WriteCell(ws, r, cols, "Tổng điểm", GetProp(hs, "DiemTong"));
                             WriteCell(ws, r, cols, "Phòng thi", GetProp(hs, "PhongThi"));
                             WriteCell(ws, r, cols, "Ghi chú", GetProp(hs, "GhiChu"));
@@ -346,12 +431,9 @@ namespace TuyenSinhWinApp
 
         // ============ Helpers chung ============
 
-        // Bỏ dấu tiếng Việt + hạ chữ thường + gộp khoảng trắng + chuyển "đ" -> "d"
         private static string Canon(string raw)
         {
             if (string.IsNullOrWhiteSpace(raw)) return string.Empty;
-
-            // Bỏ dấu
             string formD = raw.Normalize(NormalizationForm.FormD);
             var sb = new StringBuilder();
             foreach (var ch in formD)
@@ -360,8 +442,6 @@ namespace TuyenSinhWinApp
                 if (cat != UnicodeCategory.NonSpacingMark) sb.Append(ch);
             }
             string s = sb.ToString().Normalize(NormalizationForm.FormC);
-
-            // chuyển đ -> d, hạ chữ, gộp khoảng trắng
             s = s.Replace('đ', 'd').Replace('Đ', 'D').ToLowerInvariant();
             s = Regex.Replace(s, @"\s+", " ").Trim();
             return s;
@@ -393,7 +473,6 @@ namespace TuyenSinhWinApp
             catch { return 0.0; }
         }
 
-        // Header: thấy STT & SBD & (Họ và tên hoặc Ngày sinh)
         private static int FindHeaderRow(ExcelWorksheet ws)
         {
             if (ws.Dimension == null) return -1;
@@ -423,7 +502,6 @@ namespace TuyenSinhWinApp
             return -1;
         }
 
-        // Footer: “Người lập bảng” hoặc “Trà Vinh, ngày …”
         private static int FindFooterRow(ExcelWorksheet ws)
         {
             if (ws.Dimension == null) return -1;
@@ -443,7 +521,6 @@ namespace TuyenSinhWinApp
             return -1;
         }
 
-        // Ánh xạ cột từ header (đọc 2 hàng)
         private static Dictionary<string, int> MapHeaderColumns(ExcelWorksheet ws, int headerRow)
         {
             var map = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
@@ -480,13 +557,12 @@ namespace TuyenSinhWinApp
             if (s.Contains("dan toc")) return "Dân tộc";
             if (s.Contains("hoc sinh truong") || s.Contains("thcs")) return "Học sinh trường";
 
-            // Quan trọng: nhận mọi biến thể "Điểm UT" / "Điểm ƯT" / "Điểm ưu tiên"
             if (s.Contains("diem ut") || s == "ut" || s.Contains("uu tien")) return "UT";
             if (s.Contains("diem kk") || s == "kk" || s.Contains("khuyen khich")) return "KK";
 
             if (s.Contains("toan")) return "Toán";
             if (s.Contains("van")) return "Văn";
-            if (s.Contains("anh")) return "Anh";
+            if (s.Contains("anh")) return "Điểm môn 3";
 
             if (s.Contains("tong diem") || s == "tong") return "Tổng điểm";
             if (s.Contains("phong thi") || s.Contains("phong")) return "Phòng thi";
@@ -495,47 +571,38 @@ namespace TuyenSinhWinApp
             return null;
         }
 
-
-        // Bảo đảm header 2 hàng: “Điểm thi” trên – “Toán/Văn/Anh” dưới; các cột khác merge 2 hàng
-        // Bảo đảm header 2 hàng: “Điểm thi” trên – “Toán/Văn/Anh” dưới;
-        // các cột còn lại merge 2 hàng và luôn đặt lại caption nếu ô trên bị trống.
         private static void EnsureTwoRowHeader(ExcelWorksheet ws, int headerRow, Dictionary<string, int> cols)
         {
-            // --- Nhóm "Điểm thi" ---
             bool hasToan = cols.TryGetValue("Toán", out int colToan);
             bool hasVan = cols.TryGetValue("Văn", out int colVan);
-            bool hasAnh = cols.TryGetValue("Anh", out int colAnh);
+            bool hasAnh = cols.TryGetValue("Điểm môn 3", out int colAnh);
 
             if (hasToan && hasVan && hasAnh)
             {
                 int left = Math.Min(colToan, Math.Min(colVan, colAnh));
                 int right = Math.Max(colToan, Math.Max(colVan, colAnh));
 
-                // Merge hàng trên cho cụm "Điểm thi"
                 ws.Cells[headerRow, left, headerRow, right].Merge = true;
                 var top = ws.Cells[headerRow, left];
                 if (string.IsNullOrWhiteSpace(top.Text)) top.Value = "Điểm thi";
                 ws.Cells[headerRow, left, headerRow, right].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Cells[headerRow, left, headerRow, right].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
-                // Hàng dưới: nhãn từng môn
                 ws.Cells[headerRow + 1, colToan].Value = "Toán";
                 ws.Cells[headerRow + 1, colVan].Value = "Văn";
-                ws.Cells[headerRow + 1, colAnh].Value = "Anh";
+                ws.Cells[headerRow + 1, colAnh].Value = "Điểm môn 3";
                 ws.Cells[headerRow + 1, left, headerRow + 1, right].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
 
-            // --- Các cột đơn: merge 2 hàng + đảm bảo caption ở ô trên ---
             string[] singleKeys = {
-        "STT","SBD","HoTen","Họ","Tên","Ngày sinh","Nơi sinh","Giới tính","Dân tộc",
-        "Học sinh trường","UT","KK","Tổng điểm","Phòng thi","Ghi chú"
-    };
+                "STT","SBD","HoTen","Họ","Tên","Ngày sinh","Nơi sinh","Giới tính","Dân tộc",
+                "Học sinh trường","UT","KK","Tổng điểm","Phòng thi","Ghi chú"
+            };
 
             foreach (var key in singleKeys)
             {
                 if (!cols.TryGetValue(key, out int c)) continue;
 
-                // Bỏ qua các cột thuộc cụm Điểm thi
                 if ((hasToan && c == colToan) || (hasVan && c == colVan) || (hasAnh && c == colAnh))
                     continue;
 
@@ -545,14 +612,12 @@ namespace TuyenSinhWinApp
                 rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
-                // QUAN TRỌNG: nếu ô trên trống thì đặt lại caption chuẩn (fix mất "Điểm UT")
                 var cellTop = ws.Cells[headerRow, c];
                 if (string.IsNullOrWhiteSpace(cellTop.Text))
                     cellTop.Value = HeaderCaptionOf(key);
             }
         }
 
-        // Trả về caption chuẩn theo "key" chuẩn hóa
         private static string HeaderCaptionOf(string key)
         {
             switch (key)
@@ -567,7 +632,7 @@ namespace TuyenSinhWinApp
                 case "Giới tính": return "Giới tính";
                 case "Dân tộc": return "Dân tộc";
                 case "Học sinh trường": return "Học sinh trường";
-                case "UT": return "Điểm UT";    
+                case "UT": return "Điểm UT";
                 case "KK": return "Điểm KK";
                 case "Tổng điểm": return "Tổng điểm";
                 case "Phòng thi": return "Phòng thi";
@@ -576,12 +641,11 @@ namespace TuyenSinhWinApp
             }
         }
 
-
         private static void GetTableSpan(Dictionary<string, int> cols, out int cStart, out int cEnd)
         {
             string[] keys = {
                 "STT","SBD","HoTen","Họ","Tên","Ngày sinh","Nơi sinh","Giới tính","Dân tộc",
-                "Học sinh trường","UT","KK","Toán","Văn","Anh","Tổng điểm","Phòng thi","Ghi chú"
+                "Học sinh trường","UT","KK","Toán","Văn","Điểm môn 3","Tổng điểm","Phòng thi","Ghi chú"
             };
             var list = new List<int>();
             foreach (var k in keys) if (cols.ContainsKey(k)) list.Add(cols[k]);
@@ -589,12 +653,11 @@ namespace TuyenSinhWinApp
             cEnd = list.Max();
         }
 
-        // Chuẩn hoá điểm nếu lỡ x100
         private static double NormalizeScore(string key, double num)
         {
             if (key == "UT" || key == "KK")
                 return (num > 5.0) ? num / 100.0 : num;
-            if (key == "Toán" || key == "Văn" || key == "Anh")
+            if (key == "Toán" || key == "Văn" || key == "Điểm môn 3")
                 return (num > 20.0) ? num / 100.0 : num;
             if (key == "Tổng điểm")
                 return (num > 80.0) ? num / 100.0 : num;
@@ -613,7 +676,6 @@ namespace TuyenSinhWinApp
                 return;
             }
 
-            // Ngày sinh
             if (key == "Ngày sinh")
             {
                 DateTime dt;
@@ -635,8 +697,7 @@ namespace TuyenSinhWinApp
                 return;
             }
 
-            // Điểm số
-            if (key == "UT" || key == "KK" || key == "Toán" || key == "Văn" || key == "Anh" || key == "Tổng điểm")
+            if (key == "UT" || key == "KK" || key == "Toán" || key == "Văn" || key == "Điểm môn 3" || key == "Tổng điểm")
             {
                 double num;
                 var s = Convert.ToString(value);
@@ -666,7 +727,6 @@ namespace TuyenSinhWinApp
                 return;
             }
 
-            // STT
             if (key == "STT")
             {
                 ws.Cells[row, col].Value = Convert.ToInt32(value);
@@ -675,7 +735,6 @@ namespace TuyenSinhWinApp
                 return;
             }
 
-            // Phòng thi: ẩn hậu tố sau dấu '_'
             if (key == "Phòng thi")
             {
                 var s = Convert.ToString(value) ?? "";
@@ -687,7 +746,6 @@ namespace TuyenSinhWinApp
                 return;
             }
 
-            // Mặc định: text
             ws.Cells[row, col].Value = Convert.ToString(value);
         }
 
@@ -701,7 +759,6 @@ namespace TuyenSinhWinApp
             }
         }
 
-
         private static void ApplyThinBorders(ExcelWorksheet ws, int r1, int r2, int c1, int c2)
         {
             using (var rng = ws.Cells[r1, c1, r2, c2])
@@ -713,13 +770,11 @@ namespace TuyenSinhWinApp
             }
         }
 
-
         private static void ApplyThickBottomBorder(ExcelWorksheet ws, int row, int cStart, int cEnd)
         {
             for (int c = cStart; c <= cEnd; c++)
                 ws.Cells[row, c].Style.Border.Bottom.Style = ExcelBorderStyle.Thick;
         }
-
 
         private static void ReplaceKhoaNgayCell(ExcelWorksheet ws, DateTime d)
         {
@@ -741,7 +796,6 @@ namespace TuyenSinhWinApp
             }
         }
 
-        // Tìm & thay dòng "Năm học ..." trong vùng đầu trang (khoảng 15 dòng đầu)
         private static void ReplaceAcademicYear(ExcelWorksheet ws, int startYear)
         {
             if (ws.Dimension == null) return;
@@ -758,7 +812,6 @@ namespace TuyenSinhWinApp
                     string t = (ws.Cells[r, c].Text ?? "").Trim();
                     if (t.Length == 0) continue;
 
-                    // Bắt "Năm học" cả có/không dấu
                     string canon = Canon(t);
                     if (canon.Contains("nam hoc"))
                     {
@@ -777,8 +830,6 @@ namespace TuyenSinhWinApp
             if (m.Success && int.TryParse(m.Groups[1].Value, out year)) return true;
             return false;
         }
-
-
 
         private static void ReplaceFooterDate(ExcelWorksheet ws, DateTime d)
         {
@@ -805,7 +856,6 @@ namespace TuyenSinhWinApp
         {
             try
             {
-                // 0) Lấy toàn bộ thí sinh của trường trong đợt (xếp theo họ tên)
                 var allList = LayTatCaHocSinhTheoTen();
                 if (allList.Count == 0)
                 {
@@ -814,7 +864,6 @@ namespace TuyenSinhWinApp
                     return;
                 }
 
-                // 1) Tìm file mẫu
                 string exeDir = AppDomain.CurrentDomain.BaseDirectory;
                 string[] names = { "Mẫu.xlsx", "Mau.xlsx", "Template.xlsx" };
                 string templatePath = names
@@ -845,8 +894,9 @@ namespace TuyenSinhWinApp
                         var ws = pkg.Workbook.Worksheets.FirstOrDefault()
                                  ?? throw new InvalidOperationException("File mẫu không có worksheet.");
 
-                        // 2) Header/Footer + ánh xạ cột
-                        ReplaceKhoaNgayCell(ws, DateTime.Today);
+                        var dot = _service.LayDanhSachDotTuyen()?.FirstOrDefault(d => d.MaDot == Common.MaDot);
+                        DateTime khoaNgay = dot != null && dot.NgayBatDau.HasValue ? dot.NgayBatDau.Value : DateTime.Today;
+                        ReplaceKhoaNgayCell(ws, khoaNgay);
                         ReplaceFooterDate(ws, DateTime.Today);
 
                         int headerRow = FindHeaderRow(ws);
@@ -857,19 +907,16 @@ namespace TuyenSinhWinApp
                             throw new InvalidOperationException("Không tìm thấy footer trong mẫu.");
 
                         var cols = MapHeaderColumns(ws, headerRow);
-                        EnsureTwoRowHeader(ws, headerRow, cols);       // “Điểm thi” / “Toán, Văn, Anh”
+                        EnsureTwoRowHeader(ws, headerRow, cols);
 
                         int dataStartRow = headerRow + 2;
 
-                        // Xoá dữ cũ, để lại 1 dòng mẫu để copy style
                         int rowsBetween = footerRow - dataStartRow - 1;
                         if (rowsBetween > 0) ws.DeleteRow(dataStartRow + 1, rowsBetween);
 
-                        // Chèn cho đủ số dòng
                         if (allList.Count >= 2)
                             ws.InsertRow(dataStartRow + 1, allList.Count - 1, dataStartRow);
 
-                        // 3) Ghi dữ liệu
                         for (int i = 0; i < allList.Count; i++)
                         {
                             int r = dataStartRow + i;
@@ -896,26 +943,20 @@ namespace TuyenSinhWinApp
                             WriteCell(ws, r, cols, "Dân tộc", GetProp(hs, "DanToc"));
                             WriteCell(ws, r, cols, "Học sinh trường", GetProp(hs, "TruongTHCS"));
 
-                            // Điểm cộng / khuyến khích
                             WriteCell(ws, r, cols, "UT", GetProp(hs, "DiemUuTien"));
                             WriteCell(ws, r, cols, "KK", GetProp(hs, "DiemKhuyenKhich"));
 
-                            // Điểm môn
                             WriteCell(ws, r, cols, "Toán", GetProp(hs, "DiemToan"));
                             WriteCell(ws, r, cols, "Văn", GetProp(hs, "DiemVan"));
-                            WriteCell(ws, r, cols, "Anh", GetProp(hs, "DiemAnh"));
+                            WriteCell(ws, r, cols, "Điểm môn 3", GetProp(hs, "DiemAnh"));
 
-                            // Tổng điểm
                             WriteCell(ws, r, cols, "Tổng điểm", GetProp(hs, "DiemTong"));
 
-                            // Phòng thi (ẩn hậu tố sau dấu '_')
                             WriteCell(ws, r, cols, "Phòng thi", GetProp(hs, "PhongThi"));
 
-                            // Ghi chú (nếu có)
                             WriteCell(ws, r, cols, "Ghi chú", GetProp(hs, "GhiChu"));
                         }
 
-                        // 4) Viền & căn giữa hợp lý
                         int lastDataRow = dataStartRow + allList.Count - 1;
                         GetTableSpan(cols, out int cStart, out int cEnd);
 
@@ -957,6 +998,42 @@ namespace TuyenSinhWinApp
                 .ThenBy(x => x.SBD, vi)
                 .Select(x => x.Obj)
                 .ToList();
+        }
+
+        // Cho admin
+        private void LoadTruongForAdmin()
+        {
+            if (!Common.IsAdmin)
+            {
+                lblTruong.Visible = false;
+                cbTruong.Visible = false;
+                return;
+            }
+
+            lblTruong.Visible = true;
+            cbTruong.Visible = true;
+
+            var ds = _service.Admin_LayDanhSachTruong()?.ToList() ?? new List<TruongItem>();
+            ds.Insert(0, new TruongItem { MaTruong = null, TenTruong = "— Tất cả trường —" });
+
+            cbTruong.DisplayMember = "TenTruong";
+            cbTruong.ValueMember = "MaTruong";
+            cbTruong.DataSource = ds;
+
+            cbTruong.SelectedIndexChanged -= cbTruong_SelectedIndexChanged;
+            cbTruong.SelectedIndexChanged += cbTruong_SelectedIndexChanged;
+        }
+
+        private string GetMaTruongFilter()
+        {
+            if (Common.IsAdmin)
+                return cbTruong.SelectedValue as string;
+            return Common.MaTruong;
+        }
+
+        private void cbTruong_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            NapDanhSachTrungTuyen();
         }
     }
 }

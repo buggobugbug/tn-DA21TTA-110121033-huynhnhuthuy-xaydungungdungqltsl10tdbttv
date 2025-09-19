@@ -22,16 +22,44 @@ namespace TuyenSinhWinApp
             InitializeComponent();
             _formMain = formMain;
             dgvPhongThi.CellFormatting += dgvPhongThi_CellFormatting;
+            dgvHocSinhTrongPhong.DataError += (s, e) => { e.ThrowException = false; };
         }
 
         private void frmPhongThi_Load(object sender, EventArgs e)
         {
             NapDanhSachPhongThi();
             NapDanhSachDotTuyen();
-            Guard.DisableForThuKy(
-    button1
-);
+            Guard.DisableForThuKy(button1);
             Guard.ReadOnlyGridForThuKy(dgvHocSinhTrongPhong);
+            StyleGrid(dgvPhongThi);
+            StyleGrid(dgvHocSinhTrongPhong);
+        }
+
+        private void StyleGrid(DataGridView dgv)
+        {
+            dgv.BackgroundColor = Color.White;
+            dgv.BorderStyle = BorderStyle.None;
+            dgv.GridColor = Color.FromArgb(180, 186, 194);
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(76, 95, 173);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10.5f);
+            dgv.ColumnHeadersHeight = 36;
+            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10f);
+            dgv.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 240, 255);
+            dgv.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 255);
+            dgv.RowTemplate.Height = 32;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.RowHeadersVisible = false;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
         }
 
         private void NapDanhSachDotTuyen()
@@ -41,12 +69,9 @@ namespace TuyenSinhWinApp
             cbDotTuyenSinh.DisplayMember = "TenDot";
             cbDotTuyenSinh.ValueMember = "MaDot";
             if (dsDot != null && dsDot.Length > 0)
-            {
                 cbDotTuyenSinh.SelectedValue = Common.MaDot;
-            }
         }
 
-        // Ẩn hậu tố sau dấu '_' khi hiển thị mã phòng
         private void dgvPhongThi_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dgvPhongThi.Columns[e.ColumnIndex].Name == "MaPhongThi" && e.Value != null)
@@ -56,10 +81,7 @@ namespace TuyenSinhWinApp
             }
         }
 
-        private void dgvPhongThi_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // chừa chỗ nếu cần xử lý chọn hàng
-        }
+        private void dgvPhongThi_CellClick(object sender, DataGridViewCellEventArgs e) { }
 
         private void NapDanhSachPhongThi()
         {
@@ -93,7 +115,6 @@ namespace TuyenSinhWinApp
             {
                 var phong = (PhongThi)dgvPhongThi.CurrentRow.DataBoundItem;
                 string maPhongThi = phong.MaPhongThi;
-
                 if (string.IsNullOrEmpty(maPhongThi))
                 {
                     MessageBox.Show("Không thể xác định mã phòng thi.", "Lỗi",
@@ -109,11 +130,12 @@ namespace TuyenSinhWinApp
                 table.Columns.Add("Họ và tên");
                 table.Columns.Add("Ngày sinh");
                 table.Columns.Add("Tên trường THCS");
-                table.Columns.Add("Điểm Toán", typeof(string));   // FIX: cho phép "Vắng" / chuỗi
-                table.Columns.Add("Điểm Văn", typeof(string));    // FIX
-                table.Columns.Add("Điểm Anh", typeof(string));    // FIX
+                table.Columns.Add("Điểm Toán", typeof(string));
+                table.Columns.Add("Điểm Văn", typeof(string));
+                table.Columns.Add("Điểm Môn thứ 3", typeof(string));
                 table.Columns.Add("Điểm Khuyến Khích", typeof(decimal));
                 table.Columns.Add("Điểm Ưu Tiên", typeof(decimal));
+
                 foreach (var hs in dsHocSinh)
                 {
                     table.Rows.Add(
@@ -131,21 +153,19 @@ namespace TuyenSinhWinApp
                 }
 
                 dgvHocSinhTrongPhong.DataSource = table;
-                dgvHocSinhTrongPhong.Columns["MaHocSinh"].Visible = false;
+                StyleGrid(dgvHocSinhTrongPhong);
+
+                if (dgvHocSinhTrongPhong.Columns["MaHocSinh"] != null)
+                    dgvHocSinhTrongPhong.Columns["MaHocSinh"].Visible = false;
 
                 foreach (DataGridViewColumn col in dgvHocSinhTrongPhong.Columns)
                 {
-                    if (col.HeaderText != null && col.HeaderText.Contains("Điểm"))
-                        col.ReadOnly = false;
+                    col.ReadOnly = !(col.HeaderText != null && col.HeaderText.Contains("Điểm"));
+                    if (col.HeaderText != null && (col.HeaderText.StartsWith("Điểm") || col.HeaderText == "Ngày sinh"))
+                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     else
-                        col.ReadOnly = true;
+                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
                 }
-
-                dgvHocSinhTrongPhong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dgvHocSinhTrongPhong.AllowUserToAddRows = false;
-                dgvHocSinhTrongPhong.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvHocSinhTrongPhong.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-                dgvHocSinhTrongPhong.DefaultCellStyle.Font = new Font("Segoe UI", 10);
             }
             else
             {
@@ -156,7 +176,6 @@ namespace TuyenSinhWinApp
 
         private void button1_Click(object sender, EventArgs e) { }
         private void label1_Click(object sender, EventArgs e) { }
-
         private void btnHuy_Click(object sender, EventArgs e) { }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -200,7 +219,6 @@ namespace TuyenSinhWinApp
 
         private void txtGiamThi1_TextChanged(object sender, EventArgs e) { }
 
-        // ================== XUẤT DANH SÁCH THEO MẪU ==================
         private void btnXuatDanhSach_Click(object sender, EventArgs e)
         {
             var phong = (dgvPhongThi.CurrentRow != null)
@@ -250,7 +268,6 @@ namespace TuyenSinhWinApp
                 {
                     var ws = pkg.Workbook.Worksheets.Add("DanhSachPhong");
 
-                    // ===== CÀI ĐẶT CHUNG
                     ws.Cells.Style.Font.Name = "Times New Roman";
                     ws.Cells.Style.Font.Size = 12;
                     ws.PrinterSettings.Orientation = eOrientation.Portrait;
@@ -259,7 +276,6 @@ namespace TuyenSinhWinApp
                     ws.PrinterSettings.LeftMargin = 0.5m;
                     ws.PrinterSettings.RightMargin = 0.5m;
 
-                    // ===== PHẦN ĐẦU TRANG
                     ws.Cells["A1:J1"].Merge = true;
                     ws.Cells["A1"].Value = "Sở GD & ĐT Trà Vinh";
                     ws.Cells["A1"].Style.Font.Bold = true;
@@ -282,12 +298,11 @@ namespace TuyenSinhWinApp
                     ws.Cells["A7:C7"].Merge = true;
                     ws.Cells["A7"].Value = "Phòng thi số: " + hienThiMaPhong;
 
-                    // ===== HEADER BẢNG (gộp 2 hàng) =====
                     int headerRow = 9;
 
                     ws.Cells[headerRow, 1].Value = "STT";
                     ws.Cells[headerRow, 2].Value = "SBD";
-                    ws.Cells[headerRow, 3].Value = "Họ và tên";  // phủ 2 cột (C-D)
+                    ws.Cells[headerRow, 3].Value = "Họ và tên";
                     ws.Cells[headerRow, 5].Value = "Ngày sinh";
                     ws.Cells[headerRow, 6].Value = "Tên trường THCS";
                     ws.Cells[headerRow, 7].Value = "Mã đề";
@@ -295,18 +310,16 @@ namespace TuyenSinhWinApp
                     ws.Cells[headerRow, 9].Value = "Ký nộp";
                     ws.Cells[headerRow, 10].Value = "Ghi chú";
 
-                    // Gộp 2 hàng cho toàn bộ tiêu đề
-                    ws.Cells[headerRow, 1, headerRow + 1, 1].Merge = true;   // STT
-                    ws.Cells[headerRow, 2, headerRow + 1, 2].Merge = true;   // SBD
-                    ws.Cells[headerRow, 3, headerRow + 1, 4].Merge = true;   // Họ và tên (2 cột)
-                    ws.Cells[headerRow, 5, headerRow + 1, 5].Merge = true;   // Ngày sinh
-                    ws.Cells[headerRow, 6, headerRow + 1, 6].Merge = true;   // THCS
-                    ws.Cells[headerRow, 7, headerRow + 1, 7].Merge = true;   // Mã đề
-                    ws.Cells[headerRow, 8, headerRow + 1, 8].Merge = true;   // Số tờ
-                    ws.Cells[headerRow, 9, headerRow + 1, 9].Merge = true;   // Ký nộp
-                    ws.Cells[headerRow, 10, headerRow + 1, 10].Merge = true;   // Ghi chú
+                    ws.Cells[headerRow, 1, headerRow + 1, 1].Merge = true;
+                    ws.Cells[headerRow, 2, headerRow + 1, 2].Merge = true;
+                    ws.Cells[headerRow, 3, headerRow + 1, 4].Merge = true;
+                    ws.Cells[headerRow, 5, headerRow + 1, 5].Merge = true;
+                    ws.Cells[headerRow, 6, headerRow + 1, 6].Merge = true;
+                    ws.Cells[headerRow, 7, headerRow + 1, 7].Merge = true;
+                    ws.Cells[headerRow, 8, headerRow + 1, 8].Merge = true;
+                    ws.Cells[headerRow, 9, headerRow + 1, 9].Merge = true;
+                    ws.Cells[headerRow, 10, headerRow + 1, 10].Merge = true;
 
-                    // Định dạng header
                     using (var rng = ws.Cells[headerRow, 1, headerRow + 1, 10])
                     {
                         rng.Style.Font.Bold = true;
@@ -314,7 +327,6 @@ namespace TuyenSinhWinApp
                         rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     }
 
-                    // ===== ĐỔ DỮ LIỆU
                     int dataStart = headerRow + 2;
                     int r = dataStart;
                     int stt = 1;
@@ -327,34 +339,30 @@ namespace TuyenSinhWinApp
                         ws.Cells[r, 4].Value = hs.Ten ?? "";
                         ws.Cells[r, 5].Value = hs.NgaySinh.ToString("dd/MM/yyyy");
                         ws.Cells[r, 6].Value = hs.TruongTHCS;
-
-                        ws.Cells[r, 7].Value = "";              // Mã đề (điền sau nếu có)
-                        ws.Cells[r, 8].Value = "";              // Số tờ
-                        ws.Cells[r, 9].Value = "";              // Ký nộp
-                        ws.Cells[r, 10].Value = hs.GhiChu ?? ""; // Ghi chú
-
+                        ws.Cells[r, 7].Value = "";
+                        ws.Cells[r, 8].Value = "";
+                        ws.Cells[r, 9].Value = "";
+                        ws.Cells[r, 10].Value = hs.GhiChu ?? "";
                         r++;
                     }
                     int lastDataRow = r - 1;
 
-                    // ===== ĐỘ RỘNG CỘT & CANH LỀ
-                    ws.Column(1).Width = 5.5;   // STT
-                    ws.Column(2).Width = 9.5;   // SBD
-                    ws.Column(3).Width = 22;    // Họ
-                    ws.Column(4).Width = 12;    // Tên
-                    ws.Column(5).Width = 13;    // Ngày sinh
-                    ws.Column(6).Width = 28;    // THCS
-                    ws.Column(7).Width = 9;     // Mã đề
-                    ws.Column(8).Width = 8;     // Số tờ
-                    ws.Column(9).Width = 10;    // Ký nộp
-                    ws.Column(10).Width = 16;   // Ghi chú
+                    ws.Column(1).Width = 5.5;
+                    ws.Column(2).Width = 9.5;
+                    ws.Column(3).Width = 22;
+                    ws.Column(4).Width = 12;
+                    ws.Column(5).Width = 13;
+                    ws.Column(6).Width = 28;
+                    ws.Column(7).Width = 9;
+                    ws.Column(8).Width = 8;
+                    ws.Column(9).Width = 10;
+                    ws.Column(10).Width = 16;
 
-                    ws.Cells[dataStart, 1, lastDataRow, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center; // STT
-                    ws.Cells[dataStart, 2, lastDataRow, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center; // SBD
-                    ws.Cells[dataStart, 5, lastDataRow, 5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center; // Ngày sinh
-                    ws.Cells[dataStart, 7, lastDataRow, 9].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center; // Mã đề/Số tờ/Ký nộp
+                    ws.Cells[dataStart, 1, lastDataRow, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[dataStart, 2, lastDataRow, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[dataStart, 5, lastDataRow, 5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[dataStart, 7, lastDataRow, 9].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-                    // ===== VIỀN MẢNH TOÀN BẢNG (kể cả 2 hàng header)
                     using (var rng = ws.Cells[headerRow, 1, lastDataRow, 10])
                     {
                         rng.Style.Border.Top.Style = ExcelBorderStyle.Thin;
@@ -363,7 +371,6 @@ namespace TuyenSinhWinApp
                         rng.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                     }
 
-                    // ===== PHẦN CUỐI TRANG
                     int footTop = lastDataRow + 2;
 
                     ws.Cells[footTop, 1].Value = "Danh sách này gồm có " + dsHocSinh.Length + " thí sinh dự thi";
@@ -387,7 +394,6 @@ namespace TuyenSinhWinApp
                     ws.Cells[cbctRow, 1].Value = "Cán bộ coi thi 1";
                     ws.Cells[cbctRow + 3, 1].Value = "Cán bộ coi thi 2";
 
-                    // Lưu file
                     pkg.SaveAs(new FileInfo(sfd.FileName));
                 }
 
@@ -406,15 +412,13 @@ namespace TuyenSinhWinApp
 
                 int maHS = Convert.ToInt32(row.Cells["MaHocSinh"].Value);
 
-                string sToan = ReadScoreText(row.Cells["Điểm Toán"].Value);   // FIX: string
-                string sVan = ReadScoreText(row.Cells["Điểm Văn"].Value);    // FIX: string
-                string sAnh = ReadScoreText(row.Cells["Điểm Anh"].Value);    // FIX: string
+                string sToan = ReadScoreText(row.Cells["Điểm Toán"].Value);
+                string sVan = ReadScoreText(row.Cells["Điểm Văn"].Value);
+                string sAnh = ReadScoreText(row.Cells["Điểm Môn thứ 3"].Value);
 
-                // KK/ƯT vẫn là số (decimal?)
                 decimal? diemKK = TryParseDecimal(row.Cells["Điểm Khuyến Khích"].Value);
-                decimal? diemUT = TryParseDecimal(row.Cells["Điểm Ưu Tiên"].Value);      
+                decimal? diemUT = TryParseDecimal(row.Cells["Điểm Ưu Tiên"].Value);
 
-                // Gọi đúng chữ ký service: (int, string, string, string, decimal?, decimal?)
                 if (_service.CapNhatDiemHocSinh(maHS, sToan, sVan, sAnh, diemKK, diemUT))
                     count++;
             }
@@ -427,33 +431,26 @@ namespace TuyenSinhWinApp
         {
             var s = val?.ToString()?.Trim();
             if (string.IsNullOrWhiteSpace(s)) return null;
-
-            // các cách nhập “vắng”
             if (string.Equals(s, "v", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(s, "vang", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(s, "vắng", StringComparison.OrdinalIgnoreCase))
-            {
                 return "Vắng";
-            }
 
-            // chuẩn hóa số -> string invariant (dùng . làm dấu thập phân)
             if (decimal.TryParse(s, NumberStyles.Any, CultureInfo.CurrentCulture, out var d) ||
                 decimal.TryParse(s, NumberStyles.Any, CultureInfo.GetCultureInfo("vi-VN"), out d) ||
                 decimal.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out d))
-            {
                 return d.ToString("0.##", CultureInfo.InvariantCulture);
-            }
 
-            // nếu nhập chuỗi khác (vd: “0*”...) thì trả nguyên văn (service/SP sẽ quyết định hợp lệ)
             return s;
         }
 
-
         private decimal? TryParseDecimal(object val)
         {
-            decimal tmp;
             if (val == null || string.IsNullOrWhiteSpace(val.ToString())) return null;
-            return decimal.TryParse(val.ToString(), out tmp) ? (decimal?)tmp : null;
+            if (decimal.TryParse(val.ToString(), NumberStyles.Number, CultureInfo.CurrentCulture, out var d)) return d;
+            if (decimal.TryParse(val.ToString(), NumberStyles.Number, CultureInfo.GetCultureInfo("vi-VN"), out d)) return d;
+            if (decimal.TryParse(val.ToString(), NumberStyles.Number, CultureInfo.InvariantCulture, out d)) return d;
+            return null;
         }
 
         private void dgvHocSinhTrongPhong_CellContentClick(object sender, DataGridViewCellEventArgs e) { }

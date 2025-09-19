@@ -19,7 +19,7 @@ namespace TuyenSinhWinApp
 
             // ADMIN: danh sách môn giống form cán bộ
             cboMonHoc.Items.Clear();
-            cboMonHoc.Items.AddRange(new string[] { "Toán", "Văn", "Anh", "Điểm Khuyến Khích", "Điểm Ưu Tiên" });
+            cboMonHoc.Items.AddRange(new string[] { "Toán", "Văn", "Môn thứ 3", "Điểm Khuyến Khích", "Điểm Ưu Tiên" });
             cboMonHoc.SelectedIndex = 0;
 
             this.Load += Frm_Load;
@@ -264,7 +264,7 @@ namespace TuyenSinhWinApp
                     {
                         case "Toán": diemStr = FormatScoreStr(hs.DiemToan); break;
                         case "Văn": diemStr = FormatScoreStr(hs.DiemVan); break;
-                        case "Anh": diemStr = FormatScoreStr(hs.DiemAnh); break;
+                        case "Môn thứ 3": diemStr = FormatScoreStr(hs.DiemAnh); break;
                         case "Điểm Khuyến Khích": diemStr = FormatScoreStr(hs.DiemKhuyenKhich); break;
                         case "Điểm Ưu Tiên": diemStr = FormatScoreStr(hs.DiemUuTien); break;
                         default: diemStr = null; break;
@@ -354,7 +354,7 @@ namespace TuyenSinhWinApp
                     {
                         case "Toán": sToan = ReadScoreText(entered); break;
                         case "Văn": sVan = ReadScoreText(entered); break;
-                        case "Anh": sAnh = ReadScoreText(entered); break;
+                        case "Môn thứ 3": sAnh = ReadScoreText(entered); break;
                         case "Điểm Khuyến Khích": diemKhuyenKhich = TryParseDecimal(entered); break;
                         case "Điểm Ưu Tiên": diemUuTien = TryParseDecimal(entered); break;
                         default: continue;

@@ -80,5 +80,10 @@ namespace TuyenSinhWinApp
         {
             loadform(new frmDotTuyenSinh());
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            loadform(new ChiTieu());
+        }
     }
 }

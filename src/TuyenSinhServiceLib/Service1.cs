@@ -746,8 +746,8 @@ WHERE MaHocSinh = @MaHocSinh";
             {
                 string sql = "SELECT MaTruong, MaDot, ChiTieu FROM CHI_TIEU_TUYEN_SINH WHERE MaTruong = @MaTruong AND MaDot = @MaDot";
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@MaTruong", maTruong);
-                cmd.Parameters.AddWithValue("@MaDot", maDot);
+                cmd.Parameters.AddWithValue("@MaTruong", (object)maTruong ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@MaDot", (object)maDot ?? DBNull.Value);
                 conn.Open();
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())
@@ -773,8 +773,8 @@ WHERE MaHocSinh = @MaHocSinh";
 ELSE
     INSERT INTO CHI_TIEU_TUYEN_SINH (MaTruong, MaDot, ChiTieu) VALUES (@MaTruong, @MaDot, @ChiTieu)";
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@MaTruong", maTruong);
-                cmd.Parameters.AddWithValue("@MaDot", maDot);
+                cmd.Parameters.AddWithValue("@MaTruong", (object)maTruong ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@MaDot", (object)maDot ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@ChiTieu", chiTieu);
                 conn.Open();
                 return cmd.ExecuteNonQuery() > 0;
@@ -791,8 +791,8 @@ ELSE
                 using (SqlCommand cmd = new SqlCommand("sp_XetTrungTuyen", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@MaTruong", maTruong);
-                    cmd.Parameters.AddWithValue("@MaDot", maDot);
+                    cmd.Parameters.AddWithValue("@MaTruong", (object)maTruong ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@MaDot", (object)maDot ?? DBNull.Value);
                     conn.Open();
                     cmd.ExecuteNonQuery();
                     return true;
@@ -816,8 +816,8 @@ ELSE
                     @"SELECT * FROM HOC_SINH 
               WHERE MaTruong = @MaTruong AND MaDot = @MaDot AND TrangThai = 'TrungTuyen'
               ORDER BY DiemTong DESC, Ten COLLATE Vietnamese_CI_AI, Ho COLLATE Vietnamese_CI_AI", conn);
-                cmd.Parameters.AddWithValue("@MaTruong", maTruong);
-                cmd.Parameters.AddWithValue("@MaDot", maDot);
+                cmd.Parameters.AddWithValue("@MaTruong", (object)maTruong ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@MaDot", (object)maDot ?? DBNull.Value);
                 conn.Open();
                 using (var reader = cmd.ExecuteReader())
                 {

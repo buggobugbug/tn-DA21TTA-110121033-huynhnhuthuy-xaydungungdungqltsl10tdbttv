@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using TuyenSinhServiceLib;
 using System.Drawing;
 using TuyenSinhWinApp.TuyenSinhServiceReference;
+using System.Drawing;
 
 namespace TuyenSinhWinApp
 {

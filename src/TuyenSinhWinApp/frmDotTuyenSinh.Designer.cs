@@ -153,7 +153,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 117);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 16);
+            this.label1.Size = new System.Drawing.Size(127, 16);
             this.label1.TabIndex = 6;
             this.label1.Text = "Mã đợt tuyển sinh";
             // 
@@ -162,7 +162,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 16);
+            this.label2.Size = new System.Drawing.Size(133, 16);
             this.label2.TabIndex = 7;
             this.label2.Text = "Tên đợt tuyển sinh";
             // 
@@ -192,7 +192,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 343);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 16);
+            this.label5.Size = new System.Drawing.Size(77, 16);
             this.label5.TabIndex = 12;
             this.label5.Text = "Trạng thái";
             // 
@@ -208,11 +208,12 @@
             // btnCapNhat
             // 
             this.btnCapNhat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCapNhat.Image = global::TuyenSinhWinApp.Properties.Resources.floppy_disk;
+            this.btnCapNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCapNhat.Image = global::TuyenSinhWinApp.Properties.Resources.updated;
             this.btnCapNhat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCapNhat.Location = new System.Drawing.Point(9, 518);
+            this.btnCapNhat.Location = new System.Drawing.Point(102, 518);
             this.btnCapNhat.Name = "btnCapNhat";
-            this.btnCapNhat.Size = new System.Drawing.Size(337, 40);
+            this.btnCapNhat.Size = new System.Drawing.Size(186, 36);
             this.btnCapNhat.TabIndex = 10;
             this.btnCapNhat.Text = "Cập nhật";
             this.btnCapNhat.UseVisualStyleBackColor = true;
@@ -223,7 +224,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(9, 265);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 16);
+            this.label4.Size = new System.Drawing.Size(101, 16);
             this.label4.TabIndex = 9;
             this.label4.Text = "Ngày kết thúc";
             // 
@@ -232,18 +233,19 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 186);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 16);
+            this.label3.Size = new System.Drawing.Size(100, 16);
             this.label3.TabIndex = 8;
             this.label3.Text = "Ngày bắt đầu";
             // 
             // btnThem
             // 
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThem.Image = global::TuyenSinhWinApp.Properties.Resources.plus__1_;
+            this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.Image = global::TuyenSinhWinApp.Properties.Resources.add;
             this.btnThem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThem.Location = new System.Drawing.Point(12, 442);
+            this.btnThem.Location = new System.Drawing.Point(102, 437);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(334, 40);
+            this.btnThem.Size = new System.Drawing.Size(186, 36);
             this.btnThem.TabIndex = 4;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;

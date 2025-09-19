@@ -193,6 +193,36 @@ namespace TuyenSinhWinApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap checkmark {
+            get {
+                object obj = ResourceManager.GetObject("checkmark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap checkmark__1_ {
+            get {
+                object obj = ResourceManager.GetObject("checkmark (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap checkmark__1_1 {
+            get {
+                object obj = ResourceManager.GetObject("checkmark (1)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap communications {
             get {
                 object obj = ResourceManager.GetObject("communications", resourceCulture);
@@ -656,6 +686,16 @@ namespace TuyenSinhWinApp.Properties {
         internal static System.Drawing.Bitmap online_learning__1_ {
             get {
                 object obj = ResourceManager.GetObject("online-learning (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap opinions {
+            get {
+                object obj = ResourceManager.GetObject("opinions", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

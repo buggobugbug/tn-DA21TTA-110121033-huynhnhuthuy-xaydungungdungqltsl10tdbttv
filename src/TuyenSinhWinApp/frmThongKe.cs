@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TuyenSinhServiceLib;
+using System.Drawing;
+using System.Reflection;
 using TuyenSinhWinApp.TuyenSinhServiceReference;
 
 namespace TuyenSinhWinApp
@@ -92,9 +94,9 @@ namespace TuyenSinhWinApp
 
                 dt.Columns.Add("TC", typeof(int));
 
-                foreach (var monHienThi in new[] { "Văn", "AV", "Toán" })
+                foreach (var monHienThi in new[] { "Văn", "Môn 3", "Toán" })
                 {
-                    string monTrongData = monHienThi == "AV" ? "Anh" : monHienThi;
+                    string monTrongData = monHienThi == "Môn 3" ? "Anh" : monHienThi;
 
                     var row = dt.NewRow();
                     row["Môn"] = monHienThi;
@@ -121,10 +123,10 @@ namespace TuyenSinhWinApp
                 var dtBoThi = new DataTable();
                 dtBoThi.Columns.Add("Môn");
                 dtBoThi.Columns.Add("Bỏ thi", typeof(int));
-                string[] monList = new[] { "Văn", "Anh", "Toán" };
+                string[] monList = new[] { "Văn", "Môn 3", "Toán" };
                 foreach (var mon in monList)
                 {
-                    int countBoThi = data.Where(x => x.BoThi && x.Mon == mon).Sum(x => x.SoLuong);
+                    int countBoThi = data.Where(x => x.BoThi && x.Mon == (mon == "Môn 3" ? "Anh" : mon)).Sum(x => x.SoLuong);
                     var r = dtBoThi.NewRow();
                     r["Môn"] = mon;
                     r["Bỏ thi"] = countBoThi;
@@ -133,6 +135,12 @@ namespace TuyenSinhWinApp
 
                 dgvBoThiMon.DataSource = dtBoThi;
                 dgvBoThiMon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                // Re-apply theme sau khi bind, và đóng băng cột “Môn”
+                ApplyAdminGridTheme(dgvThongKeMon, fillMode: false, freezeFirstCol: true);
+                if (dgvThongKeMon.Columns.Contains("Môn"))
+                    dgvThongKeMon.Columns["Môn"].Frozen = true;
+
+                ApplyAdminGridTheme(dgvBoThiMon, fillMode: true);
             }
             catch (Exception ex)
             {
@@ -143,19 +151,10 @@ namespace TuyenSinhWinApp
 
         private void FormatGrid()
         {
-            var dgv = dgvThongKeMon;
-            dgv.EnableHeadersVisualStyles = false;
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue;
-            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 8, FontStyle.Bold);
-            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 8);
-            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dgv.ReadOnly = true;
-            dgv.AllowUserToAddRows = false;
-            dgv.AllowUserToDeleteRows = false;
-            dgv.RowHeadersVisible = false;
+            ApplyAdminGridTheme(dgvThongKeMon, fillMode: false, freezeFirstCol: true);
+
+            // Bỏ thi theo môn: ít cột -> Fill gọn, chỉ scroll dọc
+            ApplyAdminGridTheme(dgvBoThiMon, fillMode: true, freezeFirstCol: false);
         }
 
         private void lblTitle_Click(object sender, EventArgs e)
@@ -198,5 +197,64 @@ namespace TuyenSinhWinApp
         {
             LoadThongKeTheoMon();
         }
+
+        private void ApplyAdminGridTheme(DataGridView dgv, bool fillMode, bool freezeFirstCol = false)
+        {
+            // NỀN & ĐƯỜNG KẺ
+            dgv.BackgroundColor = Color.White;
+            dgv.BorderStyle = BorderStyle.None;
+            dgv.GridColor = Color.FromArgb(235, 238, 242);
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgv.RowHeadersVisible = false;
+
+            // HEADER GIỐNG ADMIN
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(76, 95, 173);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10.5f);
+            dgv.ColumnHeadersHeight = 36;
+
+            // BODY
+            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10f);
+            dgv.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 240, 255);
+            dgv.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 255);
+            dgv.RowTemplate.Height = 32;
+
+            // HÀNH VI
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.ReadOnly = true;
+
+            // KÍCH THƯỚC CỘT
+            dgv.AutoSizeColumnsMode = fillMode
+                ? DataGridViewAutoSizeColumnsMode.Fill         // grid ngắn (Bỏ thi)
+                : DataGridViewAutoSizeColumnsMode.DisplayedCells; // grid rất nhiều cột (0..10 bước 0.25)
+            dgv.ScrollBars = fillMode ? ScrollBars.Vertical : ScrollBars.Both;
+
+            // ĐÓNG BĂNG CỘT ĐẦU (nếu có)
+            if (freezeFirstCol && dgv.Columns.Count > 0)
+                dgv.Columns[0].Frozen = true;
+
+            // Chống giật
+            EnableDoubleBuffer(dgv);
+        }
+
+        private void EnableDoubleBuffer(DataGridView dgv)
+        {
+            try
+            {
+                typeof(DataGridView)
+                    .GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic)
+                    ?.SetValue(dgv, true, null);
+            }
+            catch { /* ignore */ }
+        }
+
     }
 }

@@ -106,3 +106,4 @@ C:\Users\PCM\source\repos\TuyenSinh10Solution\src\TuyenSinhWinApp\obj\Debug\Tuye
 C:\Users\PCM\source\repos\TuyenSinh10Solution\src\TuyenSinhWinApp\obj\Debug\TuyenSin.6D03E072.Up2Date
 C:\Users\PCM\source\repos\TuyenSinh10Solution\src\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.exe
 C:\Users\PCM\source\repos\TuyenSinh10Solution\src\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.pdb
+C:\Users\PCM\source\repos\TuyenSinh10Solution\src\TuyenSinhWinApp\obj\Debug\TuyenSinhWinApp.frmThongKeDiemChuan.resources

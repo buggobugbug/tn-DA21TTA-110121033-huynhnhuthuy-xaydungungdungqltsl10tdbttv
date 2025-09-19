@@ -232,6 +232,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmQuanLyTruongHoc";
             this.Text = "frmQuanLyTruongHoc";
+            this.Load += new System.EventHandler(this.frmQuanLyTruongHoc_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTruongHoc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.truongHocBindingSource)).EndInit();
             this.ResumeLayout(false);

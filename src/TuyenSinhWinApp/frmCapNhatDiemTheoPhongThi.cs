@@ -23,7 +23,7 @@ namespace TuyenSinhWinApp
             InitializeComponent();
             _formMain = new Form();
             cboMonHoc.Items.Clear();
-            cboMonHoc.Items.AddRange(new string[] { "Toán", "Văn", "Anh", "Điểm Khuyến Khích", "Điểm Ưu Tiên" });
+            cboMonHoc.Items.AddRange(new string[] { "Toán", "Văn", "Môn thứ 3", "Điểm Khuyến Khích", "Điểm Ưu Tiên" });
             cboMonHoc.SelectedIndex = 0;
 
             this.Load += frmCapNhatDiemTheoPhongThi_Load;
@@ -181,7 +181,7 @@ namespace TuyenSinhWinApp
                         // CHÚ Ý: nhờ overload, dù proxy trả về string hay decimal? đều OK
                         case "Toán": diemStr = FormatScoreStr(hs.DiemToan); break;
                         case "Văn": diemStr = FormatScoreStr(hs.DiemVan); break;
-                        case "Anh": diemStr = FormatScoreStr(hs.DiemAnh); break;
+                        case "Môn thứ 3": diemStr = FormatScoreStr(hs.DiemAnh); break;
                         case "Điểm Khuyến Khích": diemStr = FormatScoreStr(hs.DiemKhuyenKhich); break;
                         case "Điểm Ưu Tiên": diemStr = FormatScoreStr(hs.DiemUuTien); break;
                     }
@@ -267,7 +267,7 @@ namespace TuyenSinhWinApp
                     case "Văn":
                         sVan = ReadScoreText(cellVal);           // string
                         break;
-                    case "Anh":
+                    case "Môn thứ 3":
                         sAnh = ReadScoreText(cellVal);           // string
                         break;
                     case "Điểm Khuyến Khích":

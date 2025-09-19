@@ -36,11 +36,11 @@
             this.lblTongVangAny = new System.Windows.Forms.Label();
             this.lblVangToan = new System.Windows.Forms.Label();
             this.lblVangVan = new System.Windows.Forms.Label();
-            this.lblVangAnh = new System.Windows.Forms.Label();
             this.dgvVang = new System.Windows.Forms.DataGridView();
-            this.txtTim = new System.Windows.Forms.TextBox();
             this.lblTruong = new System.Windows.Forms.Label();
             this.cbTruong = new System.Windows.Forms.ComboBox();
+            this.lblVangAnh = new System.Windows.Forms.Label();
+            this.txtTim = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVang)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,15 +130,6 @@
             this.lblVangVan.TabIndex = 64;
             this.lblVangVan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblVangAnh
-            // 
-            this.lblVangAnh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVangAnh.Location = new System.Drawing.Point(791, 728);
-            this.lblVangAnh.Name = "lblVangAnh";
-            this.lblVangAnh.Size = new System.Drawing.Size(227, 21);
-            this.lblVangAnh.TabIndex = 65;
-            this.lblVangAnh.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // dgvVang
             // 
             this.dgvVang.BackgroundColor = System.Drawing.Color.White;
@@ -147,15 +138,6 @@
             this.dgvVang.Name = "dgvVang";
             this.dgvVang.Size = new System.Drawing.Size(1630, 726);
             this.dgvVang.TabIndex = 66;
-            // 
-            // txtTim
-            // 
-            this.txtTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTim.Location = new System.Drawing.Point(1554, 25);
-            this.txtTim.Multiline = true;
-            this.txtTim.Name = "txtTim";
-            this.txtTim.Size = new System.Drawing.Size(96, 34);
-            this.txtTim.TabIndex = 67;
             // 
             // lblTruong
             // 
@@ -177,17 +159,35 @@
             this.cbTruong.TabIndex = 72;
             this.cbTruong.SelectedIndexChanged += new System.EventHandler(this.cbTruong_SelectedIndexChanged);
             // 
+            // lblVangAnh
+            // 
+            this.lblVangAnh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVangAnh.Location = new System.Drawing.Point(833, 816);
+            this.lblVangAnh.Name = "lblVangAnh";
+            this.lblVangAnh.Size = new System.Drawing.Size(227, 21);
+            this.lblVangAnh.TabIndex = 74;
+            this.lblVangAnh.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtTim
+            // 
+            this.txtTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTim.Location = new System.Drawing.Point(1554, 25);
+            this.txtTim.Multiline = true;
+            this.txtTim.Name = "txtTim";
+            this.txtTim.Size = new System.Drawing.Size(96, 34);
+            this.txtTim.TabIndex = 67;
+            // 
             // frmThongKeVangThi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1658, 846);
+            this.Controls.Add(this.lblVangAnh);
             this.Controls.Add(this.lblTruong);
             this.Controls.Add(this.cbTruong);
             this.Controls.Add(this.txtTim);
             this.Controls.Add(this.dgvVang);
-            this.Controls.Add(this.lblVangAnh);
             this.Controls.Add(this.lblVangVan);
             this.Controls.Add(this.lblVangToan);
             this.Controls.Add(this.lblTongVangAny);
@@ -216,10 +216,10 @@
         private System.Windows.Forms.Label lblTongVangAny;
         private System.Windows.Forms.Label lblVangToan;
         private System.Windows.Forms.Label lblVangVan;
-        private System.Windows.Forms.Label lblVangAnh;
         private System.Windows.Forms.DataGridView dgvVang;
-        private System.Windows.Forms.TextBox txtTim;
         private System.Windows.Forms.Label lblTruong;
         private System.Windows.Forms.ComboBox cbTruong;
+        private System.Windows.Forms.Label lblVangAnh;
+        private System.Windows.Forms.TextBox txtTim;
     }
 }

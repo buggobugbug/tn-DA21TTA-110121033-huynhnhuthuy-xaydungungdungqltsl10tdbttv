@@ -127,6 +127,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -228,6 +229,12 @@
     <Compile Include="frmThongKe.Designer.cs">
       <DependentUpon>frmThongKe.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmThongKeDiemChuan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThongKeDiemChuan.Designer.cs">
+      <DependentUpon>frmThongKeDiemChuan.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmThongKeTHCS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmThongKe.resx">
       <DependentUpon>frmThongKe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmThongKeDiemChuan.resx">
+      <DependentUpon>frmThongKeDiemChuan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThongKeTHCS.resx">
       <DependentUpon>frmThongKeTHCS.cs</DependentUpon>
@@ -414,6 +424,10 @@
     <None Include="Resources\reload.png" />
     <None Include="Resources\user %281%29.png" />
     <None Include="Resources\school.png" />
+    <None Include="Resources\opinions.png" />
+    <None Include="Resources\checkmark.png" />
+    <None Include="Resources\checkmark %281%29.png" />
+    <None Include="Resources\checkmark %281%291.png" />
     <Content Include="Templates\Mẫu.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

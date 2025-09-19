@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TuyenSinhServiceLib;
@@ -24,7 +25,89 @@ namespace TuyenSinhWinApp
         {
             LoadData();
             SetupControls();
+            dgvTruongHoc.AutoGenerateColumns = false;   
+            BuildGridColumns();                         
+            StyleGrid();
         }
+
+        private void BuildGridColumns()
+        {
+            dgvTruongHoc.Columns.Clear();
+
+            Col("MaTruong", "Mã trường", 12, min: 100, align: DataGridViewContentAlignment.MiddleCenter);
+            Col("TenTruong", "Tên trường", 28, min: 180, align: DataGridViewContentAlignment.MiddleLeft);
+            Col("DiaChi", "Địa chỉ", 30, min: 220, align: DataGridViewContentAlignment.MiddleLeft);
+            Col("SoDienThoai", "Điện thoại", 14, min: 120, align: DataGridViewContentAlignment.MiddleCenter);
+            Col("Email", "Email", 16, min: 160, align: DataGridViewContentAlignment.MiddleLeft);
+
+            // Fit trong grid, chỉ scroll dọc — giống form Admin
+            dgvTruongHoc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTruongHoc.ScrollBars = ScrollBars.Vertical;
+            dgvTruongHoc.RowHeadersVisible = false;
+        }
+
+        private DataGridViewTextBoxColumn Col(string prop, string header, float weight,
+                                              int min = 50, string format = null,
+                                              DataGridViewContentAlignment? align = null)
+        {
+            var c = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = prop,
+                Name = prop,
+                HeaderText = header,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = weight,               // tỉ lệ bề rộng
+                MinimumWidth = min,
+                SortMode = DataGridViewColumnSortMode.Programmatic
+            };
+            if (!string.IsNullOrEmpty(format)) c.DefaultCellStyle.Format = format;
+            if (align.HasValue) c.DefaultCellStyle.Alignment = align.Value;
+
+            dgvTruongHoc.Columns.Add(c);
+            return c;
+        }
+
+        private void StyleGrid()
+        {
+            // chỉ cần fit trong chính dgv, không fill cả form
+            dgvTruongHoc.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+
+            // nền & đường kẻ
+            dgvTruongHoc.BackgroundColor = Color.White;
+            dgvTruongHoc.BorderStyle = BorderStyle.None;
+            dgvTruongHoc.GridColor = Color.FromArgb(235, 238, 242);
+            dgvTruongHoc.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvTruongHoc.RowHeadersVisible = false;
+
+            // header (y hệt admin)
+            dgvTruongHoc.EnableHeadersVisualStyles = false;
+            dgvTruongHoc.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvTruongHoc.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(76, 95, 173);
+            dgvTruongHoc.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvTruongHoc.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvTruongHoc.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10.5f);
+            dgvTruongHoc.ColumnHeadersHeight = 36;
+
+            // body
+            dgvTruongHoc.DefaultCellStyle.Font = new Font("Segoe UI", 10f);
+            dgvTruongHoc.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dgvTruongHoc.DefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 240, 255);
+            dgvTruongHoc.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dgvTruongHoc.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 255);
+            dgvTruongHoc.RowTemplate.Height = 32;
+
+            // hành vi — giống form Admin Học sinh
+            dgvTruongHoc.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvTruongHoc.MultiSelect = false;
+            dgvTruongHoc.AllowUserToAddRows = false;
+            dgvTruongHoc.AllowUserToDeleteRows = false;
+            dgvTruongHoc.ReadOnly = true;
+
+            // auto-size theo grid (chỉ còn scroll dọc)
+            dgvTruongHoc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTruongHoc.ScrollBars = ScrollBars.Vertical;
+        }
+
 
         private void SetupControls()
         {

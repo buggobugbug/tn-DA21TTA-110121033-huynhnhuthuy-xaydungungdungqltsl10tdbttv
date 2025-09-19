@@ -19,7 +19,6 @@ namespace TuyenSinhWinApp
         public frmThongKeTHCS()
         {
             InitializeComponent();
-            // gắn sự kiện nếu chưa gắn trong designer
             this.Load += frmThongKeTHCS_Load;
             cbDotTuyenSinh.SelectedIndexChanged += cbDot_SelectedIndexChanged;
             btnTaiLai.Click += (s, e) => LoadData();
@@ -29,8 +28,8 @@ namespace TuyenSinhWinApp
         {
             if (!Common.IsAdmin)
             {
-                lblTruong.Visible = false;  // label “Trường:”
-                cbTruong.Visible = false;  // combobox chọn trường
+                lblTruong.Visible = false;
+                cbTruong.Visible = false;  
                 return;
             }
 
@@ -38,7 +37,7 @@ namespace TuyenSinhWinApp
             cbTruong.Visible = true;
 
             var ds = _svc.Admin_LayDanhSachTruong()?.ToList() ?? new List<TruongItem>();
-            // Dòng đầu là “Tất cả”
+       
             ds.Insert(0, new TruongItem { MaTruong = null, TenTruong = "— Tất cả trường —" });
 
             cbTruong.DisplayMember = "TenTruong";
@@ -93,14 +92,13 @@ namespace TuyenSinhWinApp
         private void frmThongKeTHCS_Load(object sender, EventArgs e)
         {
             LoadDots();
-            LoadTruongForAdmin();// nạp combobox đợt
-            BuildColumns();   // set up columns 1 lần
-            LoadData();       // nạp dữ liệu
+            LoadTruongForAdmin();
+            BuildColumns();   
+            LoadData();       
         }
 
         private void LoadDots()
         {
-            // nạp danh sách đợt từ service
             var ds = _svc.LayDanhSachDotTuyen()?.ToList() ?? new List<DotTuyenSinh>();
             cbDotTuyenSinh.DisplayMember = "TenDot";
             cbDotTuyenSinh.ValueMember = "MaDot";
@@ -108,7 +106,6 @@ namespace TuyenSinhWinApp
 
             var maTruongFilter = GetMaTruongFilter();
 
-            // chọn sẵn theo Common.MaDot (nếu có)
             if (!string.IsNullOrEmpty(Common.MaDot))
             {
                 var found = ds.FirstOrDefault(x => x.MaDot == Common.MaDot);
@@ -118,21 +115,41 @@ namespace TuyenSinhWinApp
 
         private void cbDot_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Common.MaDot = cbDotTuyenSinh.SelectedValue?.ToString(); // đồng bộ toàn app
+            Common.MaDot = cbDotTuyenSinh.SelectedValue?.ToString(); 
             LoadData();
         }
 
         private void LoadData()
         {
-            // bảo hiểm MaDot rỗng
             var maDot = cbDotTuyenSinh.SelectedValue?.ToString() ?? Common.MaDot ?? "";
             var maTruongFilter = GetMaTruongFilter();
             var data = _svc.ThongKeTheoTHCS(maTruongFilter, maDot)
               ?? Array.Empty<ThongKeTHCSRow>();
-            
+            var modifiedData = data.Select(row => new ThongKeTHCSRow
+            {
+                TruongTHCS = row.TruongTHCS,
+                Mon = row.Mon == "Anh" ? "Môn 3" : row.Mon,
+                TongTS = row.TongTS,
+                TSNu = row.TSNu,
+                DuThi = row.DuThi,
+                BoThi = row.BoThi,
+                M0_3 = row.M0_3,
+                TyLe0_3 = row.TyLe0_3,
+                M3_5 = row.M3_5,
+                TyLe3_5 = row.TyLe3_5,
+                M5_7 = row.M5_7,
+                TyLe5_7 = row.TyLe5_7,
+                M7_9 = row.M7_9,
+                TyLe7_9 = row.TyLe7_9,
+                M9_10 = row.M9_10,
+                TyLe9_10 = row.TyLe9_10,
+                Dau = row.Dau,
+                TyLeDau = row.TyLeDau,
+                Hong = row.Hong,
+                TyLeHong = row.TyLeHong
+            }).ToArray();
 
-            dgvTHCS.DataSource = data;
-            // tổng hợp TB (trọng số theo tổng TS từng trường)
+            dgvTHCS.DataSource = modifiedData;
             int tongTS = data.GroupBy(x => x.TruongTHCS).Select(g => g.First().TongTS).Sum();
             int tongDau = data.GroupBy(x => x.TruongTHCS).Select(g => g.First().Dau).Sum();
             int tongHong = data.GroupBy(x => x.TruongTHCS).Select(g => g.First().Hong).Sum();
@@ -155,12 +172,11 @@ namespace TuyenSinhWinApp
         {
             if (_columnsBuilt) return;
 
-            // THCS grid
+          
             var g = dgvTHCS;
             g.AutoGenerateColumns = false;
             g.Columns.Clear();
 
-            // cột cơ bản
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "TruongTHCS",
@@ -194,7 +210,6 @@ namespace TuyenSinhWinApp
                 HeaderText = "Bỏ thi"
             });
 
-            // helper thêm cặp SL/Tỷ lệ
             void addPair(string slName, string tlName, string header)
             {
                 g.Columns.Add(new DataGridViewTextBoxColumn

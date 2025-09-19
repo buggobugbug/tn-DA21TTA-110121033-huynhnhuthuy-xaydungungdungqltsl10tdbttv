@@ -27,12 +27,15 @@ namespace TuyenSinhWinApp
             InitializeComponent();
             _serviceClient = new Service1Client();
             _formMain = formMain;
+
+            // ===== DESIGN KHỞI TẠO NHẸ =====
             dgvDanhSachHocSinh.EnableHeadersVisualStyles = false;
             dgvDanhSachHocSinh.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvDanhSachHocSinh.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11);
             dgvDanhSachHocSinh.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue;
             dgvDanhSachHocSinh.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             dgvDanhSachHocSinh.DefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+
             SetupFormControls();
         }
 
@@ -56,8 +59,10 @@ namespace TuyenSinhWinApp
             // Chọn đợt đang mở mặc định
             var dotDangMo = danhSachDotTuyen.FirstOrDefault(d => d.TrangThai == "DangMo");
             if (dotDangMo != null)
+            {
                 cboDotTuyen.SelectedValue = dotDangMo.MaDot;
                 Common.MaDot = dotDangMo.MaDot;
+            }
         }
 
         public frmHocsinh()
@@ -135,7 +140,6 @@ namespace TuyenSinhWinApp
             }
         }
 
-
         private string HienThiTrangThai(string ma)
         {
             switch (ma)
@@ -148,7 +152,6 @@ namespace TuyenSinhWinApp
                 default: return "Đăng ký";
             }
         }
-
 
         private decimal? ParseDecimal(string text)
         {
@@ -169,7 +172,7 @@ namespace TuyenSinhWinApp
             cboGioiTinh.SelectedIndex = 0;
             txtDanToc.Clear();
             txtNoiSinh.Clear();
-            cboTruongTHCS.SelectedIndex =0;
+            cboTruongTHCS.SelectedIndex = 0;
             cboTrangThai.SelectedIndex = 0;
             txtGhiChu.Clear();
             txtHo.Focus();
@@ -184,8 +187,227 @@ namespace TuyenSinhWinApp
                 _serviceClient.Close();
         }
 
-        // Load lại danh sách học sinh
+        // ====== DESIGN: XÂY DỰNG CỘT + STYLE DGV (giống mẫu) ======
 
+        private void frmHocsinh_Load(object sender, EventArgs e)
+        {
+            LoadDotTuyen();
+
+            // Tắt auto generate để kiểm soát cột + định dạng
+            dgvDanhSachHocSinh.AutoGenerateColumns = false;
+
+            // Build cột hiển thị & định dạng
+            BuildDanhSachHocSinhColumns();
+
+            // Style lưới (màu, đường kẻ, header, hành vi…)
+            FormatDanhSachHocSinhGrid();
+
+            // Tô màu theo trạng thái
+            dgvDanhSachHocSinh.CellFormatting += dgvDanhSachHocSinh_CellFormatting;
+
+            // Nạp dữ liệu
+            LoadDanhSachHocSinh();
+
+            // Gán sự kiện lọc
+            btnLoc.Click += btnLoc_Click;
+
+            Guard.DisableForThuKy(pictureBox4, pictureBox2, pictureBoxXoa, PicThemMSBD, excelpic);
+        }
+
+        /// <summary>
+        /// Tạo cột hiển thị với tỉ lệ FillWeight + căn lề + format, tương tự form mẫu.
+        /// </summary>
+        private void BuildDanhSachHocSinhColumns()
+        {
+            var dgv = dgvDanhSachHocSinh;
+            dgv.Columns.Clear();
+
+            // Ẩn các cột khóa/hệ thống nếu có
+            HideIfExists("MaHocSinh");
+            HideIfExists("MaTruong");
+            HideIfExists("MaDot");
+
+            // Cột hiển thị (Fill + FillWeight để chia tỉ lệ)
+            Col("MaSoBaoDanh", "Số BD", 8, min: 70, align: DataGridViewContentAlignment.MiddleCenter);
+            Col("Ho", "Họ", 16, min: 120);
+            Col("Ten", "Tên", 10, min: 80);
+            Col("NgaySinh", "Ngày sinh", 11, min: 95, format: "dd/MM/yyyy", align: DataGridViewContentAlignment.MiddleCenter);
+            Col("GioiTinh", "Giới tính", 7, min: 70, align: DataGridViewContentAlignment.MiddleCenter);
+            Col("TruongTHCS", "Trường THCS", 20, min: 160);
+            Col("NoiSinh", "Nơi sinh", 14, min: 120);
+            Col("DanToc", "Dân tộc", 7, min: 70, align: DataGridViewContentAlignment.MiddleCenter);
+            Col("PhongThi", "Phòng thi", 10, min: 90);
+
+            Col("DiemToan", "Toán", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemVan", "Văn", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemAnh", "Môn thứ 3", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemUuTien", "Ưu tiên", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemKhuyenKhich", "Khuyến khích", 9, min: 70, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemTong", "Tổng", 9, min: 70, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+
+            Col("TrangThai", "Trạng thái", 12, min: 100);
+            Col("GhiChu", "Ghi chú", 18, min: 140);
+
+            // Fit trong grid, chỉ scroll dọc
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.ScrollBars = ScrollBars.Vertical;
+            dgv.RowHeadersVisible = false;
+        }
+
+        private void Col(string prop, string header, float weight,
+                         int min = 50, string format = null,
+                         DataGridViewContentAlignment? align = null)
+        {
+            var c = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = prop,
+                Name = prop,
+                HeaderText = header,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = weight,
+                MinimumWidth = min,
+                SortMode = DataGridViewColumnSortMode.Programmatic,
+                ReadOnly = true
+            };
+            if (!string.IsNullOrEmpty(format)) c.DefaultCellStyle.Format = format;
+            if (align.HasValue) c.DefaultCellStyle.Alignment = align.Value;
+
+            dgvDanhSachHocSinh.Columns.Add(c);
+        }
+
+        private void HideIfExists(string name)
+        {
+            var col = dgvDanhSachHocSinh.Columns[name];
+            if (col != null) col.Visible = false;
+        }
+
+        /// <summary>
+        /// Style DataGridView: đường kẻ ngang, màu grid, header, font, alternating rows… (giống form mẫu)
+        /// </summary>
+        private void FormatDanhSachHocSinhGrid()
+        {
+            var dgv = dgvDanhSachHocSinh;
+            dgv.BorderStyle = BorderStyle.FixedSingle; // viền ngoài control
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single; // kẻ cả ngang & dọc
+            dgv.GridColor = Color.FromArgb(180, 180, 180); // màu đường kẻ đậm hơn
+
+            // header cũng có viền
+            dgv.EnableHeadersVisualStyles = false; // đảm bảo style custom có hiệu lực
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+
+            // ép advanced border style (một số theme bỏ qua GridColor nhạt)
+            dgv.AdvancedCellBorderStyle.All = DataGridViewAdvancedCellBorderStyle.Single;
+            dgv.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.Single;
+            // Khung & đường kẻ (thêm đường kẻ cho dễ nhìn)
+            dgv.BackgroundColor = Color.White;
+
+            // ==== VIỀN NGOÀI + KẺ Ô RÕ ====
+            dgv.BorderStyle = BorderStyle.FixedSingle;                       // có khung ngoài
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;        // có cả ngang + dọc
+            dgv.GridColor = Color.FromArgb(190, 195, 200);                   // màu đường kẻ đậm hơn
+
+            // ép kiểu viền cell (một số theme bỏ qua GridColor nhạt)
+            dgv.AdvancedCellBorderStyle.All = DataGridViewAdvancedCellBorderStyle.Single;
+
+            // nếu muốn giữ ẩn row header vẫn ok (viền ngoài đã có):
+            dgv.RowHeadersVisible = false;
+
+
+            // Header
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(76, 95, 173);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 10.5f);
+            dgv.ColumnHeadersHeight = 36;
+
+            // Body
+            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10f);
+            dgv.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(229, 240, 255);
+            dgv.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 255);
+            dgv.RowTemplate.Height = 32;
+
+            // Hành vi
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.AllowUserToResizeRows = false;
+            dgv.ReadOnly = true;
+
+            // Fit theo grid (scroll dọc)
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.ScrollBars = ScrollBars.Vertical;
+
+            // Đặt lại header text nếu nguồn dữ liệu tự có cột
+            var map = new Dictionary<string, string>
+            {
+                { "Ho", "Họ" }, { "Ten", "Tên" }, { "NgaySinh", "Ngày sinh" }, { "GioiTinh", "Giới tính" },
+                { "DanToc", "Dân tộc" }, { "NoiSinh", "Nơi sinh" }, { "TruongTHCS", "Trường THCS" },
+                { "MaSoBaoDanh", "Số BD" }, { "DiemToan", "Toán" }, { "DiemVan", "Văn" },
+                { "DiemAnh", "Môn thứ 3" }, { "DiemKhuyenKhich", "Khuyến khích" }, { "DiemUuTien", "Ưu tiên" },
+                { "DiemTong", "Tổng" }, { "TrangThai", "Trạng thái" }, { "GhiChu", "Ghi chú" }, { "PhongThi", "Phòng thi" }
+            };
+            foreach (var m in map)
+                if (dgv.Columns.Contains(m.Key))
+                    dgv.Columns[m.Key].HeaderText = m.Value;
+
+            // Căn lề hợp lý
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                string h = (col.HeaderText ?? "").ToLower();
+                if (h.Contains("điểm") || h.Contains("tổng") || h.Contains("ưu tiên") || h.Contains("khuyến"))
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                else if (h.Contains("ngày") || h.Contains("giới tính") || h.Contains("số bd") || h.Contains("phòng"))
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                else
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
+
+        /// <summary>
+        /// Tô màu trạng thái giống form mẫu.
+        /// </summary>
+        private void dgvDanhSachHocSinh_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value == null) return;
+
+            var dgv = dgvDanhSachHocSinh;
+            var name = dgv.Columns[e.ColumnIndex].DataPropertyName;
+
+            if (name == "TrangThai")
+            {
+                var v = e.Value.ToString();
+                if (v == "TrungTuyen")
+                {
+                    e.CellStyle.ForeColor = Color.SeaGreen;
+                    e.CellStyle.Font = new Font(dgv.Font, FontStyle.Bold);
+                }
+                else if (v == "DangKy")
+                {
+                    e.CellStyle.ForeColor = Color.DodgerBlue;
+                }
+                else if (v == "Rot")
+                {
+                    e.CellStyle.ForeColor = Color.IndianRed;
+                }
+                else if (v == "HopLe")
+                {
+                    e.CellStyle.ForeColor = Color.MediumSeaGreen;
+                }
+                else if (v == "KhongHopLe")
+                {
+                    e.CellStyle.ForeColor = Color.OrangeRed;
+                }
+            }
+        }
+
+        // ================== LOAD DỮ LIỆU ==================
+
+        // Load lại danh sách học sinh
         private void LoadDanhSachHocSinh()
         {
             try
@@ -204,26 +426,28 @@ namespace TuyenSinhWinApp
 
                 var ds = _serviceClient.LayDanhSachHocSinh(Common.MaTruong, maDot);
                 _dsHocSinhGoc = ds.ToList();
+
+                // Quan trọng: giữ AutoGenerateColumns=false để bám cột đã build
                 dgvDanhSachHocSinh.DataSource = null;
                 dgvDanhSachHocSinh.DataSource = ds;
+
                 CapNhatSoLuongHocSinh();
                 NapDuLieuTruongTHCSVaoCombo(_dsHocSinhGoc);
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi tải danh sách: " + ex.Message);
             }
         }
+
         // Chức năng lọc 
         private void NapDuLieuTruongTHCSVaoCombo(IEnumerable<HocSinh> ds)
         {
             var truongs = _dsHocSinhGoc
-    .Select(x => x.TruongTHCS)
-    .Where(x => !string.IsNullOrWhiteSpace(x))
-    .Distinct()
-    .ToList();
+                .Select(x => x.TruongTHCS)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Distinct()
+                .ToList();
             truongs.Insert(0, "Tất cả");
             cboLocTruongTHCS.DataSource = truongs;
         }
@@ -236,29 +460,10 @@ namespace TuyenSinhWinApp
             return arr.All(t => fullName.Contains(t));
         }
 
-        private void frmHocsinh_Load(object sender, EventArgs e) {
-            LoadDotTuyen();
-            FormatDanhSachHocSinhGrid();
-            LoadDanhSachHocSinh();
-            btnLoc.Click += btnLoc_Click;
-            Guard.DisableForThuKy(
-    pictureBox4, pictureBox2, pictureBoxXoa, PicThemMSBD, excelpic);
-
-
-        }
-
-        private void grpThongTin_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void grpDiemThi_Enter(object sender, EventArgs e)
-        {
-
-        }
+        private void grpThongTin_Enter(object sender, EventArgs e) { }
+        private void grpDiemThi_Enter(object sender, EventArgs e) { }
 
         // Cập nhật học sinh bằng excel
-
         private List<HocSinh> DocExcel_HocSinh(string filePath)
         {
             var danhSach = new List<HocSinh>();
@@ -277,7 +482,6 @@ namespace TuyenSinhWinApp
                     startRow++;
 
                 // Nếu có thêm 1 dòng tiêu đề “to” phía trên, có thể tiếp tục kiểm tra:
-                // (Không bắt buộc, nhưng giúp tránh mất dòng đầu)
                 string c3next = ws.Cells[startRow, 3].Text?.Trim().ToLower() ?? "";
                 string c4next = ws.Cells[startRow, 4].Text?.Trim().ToLower() ?? "";
                 if (c3next == "họ" || c3next == "ho" || c4next == "tên" || c4next == "ten")
@@ -318,7 +522,6 @@ namespace TuyenSinhWinApp
             return danhSach;
         }
 
-
         private void btnHuy_Click_1(object sender, EventArgs e)
         {
             if (_formMain != null)
@@ -329,10 +532,7 @@ namespace TuyenSinhWinApp
             this.Close();
         }
 
-        private void label14_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void label14_Click(object sender, EventArgs e) { }
 
         private void excelpic_Click(object sender, EventArgs e)
         {
@@ -403,7 +603,6 @@ namespace TuyenSinhWinApp
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
             LoadDanhSachHocSinh();
             MessageBox.Show("Đã gọi load lại danh sách!"); // Test xem có click vào không
         }
@@ -462,7 +661,6 @@ namespace TuyenSinhWinApp
         {
             if (!Guard.DemandEdit(this)) return;
             var selectedMaDot = cboDotTuyen.SelectedValue?.ToString();
-            MessageBox.Show("MaDot chọn: " + selectedMaDot);
 
             if (string.IsNullOrWhiteSpace(txtHo.Text))
             {
@@ -501,7 +699,7 @@ namespace TuyenSinhWinApp
 
                     if (thanhCong)
                     {
-                        MessageBox.Show("Cập nhật học sinh thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Thêm học sinh thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadDanhSachHocSinh();
                         ResetForm();
                         _isEditMode = false;
@@ -509,7 +707,7 @@ namespace TuyenSinhWinApp
                     }
                     else
                     {
-                        MessageBox.Show("Cập nhật thất bại. Vui lòng kiểm tra dữ liệu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Thêm thất bại. Vui lòng kiểm tra dữ liệu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
@@ -549,16 +747,8 @@ namespace TuyenSinhWinApp
             }
         }
 
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void panel4_Paint(object sender, PaintEventArgs e) { }
+        private void pictureBox5_Click(object sender, EventArgs e) { }
 
         // Phần sửa học sinh chọn học sinh để sửa
         private void dgvDanhSachHocSinh_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -568,10 +758,9 @@ namespace TuyenSinhWinApp
             var row = dgvDanhSachHocSinh.Rows[e.RowIndex];
             if (row.DataBoundItem is HocSinh hs)
             {
-                _isEditMode = true;            
-                _hocSinhDangSua = hs;           
-                HienThiThongTinHocSinh(hs);     
-
+                _isEditMode = true;
+                _hocSinhDangSua = hs;
+                HienThiThongTinHocSinh(hs);
             }
         }
 
@@ -587,7 +776,7 @@ namespace TuyenSinhWinApp
             // Lấy dữ liệu vừa sửa từ các textbox
             var hocSinh = new HocSinh
             {
-                MaHocSinh = _hocSinhDangSua.MaHocSinh, 
+                MaHocSinh = _hocSinhDangSua.MaHocSinh,
                 Ho = txtHo.Text.Trim(),
                 Ten = txtTen.Text.Trim(),
                 NgaySinh = dtpNgaySinh.Value,
@@ -607,7 +796,7 @@ namespace TuyenSinhWinApp
             if (result)
             {
                 MessageBox.Show("Cập nhật thông tin học sinh thành công!");
-                LoadDanhSachHocSinh();   
+                LoadDanhSachHocSinh();
                 ResetForm();
             }
             else
@@ -650,57 +839,9 @@ namespace TuyenSinhWinApp
             }
         }
 
-        // Phần chỉnh dgv sao cho đẹp
-        private void FormatDanhSachHocSinhGrid()
-        {
-            var dgv = dgvDanhSachHocSinh;
-            dgv.EnableHeadersVisualStyles = false;
-            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.SteelBlue;
-            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
-            dgv.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dgv.DefaultCellStyle.BackColor = Color.White;
-            dgv.DefaultCellStyle.ForeColor = Color.Black;
-            dgv.DefaultCellStyle.SelectionBackColor = Color.LightCyan;
-            dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgv.RowTemplate.Height = 28;
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgv.AllowUserToAddRows = false;
-            dgv.AllowUserToResizeRows = false;
-            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
-
-            // Ẩn các cột không cần thiết
-            if (dgv.Columns.Contains("MaHocSinh")) dgv.Columns["MaHocSinh"].Visible = false;
-            if (dgv.Columns.Contains("MaTruong")) dgv.Columns["MaTruong"].Visible = false;
-            if (dgv.Columns.Contains("MaDot")) dgv.Columns["MaDot"].Visible = false;
-
-            // Đặt tên cột
-            var map = new Dictionary<string, string>
-    {
-        { "Ho", "Họ" }, { "Ten", "Tên" }, { "NgaySinh", "Ngày sinh" }, { "GioiTinh", "Giới tính" },
-        { "DanToc", "Dân tộc" }, { "NoiSinh", "Nơi sinh" }, { "TruongTHCS", "Trường THCS" },
-        { "MaSoBaoDanh", "Số báo danh" }, { "DiemToan", "Toán" }, { "DiemVan", "Văn" },
-        { "DiemAnh", "Anh" }, { "DiemKhuyenKhich", "Khuyến khích" }, { "DiemUuTien", "Ưu tiên" },
-        { "DiemTong", "Tổng điểm" }, { "TrangThai", "Trạng thái" }, { "GhiChu", "Ghi chú" }
-    };
-            foreach (var m in map)
-                if (dgv.Columns.Contains(m.Key))
-                    dgv.Columns[m.Key].HeaderText = m.Value;
-
-            // Căn lề giữa cho điểm và ngày sinh
-            foreach (DataGridViewColumn col in dgv.Columns)
-            {
-                if (col.HeaderText.Contains("điểm", StringComparison.OrdinalIgnoreCase) || col.HeaderText.Contains("Ngày"))
-                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                else
-                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            }
-        }
-
+        // Bộ lọc
         private void btnLoc_Click(object sender, EventArgs e)
         {
-
             string tenTim = txtTimTen.Text.Trim();
             string truongTHCS = cboLocTruongTHCS.SelectedItem?.ToString();
 
@@ -716,10 +857,7 @@ namespace TuyenSinhWinApp
             dgvDanhSachHocSinh.DataSource = ketQua;
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        private void panel2_Paint(object sender, PaintEventArgs e) { }
 
         // Cập nhật số lượng học sinh có trong datagridview
         private void CapNhatSoLuongHocSinh()
@@ -732,25 +870,10 @@ namespace TuyenSinhWinApp
             lblSoLuongHocSinh.Text = $"Tổng số học sinh có trong danh sách: {soLuong} học sinh";
         }
 
-        private void label15_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgvDanhSachHocSinh_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void txtGhiChu_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        private void label15_Click(object sender, EventArgs e) { }
+        private void label11_Click(object sender, EventArgs e) { }
+        private void dgvDanhSachHocSinh_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+        private void txtGhiChu_TextChanged(object sender, EventArgs e) { }
 
         private void btnXuatTheDuThi_Click(object sender, EventArgs e)
         {
@@ -794,7 +917,7 @@ namespace TuyenSinhWinApp
 
                     var allDots = _serviceClient.LayDanhSachDotTuyen();
                     var dotChon = allDots?.FirstOrDefault(d => d.MaDot == maDot);
-                   string tenDotText = dotChon?.TenDot ?? tenDot;
+                    string tenDotText = dotChon?.TenDot ?? tenDot;
                     string ngayBatDauStr = dotChon?.NgayBatDau?.ToString("dd/MM/yyyy") ?? "";
 
                     // Ngày xuất (dùng cho "Trà Vinh, ngày ...")
@@ -889,6 +1012,7 @@ namespace TuyenSinhWinApp
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private static string ResolveTemplatePath(string folder, string fileName)
         {
             // Ưu tiên: .\Templates\TheDuThi_Template.xlsx (bin\Debug/Release)

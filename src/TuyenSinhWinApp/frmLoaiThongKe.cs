@@ -75,5 +75,17 @@ namespace TuyenSinhWinApp
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                loadform(new frmThongKeDiemChuan());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }

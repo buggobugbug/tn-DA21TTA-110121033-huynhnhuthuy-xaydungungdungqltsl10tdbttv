@@ -38,32 +38,34 @@
             this.btnLuuChiTieu = new System.Windows.Forms.Button();
             this.btnXuatDanhSach = new System.Windows.Forms.Button();
             this.btnXuatTatCaDiem = new System.Windows.Forms.Button();
+            this.cbTruong = new System.Windows.Forms.ComboBox();
+            this.lblTruong = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDanhSachTrungTuyen)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1, 9);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(274, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 41);
+            this.label1.Size = new System.Drawing.Size(59, 21);
             this.label1.TabIndex = 59;
-            this.label1.Text = "Chỉ tiêu hiện tại :";
+            this.label1.Text = "Chỉ tiêu:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtChiTieu
             // 
-            this.txtChiTieu.Location = new System.Drawing.Point(131, 19);
+            this.txtChiTieu.Location = new System.Drawing.Point(339, 19);
             this.txtChiTieu.Multiline = true;
             this.txtChiTieu.Name = "txtChiTieu";
-            this.txtChiTieu.Size = new System.Drawing.Size(155, 24);
+            this.txtChiTieu.Size = new System.Drawing.Size(43, 24);
             this.txtChiTieu.TabIndex = 60;
             // 
             // cbDotTuyenSinh
             // 
             this.cbDotTuyenSinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDotTuyenSinh.FormattingEnabled = true;
-            this.cbDotTuyenSinh.Location = new System.Drawing.Point(393, 19);
+            this.cbDotTuyenSinh.Location = new System.Drawing.Point(453, 19);
             this.cbDotTuyenSinh.Name = "cbDotTuyenSinh";
             this.cbDotTuyenSinh.Size = new System.Drawing.Size(264, 24);
             this.cbDotTuyenSinh.TabIndex = 62;
@@ -71,10 +73,10 @@
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(307, 19);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(388, 20);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 21);
+            this.label2.Size = new System.Drawing.Size(59, 21);
             this.label2.TabIndex = 63;
             this.label2.Text = "Chọn đợt :";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -163,12 +165,34 @@
             this.btnXuatTatCaDiem.UseVisualStyleBackColor = true;
             this.btnXuatTatCaDiem.Click += new System.EventHandler(this.btnXuatTatCaDiem_Click);
             // 
+            // cbTruong
+            // 
+            this.cbTruong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTruong.FormattingEnabled = true;
+            this.cbTruong.Location = new System.Drawing.Point(86, 19);
+            this.cbTruong.Name = "cbTruong";
+            this.cbTruong.Size = new System.Drawing.Size(182, 24);
+            this.cbTruong.TabIndex = 74;
+            this.cbTruong.SelectedIndexChanged += new System.EventHandler(this.cbTruong_SelectedIndexChanged);
+            // 
+            // lblTruong
+            // 
+            this.lblTruong.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTruong.Location = new System.Drawing.Point(2, 22);
+            this.lblTruong.Name = "lblTruong";
+            this.lblTruong.Size = new System.Drawing.Size(94, 21);
+            this.lblTruong.TabIndex = 73;
+            this.lblTruong.Text = "Chọn trường :";
+            this.lblTruong.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ChiTieu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1690, 1041);
+            this.Controls.Add(this.cbTruong);
+            this.Controls.Add(this.lblTruong);
             this.Controls.Add(this.btnXuatTatCaDiem);
             this.Controls.Add(this.btnXuatDanhSach);
             this.Controls.Add(this.btnXemTrungTuyen);
@@ -200,5 +224,7 @@
         private System.Windows.Forms.Button btnXemTrungTuyen;
         private System.Windows.Forms.Button btnXuatDanhSach;
         private System.Windows.Forms.Button btnXuatTatCaDiem;
+        private System.Windows.Forms.ComboBox cbTruong;
+        private System.Windows.Forms.Label lblTruong;
     }
 }

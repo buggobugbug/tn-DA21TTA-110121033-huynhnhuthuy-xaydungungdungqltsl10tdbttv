@@ -249,7 +249,7 @@
             // btnLuuDiem
             // 
             this.btnLuuDiem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLuuDiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLuuDiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLuuDiem.Image = global::TuyenSinhWinApp.Properties.Resources.filter;
             this.btnLuuDiem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLuuDiem.Location = new System.Drawing.Point(1546, 5);
@@ -258,6 +258,7 @@
             this.btnLuuDiem.TabIndex = 54;
             this.btnLuuDiem.Text = "Lưu điểm";
             this.btnLuuDiem.UseVisualStyleBackColor = true;
+            this.btnLuuDiem.Click += new System.EventHandler(this.btnLuuDiem_Click);
             // 
             // frmAdminCapNhatDiemTheoPhongThi
             // 

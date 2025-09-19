@@ -58,7 +58,7 @@ namespace TuyenSinhWinApp
 
             Col("DiemToan", "Toán", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
             Col("DiemVan", "Văn", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
-            Col("DiemAnh", "Anh", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
+            Col("DiemAnh", "Môn thứ 3", 7, min: 60, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
             Col("DiemTong", "Tổng", 9, min: 70, format: "0.00", align: DataGridViewContentAlignment.MiddleRight);
 
             Col("TrangThai", "Trạng thái", 12, min: 100);

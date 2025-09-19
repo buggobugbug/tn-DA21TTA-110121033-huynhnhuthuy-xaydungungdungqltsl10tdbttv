@@ -33,6 +33,8 @@
             this.MaPhongThi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SoLuongToiDa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SoLuongHienTai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maDotDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.phongThiBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label18 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvHocSinhTrongPhong = new System.Windows.Forms.DataGridView();
@@ -43,16 +45,14 @@
             this.btnXuatDanhSach = new System.Windows.Forms.Button();
             this.btnXemHocSinh = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.maDotDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.phongThiBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.phongThiBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.phongThiBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.phongThiBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.phongThiBindingSource4 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhongThi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHocSinhTrongPhong)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource1)).BeginInit();
@@ -105,6 +105,18 @@
             this.SoLuongHienTai.HeaderText = "Số thí sinh";
             this.SoLuongHienTai.Name = "SoLuongHienTai";
             this.SoLuongHienTai.ReadOnly = true;
+            // 
+            // maDotDataGridViewTextBoxColumn
+            // 
+            this.maDotDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.maDotDataGridViewTextBoxColumn.DataPropertyName = "MaDot";
+            this.maDotDataGridViewTextBoxColumn.HeaderText = "Mã đợt";
+            this.maDotDataGridViewTextBoxColumn.Name = "maDotDataGridViewTextBoxColumn";
+            this.maDotDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // phongThiBindingSource
+            // 
+            this.phongThiBindingSource.DataSource = typeof(TuyenSinhServiceLib.PhongThi);
             // 
             // label18
             // 
@@ -159,7 +171,7 @@
             // 
             this.cbDotTuyenSinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDotTuyenSinh.FormattingEnabled = true;
-            this.cbDotTuyenSinh.Location = new System.Drawing.Point(1050, 35);
+            this.cbDotTuyenSinh.Location = new System.Drawing.Point(1161, 35);
             this.cbDotTuyenSinh.Name = "cbDotTuyenSinh";
             this.cbDotTuyenSinh.Size = new System.Drawing.Size(304, 24);
             this.cbDotTuyenSinh.TabIndex = 55;
@@ -168,7 +180,7 @@
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(911, 35);
+            this.label11.Location = new System.Drawing.Point(1031, 35);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(124, 21);
             this.label11.TabIndex = 56;
@@ -179,12 +191,12 @@
             // btnXuatDanhSach
             // 
             this.btnXuatDanhSach.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXuatDanhSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXuatDanhSach.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXuatDanhSach.Image = global::TuyenSinhWinApp.Properties.Resources.excel;
             this.btnXuatDanhSach.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnXuatDanhSach.Location = new System.Drawing.Point(1391, 527);
+            this.btnXuatDanhSach.Location = new System.Drawing.Point(1422, 527);
             this.btnXuatDanhSach.Name = "btnXuatDanhSach";
-            this.btnXuatDanhSach.Size = new System.Drawing.Size(289, 36);
+            this.btnXuatDanhSach.Size = new System.Drawing.Size(260, 36);
             this.btnXuatDanhSach.TabIndex = 46;
             this.btnXuatDanhSach.Text = "Xuất danh sách thí sinh trong phòng";
             this.btnXuatDanhSach.UseVisualStyleBackColor = true;
@@ -193,12 +205,12 @@
             // btnXemHocSinh
             // 
             this.btnXemHocSinh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXemHocSinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXemHocSinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXemHocSinh.Image = global::TuyenSinhWinApp.Properties.Resources.view;
             this.btnXemHocSinh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnXemHocSinh.Location = new System.Drawing.Point(1050, 527);
+            this.btnXemHocSinh.Location = new System.Drawing.Point(1205, 527);
             this.btnXemHocSinh.Name = "btnXemHocSinh";
-            this.btnXemHocSinh.Size = new System.Drawing.Size(304, 36);
+            this.btnXemHocSinh.Size = new System.Drawing.Size(186, 36);
             this.btnXemHocSinh.TabIndex = 2;
             this.btnXemHocSinh.Text = "Xem danh sách học sinh";
             this.btnXemHocSinh.UseVisualStyleBackColor = true;
@@ -207,28 +219,16 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Image = global::TuyenSinhWinApp.Properties.Resources.compose;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(1393, 25);
+            this.button1.Location = new System.Drawing.Point(1496, 23);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(285, 36);
+            this.button1.Size = new System.Drawing.Size(186, 36);
             this.button1.TabIndex = 45;
             this.button1.Text = "Chia phòng thi";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // maDotDataGridViewTextBoxColumn
-            // 
-            this.maDotDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.maDotDataGridViewTextBoxColumn.DataPropertyName = "MaDot";
-            this.maDotDataGridViewTextBoxColumn.HeaderText = "Mã đợt";
-            this.maDotDataGridViewTextBoxColumn.Name = "maDotDataGridViewTextBoxColumn";
-            this.maDotDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // phongThiBindingSource
-            // 
-            this.phongThiBindingSource.DataSource = typeof(TuyenSinhServiceLib.PhongThi);
             // 
             // phongThiBindingSource3
             // 
@@ -268,9 +268,9 @@
             this.Text = "Phòng Thi";
             this.Load += new System.EventHandler(this.frmPhongThi_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhongThi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHocSinhTrongPhong)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phongThiBindingSource1)).EndInit();

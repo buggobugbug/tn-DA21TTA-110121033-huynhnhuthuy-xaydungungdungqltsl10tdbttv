@@ -56,7 +56,7 @@
             this.dgvTongHop.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTongHop.Location = new System.Drawing.Point(13, 511);
             this.dgvTongHop.Name = "dgvTongHop";
-            this.dgvTongHop.Size = new System.Drawing.Size(1617, 323);
+            this.dgvTongHop.Size = new System.Drawing.Size(1633, 323);
             this.dgvTongHop.TabIndex = 1;
             // 
             // cbDotTuyenSinh
@@ -121,11 +121,11 @@
             // 
             this.btnTaiLai.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTaiLai.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTaiLai.Image = global::TuyenSinhWinApp.Properties.Resources.refresh_page_option;
+            this.btnTaiLai.Image = global::TuyenSinhWinApp.Properties.Resources.reload;
             this.btnTaiLai.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaiLai.Location = new System.Drawing.Point(1454, 8);
+            this.btnTaiLai.Location = new System.Drawing.Point(1460, 11);
             this.btnTaiLai.Name = "btnTaiLai";
-            this.btnTaiLai.Size = new System.Drawing.Size(192, 36);
+            this.btnTaiLai.Size = new System.Drawing.Size(186, 36);
             this.btnTaiLai.TabIndex = 66;
             this.btnTaiLai.Text = "Tải lại";
             this.btnTaiLai.UseVisualStyleBackColor = true;
